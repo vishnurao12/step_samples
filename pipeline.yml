@@ -41,7 +41,6 @@ pipelines:
           onExecute:
             - echo "executing task command 1"
             - echo "executing task command 2"
-            - bump_semver 1.2.3
             - printenv
 
       - name: main_step
