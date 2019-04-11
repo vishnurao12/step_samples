@@ -42,6 +42,8 @@ pipelines:
             - echo "executing task command 1"
             - echo "executing task command 2"
             - printenv
+            - replace_tags file.txt --stdin file2.txt file3.txt --tags-only
+            - replace_tags --envs-only --stdin abcd
 
       - name: main_step
         type: bash
