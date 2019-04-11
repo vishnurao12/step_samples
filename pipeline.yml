@@ -42,10 +42,10 @@ pipelines:
             - echo "executing task command 1"
             - echo "executing task command 2"
             - | 
-              echo "echo \"Hello world, my name is %%res.myParams.firstname%%\" > test.txt
+              echo "echo \"Hello world, my name is %%res.myParams.firstname%%\"" > test.txt
               echo "docker login -u \"%%res.myImage.integration.username%%\" -p \"%%res.myImage.integration.password%%\"" >> test.txt
               echo "docker pull %%res.myImage.repo%%:%%res.myImage.tag%%" >> test.txt
-              echo "echo \"this is a bad tag: %%resources.hello.world%%\"" >> test.txt
+              echo "echo \"this is a bad tag %%resources.hello.world%%\"" >> test.txt
 
             - printenv
             - cat test.txt
