@@ -1,0 +1,131 @@
+pipelines:
+  - name: test_pipeline_1
+    setup:
+      environmentVariables:
+        readOnly:
+          - ENV1: value-pipe-1
+          - ENV2: value-pipe-2
+      runtime:            
+        type: image
+        image:
+          auto: true
+          language: java
+          versions: v1.1
+        custom:
+          name: test
+          tag: test
+          options: test
+    steps:
+      - name: in_trigger_step
+        type: bash
+        configuration:
+          affinityGroup: test_group 
+        setup:
+          environmentVariables:
+            normal:
+              - ENV1: value1
+              - ENV2: value2
+            encrypted:
+              - SECURE_ENV1: test_value
+              - SECURE_ENV2: test_value
+          runtime:            
+            type: image
+            image:
+              auto: true
+              language: java
+              versions: v1.1
+            custom: 
+              name: test
+              tag:  test
+              options: test
+        execution:
+          onExecute:
+            - echo "executing task command 1"
+            - echo "executing task command 2"
+            - bump_server 1.2.3.4
+            - read_json test.json test
+
+      - name: main_step
+        type: bash
+        configuration:
+          affinityGroup: test_group 
+        setup:
+          environmentVariables:
+            normal:
+              - ENV1: value1
+              - ENV2: value2
+            encrypted:
+              - SECURE_ENV1: test_value
+              - SECURE_ENV2: test_value
+          runtime:            
+            type: host
+            image:
+              auto: true
+              language: java
+              versions: v1.1
+            custom: 
+              name: test
+              tag:  test
+              options: test
+        requires:
+          integrations:
+            - github
+        triggeredBy:
+          steps:
+            - in_trigger_step
+        execution:
+          onStart:
+            - echo "Prepping build environment"
+          onExecute:
+            - echo "executing task command 1"
+            - echo "executing task command 2"
+          onSuccess:
+            - echo "Job well done!"
+          onFailure:
+            - echo "uh oh, something went wrong"
+          onComplete: #always
+            - echo "Cleaning up some stuff"
+          onCancel:
+            - echo "Someone cancelled the job"
+      - name: other_step
+        type: bash
+        configuration:
+          affinityGroup: test_group 
+        setup:
+          environmentVariables:
+            normal:
+              - ENV1: value11
+              - ENV2: value21
+            encrypted:
+              - SECURE_ENV1: test_value1
+              - SECURE_ENV2: test_value1
+          runtime:            
+            type: host
+            image:
+              auto: true
+              language: java
+              versions: v1.1
+            custom: 
+              name: test
+              tag:  test
+              options: test
+        requires:
+          integrations:
+            - github
+        triggeredBy:
+          steps:
+            - main_step
+        execution:
+          onStart:
+            - echo "Prepping build environment"
+          onExecute:
+            - echo "executing task command 1"
+            - echo "executing task command 2"
+          onSuccess:
+            - echo "Job well done!"
+          onFailure:
+            - echo "uh oh, something went wrong"
+          onComplete: #always
+            - echo "Cleaning up some stuff"
+          onCancel:
+            - echo "Someone cancelled the job"
