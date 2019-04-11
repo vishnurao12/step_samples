@@ -3,8 +3,8 @@ pipelines:
     setup:
       environmentVariables:
         readOnly:
-          - ENV1: value-pipe-1
-          - ENV2: value-pipe-2
+          ENV1: value-pipe-1
+          ENV2: value-pipe-2
       runtime:            
         type: image
         image:
@@ -23,11 +23,11 @@ pipelines:
         setup:
           environmentVariables:
             normal:
-              - ENV1: value1
-              - ENV2: value2
+              ENV1: value1
+              ENV2: value2
             encrypted:
-              - SECURE_ENV1: test_value
-              - SECURE_ENV2: test_value
+              SECURE_ENV1: test_value
+              SECURE_ENV2: test_value
           runtime:            
             type: image
             image:
@@ -52,11 +52,11 @@ pipelines:
         setup:
           environmentVariables:
             normal:
-              - ENV1: value1
-              - ENV2: value2
+              ENV1: value1
+              ENV2: value2
             encrypted:
-              - SECURE_ENV1: test_value
-              - SECURE_ENV2: test_value
+              SECURE_ENV1: test_value
+              SECURE_ENV2: test_value
           runtime:            
             type: host
             image:
@@ -94,11 +94,11 @@ pipelines:
         setup:
           environmentVariables:
             normal:
-              - ENV1: value11
-              - ENV2: value21
+              ENV1: value11
+              ENV2: value21
             encrypted:
-              - SECURE_ENV1: test_value1
-              - SECURE_ENV2: test_value1
+              SECURE_ENV1: test_value1
+              SECURE_ENV2: test_value1
           runtime:            
             type: host
             image:
