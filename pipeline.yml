@@ -31,7 +31,6 @@ pipelines:
           runtime:            
             type: image
             image:
-              auto: true
               language: java
               versions: v1.1
             custom: 
@@ -60,7 +59,6 @@ pipelines:
           runtime:            
             type: host
             image:
-              auto: true
               language: java
               versions: v1.1
             custom: 
@@ -102,7 +100,6 @@ pipelines:
           runtime:            
             type: host
             image:
-              auto: true
               language: java
               versions: v1.1
             custom: 
