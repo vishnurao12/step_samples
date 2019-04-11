@@ -49,7 +49,7 @@ pipelines:
 
             - printenv
             - cat test.txt
-            - replace tags test.txt
+            - replace_tags test.txt
             - cat test.txt
             # - replace_tags file.txt --stdin file2.txt file3.txt --tags-only <<< "Hello world"
             # - replace_tags --envs-only
