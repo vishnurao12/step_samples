@@ -46,6 +46,8 @@ pipelines:
               echo "docker login -u \"%%res.myImage.integration.username%%\" -p \"%%res.myImage.integration.password%%\"" >> test.txt
               echo "docker pull %%res.myImage.repo%%:%%res.myImage.tag%%" >> test.txt
               echo "echo \"this is a bad tag %%resources.hello.world%%\"" >> test.txt
+              echo "echo \" step json path is $STEP_JSON_PATH\"" >> test.txt
+              echo "echo \"this is a bad env -- $BAD_ENV -- \"" >> test.txt
 
             - printenv
             - cat test.txt
