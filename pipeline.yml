@@ -43,7 +43,7 @@ pipelines:
             - echo "executing task command 2"
             - printenv
             - replace_tags file.txt --stdin file2.txt file3.txt --tags-only <<< "Hello world"
-            - replace_tags --envs-only --stdin
+            - replace_tags --envs-only
 
       - name: main_step
         type: bash
