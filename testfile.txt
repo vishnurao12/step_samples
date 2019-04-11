@@ -1,0 +1,6 @@
+echo "Hello world, my name is %%res.myParams.firstname%%"
+docker login -u "%%res.myImage.integration.username%%" -p "%%res.myImage.integration.password%%"
+docker pull %%res.myImage.repo%%:%%res.myImage.tag%%
+echo "this is a bad tag: %%resources.hello.world%%"
+echo "step json path is: $STEP_JSON_PATH"
+echo "bad env is: ${bad_env}"

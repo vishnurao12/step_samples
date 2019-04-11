@@ -41,9 +41,18 @@ pipelines:
           onExecute:
             - echo "executing task command 1"
             - echo "executing task command 2"
+            - | 
+              echo "echo \"Hello world, my name is %%res.myParams.firstname%%\" > test.txt
+              echo "docker login -u \"%%res.myImage.integration.username%%\" -p \"%%res.myImage.integration.password%%\"" >> test.txt
+              echo "docker pull %%res.myImage.repo%%:%%res.myImage.tag%%" >> test.txt
+              echo "echo \"this is a bad tag: %%resources.hello.world%%\"" >> test.txt
+
             - printenv
-            - replace_tags file.txt --stdin file2.txt file3.txt --tags-only <<< "Hello world"
-            - replace_tags --envs-only
+            - cat test.txt
+            - replace tags test.txt
+            - cat test.txt
+            # - replace_tags file.txt --stdin file2.txt file3.txt --tags-only <<< "Hello world"
+            # - replace_tags --envs-only
 
       - name: main_step
         type: bash
