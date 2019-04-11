@@ -1,3 +1,39 @@
+#resources:
+#  - name: fileIntegrationResource
+#    type: file
+#    fileLocation: location
+#    configuration:
+#      files:
+#        except:      file
+#        only:        file       
+#      integrationName: fileServerIntegration 
+#    initialVersion:
+#      fileName: file
+#      fileDtTm: test6
+#  - name: cluster
+#    type: cluster
+#    configuration:
+#      integrationName: sshKey 
+#    initialVersion:
+#      targetIPs:
+   #     - 1
+   #     - test:
+   #         test: test
+#        - 1.2.3.5
+#        - test2
+#  - name: sample_java_file_test
+#    type: file
+#    fileLocation: text.js
+#    configuration:
+#      integrationName: fileServerIntegration
+#    initialVersion:
+#      fileName: test4
+#  - name: file_test
+#    type: file
+#    fileLocation: text.js
+#    configuration:
+#      integrationName: fileServerIntegration
+       
 pipelines:
   - name: test_pipeline_1
     setup:
@@ -87,6 +123,8 @@ pipelines:
             - echo "Cleaning up some stuff"
           onCancel:
             - echo "Someone cancelled the job"
+    #    outputResources:
+    #      - sample_java_file_test
       - name: other_step
         type: bash
         configuration:
@@ -110,9 +148,13 @@ pipelines:
               tag:  test
               options: test
         requires:
+      #    resources:
+      #      - sample_java_file_test
           integrations:
             - github
         triggeredBy:
+      #    resources:
+      #      - sample_java_file_test
           steps:
             - main_step
         execution:
