@@ -3,8 +3,8 @@ resources:
     type: image
     configuration:
       integrationName: docker
+    imageName: trriplejay/simpleserver
     initialVersion:
-      imageName: trriplejay/simpleserver
       imageTag: master
 
 pipelines:
