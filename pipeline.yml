@@ -67,6 +67,7 @@ pipelines:
           #  - replace_tags --tags-only test.txt
             - cat test.txt | replace_tags --tags-only --stdin
             - cat test.txt | replace_tags --stdin
+            - echo "the name is %%resources.myImage.integration.username%%"
             - docker login -u "%%resources.myImage.integration.username%%" -p "%%resources.myImage.integration.password%%"
             # - cat test.txt
             # - cat test.txt | replace_tags --stdin --envs-only
