@@ -63,7 +63,10 @@ pipelines:
 
             - printenv
             - cat $STEP_JSON_PATH
-            - replace_tags --tags-only test.txt
+            - cat test.txt
+          #  - replace_tags --tags-only test.txt
+            - cat test.txt | replace_tags --tags-only --stdin
+            - cat test.txt | replace_tags --stdin
             # - cat test.txt
             # - cat test.txt | replace_tags --stdin --envs-only
             # - echo "================= done stdin 1 =================="
