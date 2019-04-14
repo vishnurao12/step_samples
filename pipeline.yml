@@ -49,6 +49,8 @@ pipelines:
         requires:
           resources:
             - myImage
+          integrations:
+            - docker
         execution:
           onExecute:
             - |
