@@ -52,12 +52,12 @@ pipelines:
         execution:
           onExecute:
             - |
-              echo "echo \"Hello world, my name is %%res.myParams.firstname%%\"" > test.txt
-              echo "docker login -u \"%%res.myImage.integration.username%%\" -p \"%%res.myImage.integration.password%%\"" >> test.txt
-              echo "docker pull %%res.myImage.repo%%:%%res.myImage.tag%%" >> test.txt
-              echo 'echo "this is a bad tag %%resources.hello.world%%"' >> test.txt
-              echo 'echo " step json path is $STEP_JSON_PATH"' >> test.txt
-              echo 'echo "this is a bad env -- $BAD_ENV -- "' >> test.txt
+              echo "image integration password is %%resources.myImage.integration.password%%" > test.txt
+              echo "image is %%resources.myImage.resourceName%%" >> test.txt
+              echo "tag is %%resources.myImage.tag%%" >> test.txt
+              echo "integration username is %%integrations.docker.username%%" >> test.txt
+              echo "step json path is $STEP_JSON_PATH" >> test.txt
+              echo "this is a bad env -- $BAD_ENV -- " >> test.txt
 
             - printenv
             - cat $STEP_JSON_PATH
