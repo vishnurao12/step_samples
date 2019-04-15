@@ -7,7 +7,28 @@ resources:
     initialVersion:
       imageTag: master
 
+  - name: bad-resource-name
+    type: image
+    imageName: trriplejay/simpleserver
+    initialVersion:
+      imageTag: master
+
 pipelines:
+  - name: bad-pipeline-name
+    steps:
+      - name: blahblah
+        type: bash
+        execution:
+          onExecute:
+            - echo "hi"
+  - name: test-step-naming
+    steps:
+      - name: bad-step-name
+        type: bash
+        execution:
+          onExecute:
+            - echo "hi"
+
   - name: test_pipeline_1
     setup:
       environmentVariables:
