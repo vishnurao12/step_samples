@@ -9,6 +9,8 @@ resources:
 
   - name: bad-resource-name
     type: image
+    configuration:
+      integrationName: docker
     imageName: trriplejay/simpleserver
     initialVersion:
       imageTag: master
