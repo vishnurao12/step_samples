@@ -1,11 +1,11 @@
-# resources:
-#   - name: myImage
-#     type: image
-#     configuration:
-#       integrationName: docker
-#     imageName: trriplejay/simpleserver
-#     initialVersion:
-#       imageTag: master
+resources:
+  - name: myImage
+    type: image
+    configuration:
+      integrationName: docker
+    imageName: trriplejay/simpleserver
+    initialVersion:
+      imageTag: master
 
 #   - name: bad-resource-name
 #     type: image
@@ -32,21 +32,21 @@ pipelines:
   #           - echo "hi"
 
   - name: test_pipeline_1
-    setup:
-      environmentVariables:
-        readOnly:
-          ENV1: value-pipe-1
-          ENV2: value-pipe-2
-      runtime:
-        type: image
-        image:
-          auto: true
-          language: java
-          versions: v1.1
-        custom:
-          name: test
-          tag: test
-          options: test
+    # setup:
+    #   environmentVariables:
+    #     readOnly:
+    #       ENV1: value-pipe-1
+    #       ENV2: value-pipe-2
+    #   runtime:
+    #     type: image
+    #     image:
+    #       auto: true
+    #       language: java
+    #       versions: v1.1
+    #     custom:
+    #       name: test
+    #       tag: test
+    #       options: test
     steps:
       - name: in_trigger_step
         type: bash
