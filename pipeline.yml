@@ -76,22 +76,7 @@ pipelines:
             - docker
         execution:
           onExecute:
-            - |
-              echo "image integration password is %%resources.myImage.integration.password%%" > test.txt
-              echo "image is %%resources.myImage.resourceName%%" >> test.txt
-              echo "tag is %%resources.myImage.imageTag%%" >> test.txt
-              echo "integration username is %%integrations.docker.username%%" >> test.txt
-              echo "step json path is $STEP_JSON_PATH" >> test.txt
-              echo "this is a bad env -- $BAD_ENV -- " >> test.txt
-
-            - printenv
-            - cat $STEP_JSON_PATH
-            - cat test.txt
-          #  - replace_tags --tags-only test.txt
-            - cat test.txt | replace_tags --tags-only --stdin
-            - cat test.txt | replace_tags --stdin
-            - echo "the name is %%resources.myImage.integration.username%%"
-            - docker login -u "%%resources.myImage.integration.username%%" -p "%%resources.myImage.integration.password%%"
+            - echo "Hello world!"
             # - cat test.txt
             # - cat test.txt | replace_tags --stdin --envs-only
             # - echo "================= done stdin 1 =================="
