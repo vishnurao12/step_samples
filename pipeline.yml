@@ -1,35 +1,35 @@
-resources:
-  - name: myImage
-    type: image
-    configuration:
-      integrationName: docker
-    imageName: trriplejay/simpleserver
-    initialVersion:
-      imageTag: master
+# resources:
+#   - name: myImage
+#     type: image
+#     configuration:
+#       integrationName: docker
+#     imageName: trriplejay/simpleserver
+#     initialVersion:
+#       imageTag: master
 
-  - name: bad-resource-name
-    type: image
-    configuration:
-      integrationName: docker
-    imageName: trriplejay/simpleserver
-    initialVersion:
-      imageTag: master
+#   - name: bad-resource-name
+#     type: image
+#     configuration:
+#       integrationName: docker
+#     imageName: trriplejay/simpleserver
+#     initialVersion:
+#       imageTag: master
 
 pipelines:
-  - name: bad_pipeline_name
-    steps:
-      - name: blahblah
-        type: bash
-        execution:
-          onExecute:
-            - echo "hi"
-  - name: test_step_naming
-    steps:
-      - name: bad-step-name
-        type: bash
-        execution:
-          onExecute:
-            - echo "hi"
+  # - name: bad_pipeline_name
+  #   steps:
+  #     - name: blahblah
+  #       type: bash
+  #       execution:
+  #         onExecute:
+  #           - echo "hi"
+  # - name: test_step_naming
+  #   steps:
+  #     - name: bad-step-name
+  #       type: bash
+  #       execution:
+  #         onExecute:
+  #           - echo "hi"
 
   - name: test_pipeline_1
     setup:
@@ -50,25 +50,25 @@ pipelines:
     steps:
       - name: in_trigger_step
         type: bash
-        configuration:
-          affinityGroup: test_group
-        setup:
-          environmentVariables:
-            normal:
-              ENV1: value1
-              ENV2: value2
-            encrypted:
-              SECURE_ENV1: test_value
-              SECURE_ENV2: test_value
-          runtime:
-            type: image
-            image:
-              language: java
-              versions: v1.1
-            custom:
-              name: test
-              tag:  test
-              options: test
+        # configuration:
+        #   affinityGroup: test_group
+        # setup:
+        #   environmentVariables:
+        #     normal:
+        #       ENV1: value1
+        #       ENV2: value2
+        #     encrypted:
+        #       SECURE_ENV1: test_value
+        #       SECURE_ENV2: test_value
+        #   runtime:
+        #     type: image
+        #     image:
+        #       language: java
+        #       versions: v1.1
+        #     custom:
+        #       name: test
+        #       tag:  test
+        #       options: test
         requires:
           resources:
             - myImage
@@ -112,85 +112,85 @@ pipelines:
             # - replace_tags file.txt --stdin file2.txt file3.txt --tags-only <<< "Hello world"
             # - replace_tags --envs-only
 
-      - name: main_step
-        type: bash
-        configuration:
-          affinityGroup: test_group
-        setup:
-          environmentVariables:
-            normal:
-              ENV1: value1
-              ENV2: value2
-            encrypted:
-              SECURE_ENV1: test_value
-              SECURE_ENV2: test_value
-          runtime:
-            type: host
-            image:
-              language: java
-              versions: v1.1
-            custom:
-              name: test
-              tag:  test
-              options: test
-        requires:
-          integrations:
-            - github
-        triggeredBy:
-          steps:
-            - in_trigger_step
-        execution:
-          onStart:
-            - echo "Prepping build environment"
-          onExecute:
-            - echo "executing task command 1"
-            - echo "executing task command 2"
-          onSuccess:
-            - echo "Job well done!"
-          onFailure:
-            - echo "uh oh, something went wrong"
-          onComplete: #always
-            - echo "Cleaning up some stuff"
-          onCancel:
-            - echo "Someone cancelled the job"
-      - name: other_step
-        type: bash
-        configuration:
-          affinityGroup: test_group
-        setup:
-          environmentVariables:
-            normal:
-              ENV1: value11
-              ENV2: value21
-            encrypted:
-              SECURE_ENV1: test_value1
-              SECURE_ENV2: test_value1
-          runtime:
-            type: host
-            image:
-              language: java
-              versions: v1.1
-            custom:
-              name: test
-              tag:  test
-              options: test
-        requires:
-          integrations:
-            - github
-        triggeredBy:
-          steps:
-            - main_step
-        execution:
-          onStart:
-            - echo "Prepping build environment"
-          onExecute:
-            - echo "executing task command 1"
-            - echo "executing task command 2"
-          onSuccess:
-            - echo "Job well done!"
-          onFailure:
-            - echo "uh oh, something went wrong"
-          onComplete: #always
-            - echo "Cleaning up some stuff"
-          onCancel:
-            - echo "Someone cancelled the job"
+      # - name: main_step
+      #   type: bash
+      #   configuration:
+      #     affinityGroup: test_group
+      #   setup:
+      #     environmentVariables:
+      #       normal:
+      #         ENV1: value1
+      #         ENV2: value2
+      #       encrypted:
+      #         SECURE_ENV1: test_value
+      #         SECURE_ENV2: test_value
+      #     runtime:
+      #       type: host
+      #       image:
+      #         language: java
+      #         versions: v1.1
+      #       custom:
+      #         name: test
+      #         tag:  test
+      #         options: test
+      #   requires:
+      #     integrations:
+      #       - github
+      #   triggeredBy:
+      #     steps:
+      #       - in_trigger_step
+      #   execution:
+      #     onStart:
+      #       - echo "Prepping build environment"
+      #     onExecute:
+      #       - echo "executing task command 1"
+      #       - echo "executing task command 2"
+      #     onSuccess:
+      #       - echo "Job well done!"
+      #     onFailure:
+      #       - echo "uh oh, something went wrong"
+      #     onComplete: #always
+      #       - echo "Cleaning up some stuff"
+      #     onCancel:
+      #       - echo "Someone cancelled the job"
+      # - name: other_step
+      #   type: bash
+      #   configuration:
+      #     affinityGroup: test_group
+      #   setup:
+      #     environmentVariables:
+      #       normal:
+      #         ENV1: value11
+      #         ENV2: value21
+      #       encrypted:
+      #         SECURE_ENV1: test_value1
+      #         SECURE_ENV2: test_value1
+      #     runtime:
+      #       type: host
+      #       image:
+      #         language: java
+      #         versions: v1.1
+      #       custom:
+      #         name: test
+      #         tag:  test
+      #         options: test
+      #   requires:
+      #     integrations:
+      #       - github
+      #   triggeredBy:
+      #     steps:
+      #       - main_step
+      #   execution:
+      #     onStart:
+      #       - echo "Prepping build environment"
+      #     onExecute:
+      #       - echo "executing task command 1"
+      #       - echo "executing task command 2"
+      #     onSuccess:
+      #       - echo "Job well done!"
+      #     onFailure:
+      #       - echo "uh oh, something went wrong"
+      #     onComplete: #always
+      #       - echo "Cleaning up some stuff"
+      #     onCancel:
+      #       - echo "Someone cancelled the job"
