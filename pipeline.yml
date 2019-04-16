@@ -16,14 +16,14 @@ resources:
       imageTag: master
 
 pipelines:
-  - name: bad-pipeline-name
+  - name: bad_pipeline_name
     steps:
       - name: blahblah
         type: bash
         execution:
           onExecute:
             - echo "hi"
-  - name: test-step-naming
+  - name: test_step_naming
     steps:
       - name: bad-step-name
         type: bash
