@@ -74,7 +74,7 @@ pipelines:
             - myImage
           integrations:
             - docker
-            #- kubeconfig
+            - kubeconfig
         execution:
           onExecute:
             - echo "Hello world!"
