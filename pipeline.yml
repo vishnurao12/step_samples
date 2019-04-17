@@ -79,6 +79,7 @@ pipelines:
           onExecute:
             - echo "Hello world!"
             - printenv
+            - cat /pipelines/run/status/step.env
             # - cat test.txt
             # - cat test.txt | replace_tags --stdin --envs-only
             # - echo "================= done stdin 1 =================="
