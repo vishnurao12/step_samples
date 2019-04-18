@@ -107,6 +107,12 @@ pipelines:
             # - echo "=================== done check file2 =========="
             # - replace_tags file.txt --stdin file2.txt file3.txt --tags-only <<< "Hello world"
             # - replace_tags --envs-only
+          onSuccess:
+            - echo "yay success"
+          onFailure:
+            - echo "boo failure"
+          onComplete:
+            - echo "done"
 
       # - name: main_step
       #   type: bash
