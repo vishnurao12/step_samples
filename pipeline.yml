@@ -78,6 +78,7 @@ pipelines:
         execution:
           onExecute:
             - echo "Hello world!"
+            - echo "step json at $STEP_JSON_PATH"
             - printenv
             - cat /pipelines/run/status/step.env
             # - cat test.txt
