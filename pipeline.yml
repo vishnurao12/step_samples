@@ -80,7 +80,9 @@ pipelines:
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
             - printenv
+            - start_group "cat the step.env"
             - cat /pipelines/run/status/step.env
+            - stop_group
             # - cat test.txt
             # - cat test.txt | replace_tags --stdin --envs-only
             # - echo "================= done stdin 1 =================="
