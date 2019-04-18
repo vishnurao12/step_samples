@@ -79,16 +79,16 @@ pipelines:
           onExecute:
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
-            - printenv | grep "Executing_step"
+            - for item in ${open_group_info[@]}; do echo "$item"; done
             - start_group "cat the step.env"
-            - printenv | grep "cat_the_step_env"
+            - for item in ${open_group_info[@]}; do echo "$item"; done
             - cat /pipelines/run/status/step.env
             - stop_group
             - start_group "bad command"
-            - printenv | grep "bad_command"
+            - for item in ${open_group_info[@]}; do echo "$item"; done
             - cat badfile
             - stop_group
-            - printenv
+            - for item in ${open_group_info[@]}; do echo "$item"; done
             # - cat test.txt
             # - cat test.txt | replace_tags --stdin --envs-only
             # - echo "================= done stdin 1 =================="
