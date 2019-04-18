@@ -79,14 +79,13 @@ pipelines:
           onExecute:
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
-            - printenv
+            - printenv | grep "Executing_step"
             - start_group "cat the step.env"
-            - printenv
+            - printenv | grep "cat_the_step_env"
             - cat /pipelines/run/status/step.env
             - stop_group
-            - printenv
             - start_group "bad command"
-            - printenv
+            - printenv | grep "bad_command"
             - cat badfile
             - stop_group
             - printenv
