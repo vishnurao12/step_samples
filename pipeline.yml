@@ -85,7 +85,7 @@ pipelines:
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
             - start_group "bad command"
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - cat badfile
+            # - cat badfile
             # - cat test.txt
             # - cat test.txt | replace_tags --stdin --envs-only
             # - echo "================= done stdin 1 =================="
