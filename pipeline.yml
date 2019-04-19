@@ -87,9 +87,9 @@ pipelines:
             - start_group another one
             - echo "try again?!"
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - stop_group
             # - cp $SCRIPT_PATH /tmp/stepletscript.sh
             - cat /pipelines/run/status/step.env
+            - stop_group
             # - cat badfile
             # - cat test.txt
             # - cat test.txt | replace_tags --stdin --envs-only
