@@ -88,6 +88,7 @@ pipelines:
             - cat /pipelines/run/status/step.env
           onSuccess:
             - echo "yay success"
+            - printenv
           onFailure:
             - echo "boo failure"
           onComplete:
