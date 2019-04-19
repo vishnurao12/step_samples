@@ -52,7 +52,7 @@ pipelines:
         type: bash
         # configuration:
         #   affinityGroup: test_group
-        # setup:
+        setup:
         #   environmentVariables:
         #     normal:
         #       ENV1: value1
@@ -60,15 +60,14 @@ pipelines:
         #     encrypted:
         #       SECURE_ENV1: test_value
         #       SECURE_ENV2: test_value
-        #   runtime:
-        #     type: image
-        #     image:
-        #       language: java
-        #       versions: v1.1
-        #     custom:
-        #       name: test
-        #       tag:  test
-        #       options: test
+          runtime:
+            type: image
+            image:
+              language: java
+              versions: v1.1
+            custom:
+              name: drydock/u16all 
+              tag:  v7.1.4
         requires:
           resources:
             - myImage
@@ -76,6 +75,8 @@ pipelines:
             - docker
             - kubeconfig
         execution:
+          onStart:
+            - echo retry_command "here we go!!!"
           onExecute:
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
