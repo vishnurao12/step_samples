@@ -76,7 +76,7 @@ pipelines:
             - kubeconfig
         execution:
           onStart:
-            - echo retry_command "here we go!!!"
+            - retry_command echo "here we go!!!"
           onExecute:
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
