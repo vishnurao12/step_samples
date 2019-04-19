@@ -72,7 +72,6 @@ pipelines:
           resources:
             - myImage
           integrations:
-            - docker
             - kubeconfig
         execution:
           onStart:
@@ -80,6 +79,7 @@ pipelines:
           onExecute:
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
+            - cat $STEP_JSON_PATH
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
             - echo "testing"
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
