@@ -80,7 +80,7 @@ pipelines:
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - cp $SCRIPT_PATH /tmp/
+            - cp $SCRIPT_PATH /tmp/stepletscript.sh
             - cat /pipelines/run/status/step.env
             # - cat badfile
             # - cat test.txt
