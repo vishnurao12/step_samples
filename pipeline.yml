@@ -84,7 +84,7 @@ pipelines:
             - echo "testing"
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
             - stop_group
-            - start_group another one
+            - start_group "another one"
             - echo "try again?!"
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
             # - cp $SCRIPT_PATH /tmp/stepletscript.sh
