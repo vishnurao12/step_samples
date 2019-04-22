@@ -7,6 +7,14 @@ resources:
     initialVersion:
       imageTag: master
 
+  - name: myRepo
+    type: gitRepo
+    repoPath: trriplejay/stepsamples
+    configuration:
+      integrationName: github
+    initialVersion:
+      sha: b5b4da4ae6601b3ce275d7b895317e9302f14e1b
+
 #   - name: bad-resource-name
 #     type: image
 #     configuration:
@@ -71,6 +79,7 @@ pipelines:
         requires:
           resources:
             - myImage
+            - myRepo
           integrations:
             - kubeconfig
         execution:
