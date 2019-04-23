@@ -7,6 +7,14 @@ resources:
     initialVersion:
       imageTag: master
 
+  - name: myOtherImage
+    type: image
+    configuration:
+      integrationName: docker
+    imageName: trriplejay/simpleserver
+    initialVersion:
+      imageTag: master
+
   - name: myRepo
     type: gitRepo
     repoPath: trriplejay/step_samples
@@ -81,6 +89,8 @@ pipelines:
             - myRepo
           integrations:
             - kubeconfig
+        outputResources:
+          - myOtherImage
         execution:
           onStart:
             - retry_command echo "here we go!!!"
@@ -94,6 +104,7 @@ pipelines:
             - echo "try again?!"
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
             - cat /pipelines/run/status/step.env
+            - write-output myOtherImage "x=y" "foo=bar"
             - apt-get install -y tree
             - cd /pipelines && tree
           onSuccess:
