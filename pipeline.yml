@@ -13,8 +13,7 @@ resources:
     configuration:
       integrationName: github
     initialVersion:
-      sha: b5b4da4ae6601b3ce275d7b895317e9302f14e1b
-
+      branch: master
 #   - name: bad-resource-name
 #     type: image
 #     configuration:
