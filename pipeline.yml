@@ -94,6 +94,8 @@ pipelines:
             - echo "try again?!"
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
             - cat /pipelines/run/status/step.env
+            - apt-get install -y tree
+            - cd /pipelines && tree
           onSuccess:
             - echo "yay success"
             - printenv
