@@ -9,7 +9,7 @@ resources:
 
   - name: myRepo
     type: gitRepo
-    repoPath: trriplejay/stepsamples
+    repoPath: trriplejay/step_samples
     configuration:
       integrationName: github
     initialVersion:
