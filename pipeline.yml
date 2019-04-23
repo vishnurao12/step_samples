@@ -57,8 +57,8 @@ pipelines:
     steps:
       - name: basic_step
         type: bash
-        # configuration:
-        #   affinityGroup: test_group
+        configuration:
+          affinityGroup: test_group
         setup:
         #   environmentVariables:
         #     normal:
@@ -104,8 +104,8 @@ pipelines:
 
       - name: fail_in_start
         type: bash
-        configuration:
-          affinityGroup: test_group
+        # configuration:
+        #   affinityGroup: test_group
         requires:
           integrations:
             - github
@@ -130,8 +130,8 @@ pipelines:
 
       - name: fail_in_exec
         type: bash
-        configuration:
-          affinityGroup: test_group
+        # configuration:
+        #   affinityGroup: test_group
         requires:
           integrations:
             - github
@@ -182,8 +182,8 @@ pipelines:
 
       - name: fail_in_onfail
         type: bash
-        configuration:
-          affinityGroup: test_group
+        # configuration:
+        #   affinityGroup: test_group
         requires:
           integrations:
             - github
@@ -209,8 +209,8 @@ pipelines:
 
       - name: fail_in_oncomp
         type: bash
-        configuration:
-          affinityGroup: test_group
+        # configuration:
+        #   affinityGroup: test_group
         requires:
           integrations:
             - github
