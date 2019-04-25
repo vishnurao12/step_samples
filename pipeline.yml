@@ -314,7 +314,8 @@ pipelines:
         configuration:
           affinityGroup: g_d
         triggeredBy:
-          steps: p_d_1
+          steps:
+            - p_d_1
         execution:
           onExecute:
             - echo "grouped"
