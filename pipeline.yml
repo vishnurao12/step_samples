@@ -246,3 +246,90 @@ pipelines:
           onCancel:
             - echo "Someone cancelled the job"
 
+  - name: split_start
+    steps:
+      - name: start1
+        type: bash
+        configuration:
+          affinityGroup: split
+        execution:
+          onExecute:
+            - echo "hi"
+      - name: start2
+        type: bash
+        configuration:
+          affinityGroup: split
+        execution:
+          onExecute:
+            - echo "hi"
+      - name: final
+        type: bash
+        configuration:
+          affinityGroup: split
+        triggeredBy:
+          steps:
+            - start1
+            - start2
+        execution:
+          onExecute:
+            - echo "all done"
+  - name: split_stop
+    steps:
+      - name: start
+        type: bash
+        configuration:
+          affinityGroup: split
+        execution:
+          onExecute:
+            - echo "hi"
+      - name: final1
+        type: bash
+        configuration:
+          affinityGroup: split
+        triggeredBy:
+          steps:
+            - start
+        execution:
+          onExecute:
+            - echo "hi"
+      - name: final2
+        type: bash
+        configuration:
+          affinityGroup: split
+        triggeredBy:
+          steps:
+            - start
+        execution:
+          onExecute:
+            - echo "all done"
+  - name: pre_dangle
+    steps:
+      - name: p_d_1
+        type: bash
+        execution:
+          onExecute:
+            - echo "ungrouped"
+      - name: g_d_1
+        type: bash
+        configuration:
+          affinityGroup: g_d
+        execution:
+          onExecute:
+            - echo "grouped"
+      - name: g_d_2
+        type: bash
+        configuration:
+          affinityGroup: g_d
+        execution:
+          onExecute:
+            - echo "grouped"
+      - name: g_d_f
+        type: bash
+        configuration:
+          affinityGroup: g_d
+        execution:
+          onExecute:
+            - echo "grouped"
+  # - name: mid_dangle
+  # - name: post_dangle
+  # - name: priority_check
