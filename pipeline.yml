@@ -343,3 +343,63 @@ pipelines:
   # - name: mid_dangle
   # - name: post_dangle
   # - name: priority_check
+  - name: fan_out_in
+    steps:
+      - name: start_foi
+        type: bash
+        configuration:
+          affinityGroup: test
+        execution:
+          onExecute:
+            - echo "start"
+      - name: top1_foi
+        type: bash
+        configuration:
+          affinityGroup: test
+        triggeredBy:
+          steps:
+            - start_foi
+        execution:
+          onExecute:
+            - echo "top1"
+      - name: bottom1_foi
+        type: bash
+        configuration:
+          affinityGroup: test
+        triggeredBy:
+          steps:
+            - start_foi
+        execution:
+          onExecute:
+            - echo "bottom1"
+      - name: top2_foi
+        type: bash
+        configuration:
+          affinityGroup: test
+        triggeredBy:
+          steps:
+            - top1_foi
+        execution:
+          onExecute:
+            - echo "top2"
+      - name: top3_foi
+        type: bash
+        configuration:
+          affinityGroup: test
+        triggeredBy:
+          steps:
+            - top2_foi
+        execution:
+          onExecute:
+            - echo "start"
+      - name: final_foi
+        type: bash
+        configuration:
+          affinityGroup: test
+        triggeredBy:
+          steps:
+            - top3_foi
+            - bottom1_foi
+        execution:
+          onExecute:
+            - echo "start"
