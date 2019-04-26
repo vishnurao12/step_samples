@@ -403,3 +403,12 @@ pipelines:
         execution:
           onExecute:
             - echo "start"
+      - name: outside_foi
+        type: bash
+        triggeredBy:
+          steps:
+            - top1_foi
+        execution:
+          onExecute:
+            - echo "no group"
+
