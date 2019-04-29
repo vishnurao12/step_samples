@@ -383,6 +383,8 @@ pipelines:
           onExecute:
             - cat badfile
             - echo "top2"
+          onComplete:
+            - echo "hmmmm"
       - name: top3_foi
         type: bash
         configuration:
