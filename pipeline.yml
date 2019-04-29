@@ -381,6 +381,7 @@ pipelines:
             - top1_foi
         execution:
           onExecute:
+            - cat badfile
             - echo "top2"
       - name: top3_foi
         type: bash
