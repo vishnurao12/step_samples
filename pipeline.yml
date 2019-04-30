@@ -84,7 +84,7 @@ pipelines:
         requires:
           resources:
             - myImage
-            - myRepo
+            # - myRepo
           integrations:
             - kubeconfig
         outputResources:
