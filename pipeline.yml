@@ -65,8 +65,6 @@ pipelines:
     steps:
       - name: basic_step
         type: bash
-        configuration:
-          affinityGroup: test_group
         setup:
         #   environmentVariables:
         #     normal:
