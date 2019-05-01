@@ -87,8 +87,8 @@ pipelines:
             - myRepo
           integrations:
             - kubeconfig
-        outputResources:
-          - myOtherImage
+        # outputResources:
+        #   - myOtherImage
         execution:
           onStart:
             - retry_command echo "here we go!!!"
