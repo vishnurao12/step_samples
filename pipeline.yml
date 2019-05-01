@@ -270,7 +270,7 @@ pipelines:
         triggeredBy:
           steps:
             - start1
-            - start2
+
         execution:
           onExecute:
             - echo "all done"
