@@ -105,8 +105,8 @@ pipelines:
             # - write_output myOtherImage "x=y" "foo=bar"
             - apt-get install -y tree
             - cd /jfrog && tree
-            - cache_files $STEP_JSON_PATH stepjson
-            - save_tests /jfrog/status
+            # - cache_files $STEP_JSON_PATH stepjson
+            # - save_tests /jfrog/status
           onSuccess:
             - echo "yay success"
             - printenv
