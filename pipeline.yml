@@ -257,6 +257,9 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: split
+        triggeredBy:
+          steps:
+            - start2
         execution:
           onExecute:
             - echo "hi"
