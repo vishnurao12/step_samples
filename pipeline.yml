@@ -85,8 +85,8 @@ pipelines:
           resources:
             - myImage
             - myRepo
-          integrations:
-            - kubeconfig
+          # integrations:
+          #   - kubeconfig
         # outputResources:
         #   - myOtherImage
         execution:
