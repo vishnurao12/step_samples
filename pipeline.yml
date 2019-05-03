@@ -17,7 +17,7 @@ resources:
 
   - name: myRepo
     type: gitRepo
-    repoPath: trriplejay/step_samples
+    repoPath: a-murphy/basic-node
     configuration:
       integrationName: github
     initialVersion:
@@ -105,7 +105,15 @@ pipelines:
             # - write_output myOtherImage "x=y" "foo=bar"
             - apt-get install -y tree
             - cd /jfrog && tree
-            - compare_git --resource myRepo --directories-only --depth=1
+            - cd $res_myRepo_resourcePath
+            - switch_env nodejs 0.12
+            - npm install
+            - cd tests
+            - ../node_modules/.bin/mocha --recursive "**/*.spec.js" -R mocha-junit-reporter --reporter-options mochaFile=../testresults.xml
+            - ../node_modules/.bin/istanbul --include-all-sources cover -root "../routes" ../node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "**/*.spec.js"
+            - ../node_modules/.bin/istanbul report cobertura --dir ../coverageReport
+            - cd .. && ls
+            - save_tests testresults.xml
             # - cache_files $STEP_JSON_PATH stepjson
             # - save_tests /jfrog/status
           onSuccess:
