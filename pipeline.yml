@@ -17,7 +17,7 @@ resources:
 
   - name: myRepo
     type: gitRepo
-    repoPath: a-murphy/basic-node
+    repoPath: trriplejay/basic-node
     configuration:
       integrationName: github
     initialVersion:
