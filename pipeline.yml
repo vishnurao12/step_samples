@@ -22,410 +22,60 @@ resources:
       integrationName: github
     initialVersion:
       sha: master
-#   - name: bad-resource-name
-#     type: image
-#     configuration:
-#       integrationName: docker
-#     imageName: trriplejay/simpleserver
-#     initialVersion:
-#       imageTag: master
 
 pipelines:
-  # - name: bad_pipeline_name
-  #   steps:
-  #     - name: blahblah
-  #       type: bash
-  #       execution:
-  #         onExecute:
-  #           - echo "hi"
-  # - name: test_step_naming
-  #   steps:
-  #     - name: bad-step-name
-  #       type: bash
-  #       execution:
-  #         onExecute:
-  #           - echo "hi"
-
-  - name: test_pipeline_1
-    # setup:
-    #   environmentVariables:
-    #     readOnly:
-    #       ENV1: value-pipe-1
-    #       ENV2: value-pipe-2
-    #   runtime:
-    #     type: image
-    #     image:
-    #       auto: true
-    #       language: java
-    #       versions: v1.1
-    #     custom:
-    #       name: test
-    #       tag: test
-    #       options: test
+  - name: scenario1
     steps:
-      - name: basic_step
+      - name: S1_s1
         type: bash
         setup:
-        #   environmentVariables:
-        #     normal:
-        #       ENV1: value1
-        #       ENV2: value2
-        #     encrypted:
-        #       SECURE_ENV1: test_value
-        #       SECURE_ENV2: test_value
-          runtime:
-            type: image
-            image:
-              language: java
-              versions: v1.1
-            custom:
-              name: drydock/u16all
-              tag:  v7.1.4
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "first step"
+      - name: S1_s2
+        type: bash
+        setup:
+          affinityGroup: g1
+        requires:
+          steps:
+            - S1_s1
+        execute:
+          - echo "second step"
+
+  - name: scenario2
+    steps:
+      - name: S2_s1
+        type: bash
+        setup:
+          affinityGroup: g1
         requires:
           resources:
-            - myImage
             - myRepo
-          # integrations:
-          #   - kubeconfig
-        # outputResources:
-        #   - myOtherImage
+        outputResources:
+          - myImage
         execution:
           onStart:
-            - retry_command echo "here we go!!!"
+            - echo "here we go!!!"
           onExecute:
             - echo "Hello world!"
-            - echo "step json at $STEP_JSON_PATH"
-            - cat $STEP_JSON_PATH
-            - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - echo "testing"
-            - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - echo "try again?!"
-            - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - cat /jfrog/status/step.env
-            # - write_output myOtherImage "x=y" "foo=bar"
-            - apt-get install -y tree
-            - cd /jfrog && tree
-            - cd $res_myRepo_resourcePath
-            - switch_env nodejs 0.12
-            - npm install
-            - cd tests
-            - ../node_modules/.bin/mocha --recursive "**/*.spec.js" -R mocha-junit-reporter --reporter-options mochaFile=../testresults.xml
-            - ../node_modules/.bin/istanbul --include-all-sources cover -root "../routes" ../node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "**/*.spec.js"
-            - ../node_modules/.bin/istanbul report cobertura --dir ../coverageReport
-            - cd .. && ls
-            - save_tests testresults.xml
-            # - cache_files $STEP_JSON_PATH stepjson
-            # - save_tests /jfrog/status
+            - echo "stepId is $STEP_ID"
+            - write_output myImage "imageTag=$STEP_ID"
           onSuccess:
             - echo "yay success"
-            - printenv
           onFailure:
             - echo "boo failure"
           onComplete:
             - echo "done"
-
-      - name: fail_in_start
+      - name: S2_s2
         type: bash
-        # configuration:
-        #   affinityGroup: test_group
+        setup:
+          affinityGroup: g1
         requires:
-          integrations:
-            - github
-        triggeredBy:
-          steps:
-            - basic_step
+          resources:
+            - myImage
         execution:
           onStart:
-            - echo "Prepping build environment"
-            - cat badfile
+            - echo "starting now"
           onExecute:
-            - echo "executing task command 1"
-            - echo "executing task command 2"
-          onSuccess:
-            - echo "Job well done!"
-          onFailure:
-            - echo "uh oh, something went wrong"
-          onComplete: #always
-            - echo "Cleaning up some stuff"
-          onCancel:
-            - echo "Someone cancelled the job"
-
-      - name: fail_in_exec
-        type: bash
-        # configuration:
-        #   affinityGroup: test_group
-        requires:
-          integrations:
-            - github
-        triggeredBy:
-          steps:
-            - basic_step
-        execution:
-          onStart:
-            - echo "Prepping build environment"
-          onExecute:
-            - echo "executing task command 1"
-            - echo "executing task command 2"
-            - cat badfile
-          onSuccess:
-            - echo "Job well done!"
-          onFailure:
-            - echo "uh oh, something went wrong"
-          onComplete: #always
-            - echo "Cleaning up some stuff"
-          onCancel:
-            - echo "Someone cancelled the job"
-
-      - name: fail_in_onsucc
-        type: bash
-        configuration:
-          affinityGroup: test_group
-        requires:
-          integrations:
-            - github
-        triggeredBy:
-          steps:
-            - basic_step
-        execution:
-          onStart:
-            - echo "Prepping build environment"
-          onExecute:
-            - echo "executing task command 1"
-            - echo "executing task command 2"
-          onSuccess:
-            - echo "Job well done!"
-            - cat badfile
-          onFailure:
-            - echo "uh oh, something went wrong"
-          onComplete: #always
-            - echo "Cleaning up some stuff"
-          onCancel:
-            - echo "Someone cancelled the job"
-
-      - name: fail_in_onfail
-        type: bash
-        # configuration:
-        #   affinityGroup: test_group
-        requires:
-          integrations:
-            - github
-        triggeredBy:
-          steps:
-            - basic_step
-        execution:
-          onStart:
-            - echo "Prepping build environment"
-          onExecute:
-            - echo "executing task command 1"
-            - echo "executing task command 2"
-            - cat badfile
-          onSuccess:
-            - echo "Job well done!"
-          onFailure:
-            - echo "uh oh, something went wrong"
-            - cat badfile
-          onComplete: #always
-            - echo "Cleaning up some stuff"
-          onCancel:
-            - echo "Someone cancelled the job"
-
-      - name: fail_in_oncomp
-        type: bash
-        # configuration:
-        #   affinityGroup: test_group
-        requires:
-          integrations:
-            - github
-        triggeredBy:
-          steps:
-            - basic_step
-        execution:
-          onStart:
-            - echo "Prepping build environment"
-          onExecute:
-            - echo "executing task command 1"
-            - echo "executing task command 2"
-          onSuccess:
-            - echo "Job well done!"
-          onFailure:
-            - echo "uh oh, something went wrong"
-          onComplete: #always
-            - echo "Cleaning up some stuff"
-            - cat badfile
-          onCancel:
-            - echo "Someone cancelled the job"
-
-  - name: split_start
-    steps:
-      - name: start1
-        type: bash
-        configuration:
-          affinityGroup: split
-        execution:
-          onExecute:
-            - echo "hi"
-      - name: start2
-        type: bash
-        configuration:
-          affinityGroup: split
-        triggeredBy:
-          steps:
-            - start2
-        execution:
-          onExecute:
-            - echo "hi"
-      - name: final
-        type: bash
-        configuration:
-          affinityGroup: split
-        triggeredBy:
-          steps:
-            - start1
-
-        execution:
-          onExecute:
-            - echo "all done"
-  - name: split_stop
-    steps:
-      - name: start
-        type: bash
-        configuration:
-          affinityGroup: split
-        execution:
-          onExecute:
-            - echo "hi"
-      - name: final1
-        type: bash
-        configuration:
-          affinityGroup: split
-        triggeredBy:
-          steps:
-            - start
-        execution:
-          onExecute:
-            - echo "hi"
-      - name: final2
-        type: bash
-        configuration:
-          affinityGroup: split
-        triggeredBy:
-          steps:
-            - start
-        execution:
-          onExecute:
-            - echo "all done"
-  - name: pre_dangle
-    steps:
-      - name: p_d_1
-        type: bash
-        execution:
-          onExecute:
-            - echo "ungrouped"
-      - name: g_d_1
-        type: bash
-        configuration:
-          affinityGroup: g_d
-        triggeredBy:
-          steps:
-            - p_d_1
-        execution:
-          onExecute:
-            - echo "grouped"
-      - name: g_d_2
-        type: bash
-        configuration:
-          affinityGroup: g_d
-        triggeredBy:
-          steps:
-            - p_d_1
-        execution:
-          onExecute:
-            - echo "grouped"
-      - name: g_d_f
-        type: bash
-        configuration:
-          affinityGroup: g_d
-        triggeredBy:
-          steps:
-            - g_d_1
-            - g_d_2
-        execution:
-          onExecute:
-            - echo "grouped"
-  # - name: mid_dangle
-  # - name: post_dangle
-  # - name: priority_check
-  - name: fan_out_in
-    steps:
-      - name: start_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        execution:
-          onExecute:
-            - echo "start"
-      - name: top1_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - start_foi
-        execution:
-          onExecute:
-            - echo "top1"
-      - name: bottom1_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - start_foi
-        execution:
-          onExecute:
-            - echo "bottom1"
-      - name: top2_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - top1_foi
-        execution:
-          onExecute:
-            - cat badfile
-            - echo "top2"
-          onComplete:
-            - echo "hmmmm"
-          onFailure:
-            - echo "boo"
-      - name: top3_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - top2_foi
-        execution:
-          onExecute:
-            - echo "start"
-      - name: final_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - top3_foi
-            - bottom1_foi
-        execution:
-          onExecute:
-            - echo "start"
-      - name: outside_foi
-        type: bash
-        triggeredBy:
-          steps:
-            - top1_foi
-        execution:
-          onExecute:
-            - echo "no group"
-
+            - echo "${res_myImage_imageName}:${res_myImage_imageTag}"
