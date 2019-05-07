@@ -40,8 +40,9 @@ pipelines:
         requires:
           steps:
             - S1_s1
-        execute:
-          - echo "second step"
+        execution:
+          onExecute:
+            - echo "second step"
 
   - name: scenario2
     steps:
