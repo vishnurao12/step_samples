@@ -28,15 +28,11 @@ pipelines:
     steps:
       - name: S1_s1
         type: bash
-        setup:
-          affinityGroup: g1
         execution:
           onExecute:
             - echo "first step"
       - name: S1_s2
         type: bash
-        setup:
-          affinityGroup: g1
         requires:
           steps:
             - S1_s1
