@@ -163,9 +163,6 @@ pipelines:
         triggeredBy:
           resources:
             - S4_repo
-        requires:
-          resources:
-            - S4_repo
         outputResources:
           - S4_image
         execution:
