@@ -33,7 +33,7 @@ pipelines:
             - echo "first step"
       - name: S1_s2
         type: bash
-        requires:
+        triggeredBy:
           steps:
             - S1_s1
         execution:
@@ -68,6 +68,9 @@ pipelines:
         type: bash
         setup:
           affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S2_s1
         requires:
           resources:
             - myImage
