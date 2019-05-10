@@ -134,6 +134,9 @@ pipelines:
 
       - name: S3_s5
         type: bash
+        triggeredBy:
+          steps:
+            - S3_s1
         execution:
           onExecute:
             - echo "fourth step"
