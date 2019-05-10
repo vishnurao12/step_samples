@@ -180,4 +180,5 @@ pipelines:
           onExecute:
             - echo "tag is $res_S4_image_imageTag"
             - echo "step is $res_S4_image_step"
+            - cat forcederror
 
