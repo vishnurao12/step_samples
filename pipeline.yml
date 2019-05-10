@@ -84,15 +84,11 @@ pipelines:
     steps:
       - name: S3_s1
         type: bash
-        setup:
-          affinityGroup: g1
         execution:
           onExecute:
             - echo "first step"
       - name: S3_s2
         type: bash
-        setup:
-          affinityGroup: g1
         triggeredBy:
           steps:
             - S3_s1
@@ -101,8 +97,6 @@ pipelines:
             - echo "second step"
       - name: S3_s3a
         type: bash
-        setup:
-          affinityGroup: g1
         triggeredBy:
           steps:
             - S3_s2
@@ -111,8 +105,7 @@ pipelines:
             - echo "third a step"
       - name: S3_s3b
         type: bash
-        setup:
-          affinityGroup: g1
+
         triggeredBy:
           steps:
             - S3_s2
@@ -121,8 +114,6 @@ pipelines:
             - echo "third b step"
       - name: S3_s4
         type: bash
-        setup:
-          affinityGroup: g1
         triggeredBy:
           steps:
             - S3_s3a
