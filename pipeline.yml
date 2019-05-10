@@ -105,6 +105,7 @@ pipelines:
           affinityGroup: g1
         triggeredBy:
           steps:
+            - S3_s5
             - S3_s2
         execution:
           onExecute:
@@ -127,6 +128,12 @@ pipelines:
           steps:
             - S3_s3a
             - S3_s3b
+        execution:
+          onExecute:
+            - echo "fourth step"
+
+      - name: S3_s5
+        type: bash
         execution:
           onExecute:
             - echo "fourth step"
