@@ -7,6 +7,22 @@ resources:
     initialVersion:
       imageTag: master
 
+  - name: S4_image
+    type: image
+    configuration:
+      integrationName: docker
+    imageName: alpine
+    initialVersion:
+      imageTag: latest
+
+  - name: S4_repo
+    type: gitRepo
+    repoPath: trriplejay/basic-node
+    configuration:
+      integrationName: github
+    initialVersion:
+      sha: master
+
   - name: myOtherImage
     type: image
     configuration:
@@ -139,3 +155,31 @@ pipelines:
         execution:
           onExecute:
             - echo "fifth step"
+
+  - name: scenario4
+    steps:
+      - name: S4_s1
+        type: bash
+        triggeredBy:
+          resources:
+            - S4_repo
+        requires:
+          resources:
+            - S4_repo
+        outputResources:
+          - S4_image
+        execution:
+          onExecute:
+            - echo "scenario 4. now with resources!"
+            - write_output S4_image "step=$STEP_ID"
+
+      - name: S4_s2
+        type: bash
+        triggeredBy:
+          resources:
+            - S4_image
+        execution:
+          onExecute:
+            - echo "tag is $res_S4_image_imageTag"
+            - echo "step is $res_S4_image_step"
+
