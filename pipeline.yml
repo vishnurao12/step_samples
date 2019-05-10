@@ -169,6 +169,7 @@ pipelines:
           onExecute:
             - echo "scenario 4. now with resources!"
             - write_output S4_image "step=$STEP_ID"
+            - write_output S4_image "imageTag=latest"
 
       - name: S4_s2
         type: bash
