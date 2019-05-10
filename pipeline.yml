@@ -108,6 +108,7 @@ pipelines:
         execution:
           onExecute:
             - echo "third a step"
+            - cat badfile
       - name: S3_s3b
         type: bash
         setup:
@@ -137,4 +138,4 @@ pipelines:
             - S3_s1
         execution:
           onExecute:
-            - echo "fourth step"
+            - echo "fifth step"
