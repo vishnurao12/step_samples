@@ -79,3 +79,44 @@ pipelines:
             - echo "starting now"
           onExecute:
             - echo "${res_myImage_imageName}:${res_myImage_imageTag}"
+
+  - name: scenario3
+    steps:
+      - name: S3_s1
+        type: bash
+        execution:
+          onExecute:
+            - echo "first step"
+      - name: S3_s2
+        type: bash
+        triggeredBy:
+          steps:
+            - S3_s1
+        execution:
+          onExecute:
+            - echo "second step"
+      - name: S3_s3a
+        type: bash
+        triggeredBy:
+          steps:
+            - S3_s2
+        execution:
+          onExecute:
+            - echo "third a step"
+      - name: S3_s3b
+        type: bash
+        triggeredBy:
+          steps:
+            - S3_s2
+        execution:
+          onExecute:
+            - echo "third b step"
+      - name: S3_s4
+        type: bash
+        triggeredBy:
+          steps:
+            - S3_s3a
+            - S3_s3b
+        execution:
+          onExecute:
+            - echo "fourth step"
