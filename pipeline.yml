@@ -175,8 +175,6 @@ pipelines:
 
       - name: S4_s2
         type: bash
-        setup:
-          affinityGroup: g1
         triggeredBy:
           resources:
             - S4_image
