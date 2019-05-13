@@ -214,7 +214,7 @@ pipelines:
           affinityGroup: g1
         triggeredBy:
           steps:
-            - S5_s1
+            - S5_s2
         execution:
           onExecute:
             - echo "i'm split from my group"
