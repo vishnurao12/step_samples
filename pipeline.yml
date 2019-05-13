@@ -107,6 +107,8 @@ pipelines:
             - echo "first step"
       - name: S3_s2
         type: bash
+        setup:
+          affinityGroup: g1
         triggeredBy:
           steps:
             - S3_s1
