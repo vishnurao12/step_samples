@@ -186,3 +186,35 @@ pipelines:
             - echo "step is $res_S4_image_step"
             - cat forcederror
 
+
+  - name: scenario5
+    steps:
+      - name: S5_s1
+        type: bash
+        setup:
+          affinityGroup: g1
+        outputResources:
+          - S4_image
+        execution:
+          onExecute:
+            - echo "scenario 5. bad affinity"
+
+      - name: S5_s2
+        type: bash
+        triggeredBy:
+          steps:
+            - S5_s1
+        execution:
+          onExecute:
+            - echo "i'm not in the group"
+
+      - name: S5_s3
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S5_s1
+        execution:
+          onExecute:
+            - echo "i'm split from my group"
