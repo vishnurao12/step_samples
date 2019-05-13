@@ -49,6 +49,8 @@ pipelines:
             - echo "first step"
       - name: S1_s2
         type: bash
+        setup:
+          affinityGroup: S1_s1
         triggeredBy:
           steps:
             - S1_s1
