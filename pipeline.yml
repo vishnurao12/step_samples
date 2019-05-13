@@ -105,16 +105,16 @@ pipelines:
         execution:
           onExecute:
             - echo "first step"
-      # - name: S3_s2
-      #   type: bash
-      #   setup:
-      #     affinityGroup: g1
-      #   triggeredBy:
-      #     steps:
-      #       - S3_s1
-      #   execution:
-      #     onExecute:
-      #       - echo "second step"
+      - name: S3_s2
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S3_s1
+        execution:
+          onExecute:
+            - echo "second step"
       - name: S3_s3a
         type: bash
         setup:
