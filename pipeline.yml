@@ -428,3 +428,8 @@ pipelines:
             - echo "no group"
 
   - name: pipeline_bad
+    steps:
+      - name: bad_step
+        requires:
+          integrations:
+            - not_real
