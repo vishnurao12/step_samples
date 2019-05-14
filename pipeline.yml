@@ -1,5 +1,5 @@
 resources:
-  - name: myImage
+  - name: myImage_master
     type: image
     configuration:
       integrationName: trriplejay_docker
@@ -7,7 +7,7 @@ resources:
     initialVersion:
       imageTag: master
 
-  - name: myOtherImage
+  - name: myOtherImage_master
     type: image
     configuration:
       integrationName: trriplejay_docker
@@ -15,7 +15,7 @@ resources:
     initialVersion:
       imageTag: master
 
-  - name: myRepo
+  - name: myRepo_master
     type: gitRepo
     repoPath: trriplejay/basic-node
     configuration:
@@ -83,8 +83,8 @@ pipelines:
               tag:  v7.2.4
         requires:
           resources:
-            - myImage
-            - myRepo
+            - myImage_master
+            - myRepo_master
           # integrations:
           #   - kubeconfig
         # outputResources:
@@ -130,7 +130,7 @@ pipelines:
         #   affinityGroup: test_group
         requires:
           integrations:
-            - github
+            - trriplejay_github
         triggeredBy:
           steps:
             - basic_step
@@ -156,7 +156,7 @@ pipelines:
         #   affinityGroup: test_group
         requires:
           integrations:
-            - github
+            - trriplejay_github
         triggeredBy:
           steps:
             - basic_step
@@ -182,7 +182,7 @@ pipelines:
           affinityGroup: test_group
         requires:
           integrations:
-            - github
+            - trriplejay_github
         triggeredBy:
           steps:
             - basic_step
@@ -208,7 +208,7 @@ pipelines:
         #   affinityGroup: test_group
         requires:
           integrations:
-            - github
+            - trriplejay_github
         triggeredBy:
           steps:
             - basic_step
@@ -235,7 +235,7 @@ pipelines:
         #   affinityGroup: test_group
         requires:
           integrations:
-            - github
+            - trriplejay_github
         triggeredBy:
           steps:
             - basic_step
