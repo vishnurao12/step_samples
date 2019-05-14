@@ -55,7 +55,7 @@ pipelines:
         setup:
           priority: 2
         triggeredBy:
-          steps:1q
+          steps:
             - P1_s1
         execution:
           onExecute:
