@@ -2,7 +2,7 @@ resources:
   - name: myImage
     type: image
     configuration:
-      integrationName: docker
+      integrationName: trriplejay_docker
     imageName: trriplejay/simpleserver
     initialVersion:
       imageTag: master
@@ -10,7 +10,7 @@ resources:
   - name: myOtherImage
     type: image
     configuration:
-      integrationName: docker
+      integrationName: trriplejay_docker
     imageName: trriplejay/simpleserver
     initialVersion:
       imageTag: master
@@ -19,13 +19,13 @@ resources:
     type: gitRepo
     repoPath: trriplejay/basic-node
     configuration:
-      integrationName: github
+      integrationName: trriplejay_github
     initialVersion:
       sha: master
 #   - name: bad-resource-name
 #     type: image
 #     configuration:
-#       integrationName: docker
+#       integrationName: trriplejay_docker
 #     imageName: trriplejay/simpleserver
 #     initialVersion:
 #       imageTag: master
@@ -80,7 +80,7 @@ pipelines:
               versions: v1.1
             custom:
               name: drydock/u16all
-              tag:  v7.1.4
+              tag:  v7.2.4
         requires:
           resources:
             - myImage
