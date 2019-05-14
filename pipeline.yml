@@ -400,6 +400,7 @@ pipelines:
             - echo "boo"
       - name: top3_foi
         type: bash
+        configuration:
           affinityGroup: test
         triggeredBy:
           steps:
