@@ -365,7 +365,7 @@ pipelines:
       - name: top1_foi
         type: bash
         configuration:
-          priority: 5
+          priority: 1
           affinityGroup: test
         triggeredBy:
           steps:
@@ -376,7 +376,7 @@ pipelines:
       - name: bottom1_foi
         type: bash
         configuration:
-          priority: 1
+          priority: 5
           affinityGroup: test
         triggeredBy:
           steps:
