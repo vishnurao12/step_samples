@@ -217,44 +217,86 @@ pipelines:
           onExecute:
             - echo "i'm split from my group"
 
-  # - name: scenario6
-  #   steps:
-  #     - name: S6_s1
-  #       type: bash
-  #       setup:
-  #         affinityGroup: g1
-  #       execution:
-  #         onExecute:
-  #           - echo "scenario 5. bad affinity"
+  - name: scenario6
+    steps:
+      - name: S6_s1
+        type: bash
+        setup:
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "scenario 5. bad affinity"
 
-  #     - name: S6_s2
-  #       type: bash
-  #       setup:
-  #         affinityGroup: g1
-  #       triggeredBy:
-  #         steps:
-  #           - S6_s1
-  #       execution:
-  #         onExecute:
-  #           - echo "i'm not in the group"
+      - name: S6_s2
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S6_s1
+        execution:
+          onExecute:
+            - echo "i'm not in the group"
 
-  #     - name: S6_s3
-  #       type: bash
-  #       setup:
-  #         affinityGroup: g1
-  #       triggeredBy:
-  #         steps:
-  #           - S6_s2
-  #           - S6_s10
-  #       execution:
-  #         onExecute:
-  #           - echo "i'm split from my group"
+      - name: S6_s3
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S6_s2
+            - S6_s10
+        execution:
+          onExecute:
+            - echo "i'm split from my group"
 
-  #     - name: S6_s10
-  #       type: bash
-  #       triggeredBy:
-  #         steps:
-  #           - S6_s1
-  #       execution:
-  #         onExecute:
-  #           - echo "i'm split from my group"
+      - name: S6_s10
+        type: bash
+        triggeredBy:
+          steps:
+            - S6_s1
+        execution:
+          onExecute:
+            - echo "i'm split from my group"
+
+
+  - name: scenario7
+    steps:
+      - name: S7_s1
+        type: bash
+        setup:
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "blah"
+        outputResources:
+          - myImage
+      - name: S7_s2
+        type: bash
+        setup:
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "blah"
+        triggeredBy:
+          steps:
+            - S7_1
+      - name: S7_s3
+        type: bash
+        setup:
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "blah"
+        triggeredBy:
+          steps:
+            - S7_10
+            - S7_2
+      - name: S7_s10
+        type: bash
+        triggeredBy:
+          resources:
+            - myImage
+        execution:
+          onExecute:
+            - echo "blah"
