@@ -430,6 +430,7 @@ pipelines:
   - name: pipeline_bad
     steps:
       - name: bad_step
+        type: bash
         requires:
           integrations:
             - not_real
