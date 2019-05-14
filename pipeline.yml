@@ -9,6 +9,7 @@ pipelines:
         execution:
           onExecute:
             - echo "first step"
+
       - name: P1_s2
         type: bash
         setup:
@@ -30,6 +31,7 @@ pipelines:
         execution:
           onExecute:
             - echo "second step"
+
   - name: priority2
     steps:
       - name: P2_s1
@@ -39,6 +41,7 @@ pipelines:
         execution:
           onExecute:
             - echo "first step"
+
       - name: P2_s2
         type: bash
         setup:
