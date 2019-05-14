@@ -102,8 +102,6 @@ pipelines:
     steps:
       - name: S3_s1
         type: bash
-        setup:
-          affinityGroup: g1
         execution:
           onExecute:
             - echo "first step"
