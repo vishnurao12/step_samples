@@ -45,18 +45,18 @@ pipelines:
           priority: 2
         triggeredBy:
           steps:
-            - P1_s1
+            - P2_s1
         execution:
           onExecute:
             - echo "second step"
 
-      - name: P1_s3
+      - name: P2_s3
         type: bash
         setup:
           priority: 2
         triggeredBy:
           steps:
-            - P1_s1
+            - P2_s1
         execution:
           onExecute:
             - echo "second step"
