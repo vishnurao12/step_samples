@@ -12,7 +12,7 @@ pipelines:
 
       - name: P1_s2
         type: bash
-        setup:
+        configuration:
           priority: 1
         triggeredBy:
           steps:
