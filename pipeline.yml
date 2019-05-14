@@ -4,7 +4,7 @@ pipelines:
     steps:
       - name: P1_s1
         type: bash
-        setup:
+        configuration:
           priority: 1
         execution:
           onExecute:
@@ -23,7 +23,7 @@ pipelines:
 
       - name: P1_s3
         type: bash
-        setup:
+        configuration:
           priority: 1
         triggeredBy:
           steps:
@@ -36,7 +36,7 @@ pipelines:
     steps:
       - name: P2_s1
         type: bash
-        setup:
+        configuration:
           priority: 2
         execution:
           onExecute:
@@ -44,7 +44,7 @@ pipelines:
 
       - name: P2_s2
         type: bash
-        setup:
+        configuration:
           priority: 2
         triggeredBy:
           steps:
@@ -55,7 +55,7 @@ pipelines:
 
       - name: P2_s3
         type: bash
-        setup:
+        configuration:
           priority: 2
         triggeredBy:
           steps:
