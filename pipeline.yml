@@ -375,6 +375,7 @@ pipelines:
       - name: bottom1_foi
         type: bash
         configuration:
+          priority: 1
           affinityGroup: test
         triggeredBy:
           steps:
@@ -391,7 +392,6 @@ pipelines:
             - top1_foi
         execution:
           onExecute:
-            - cat badfile
             - echo "top2"
           onComplete:
             - echo "hmmmm"
@@ -400,6 +400,7 @@ pipelines:
       - name: top3_foi
         type: bash
         configuration:
+          priority: 5
           affinityGroup: test
         triggeredBy:
           steps:
