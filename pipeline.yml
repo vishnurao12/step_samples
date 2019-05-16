@@ -293,7 +293,6 @@ pipelines:
             - echo "blah"
         triggeredBy:
           steps:
-            - S7_s10
             - S7_s2
       # - name: S7_s10
       #   type: bash
