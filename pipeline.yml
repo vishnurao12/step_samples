@@ -270,6 +270,7 @@ pipelines:
           onExecute:
             - echo "blah"
             - cat $STEP_JSON_PATH
+            - write_output myImage "stepId=$STEP_ID"
         outputResources:
           - myImage
       - name: S7_s2
@@ -279,6 +280,7 @@ pipelines:
         execution:
           onExecute:
             - echo "blah"
+            - echo "stepId is - $res_myImage_stepId"
         triggeredBy:
           resources:
             - myImage
