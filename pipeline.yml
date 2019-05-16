@@ -269,6 +269,7 @@ pipelines:
         execution:
           onExecute:
             - echo "blah"
+            - cat $STEP_JSON_PATH
         outputResources:
           - myImage
       - name: S7_s2
