@@ -280,6 +280,8 @@ pipelines:
           onExecute:
             - echo "blah"
         triggeredBy:
+          resources:
+            - myImage
           steps:
             - S7_s1
       - name: S7_s3
@@ -293,11 +295,11 @@ pipelines:
           steps:
             - S7_s10
             - S7_s2
-      - name: S7_s10
-        type: bash
-        triggeredBy:
-          resources:
-            - myImage
-        execution:
-          onExecute:
-            - echo "blah"
+      # - name: S7_s10
+      #   type: bash
+      #   triggeredBy:
+      #     resources:
+      #       - myImage
+      #   execution:
+      #     onExecute:
+      #       - echo "blah"
