@@ -270,7 +270,7 @@ pipelines:
           onExecute:
             - echo "blah"
             - cat $STEP_JSON_PATH
-            - write_output myImage "stepId=$STEP_ID"
+            - write_output myImage "stepId=$STEP_ID" "imageTag=master"
         outputResources:
           - myImage
       - name: S7_s2
@@ -284,8 +284,6 @@ pipelines:
         triggeredBy:
           resources:
             - myImage
-          steps:
-            - S7_s1
       - name: S7_s3
         type: bash
         setup:
