@@ -281,6 +281,7 @@ pipelines:
           onExecute:
             - echo "blah"
             - echo "stepId is - $res_myImage_stepId"
+            - echo "imageTag is - $res_myImage_imageTag"
         triggeredBy:
           resources:
             - myImage
