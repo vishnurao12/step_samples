@@ -5,7 +5,7 @@ resources:
       integrationName: trriplejay_docker
     imageName: trriplejay/simpleserver
     initialVersion:
-      imageTag: master
+      imageTag: latest
 
   - name: S4_image
     type: image
@@ -270,7 +270,7 @@ pipelines:
           onExecute:
             - echo "blah"
             - cat $STEP_JSON_PATH
-            - write_output myImage "stepId=$STEP_ID" "imageTag=master"
+            - write_output myImage "stepId=$STEP_ID" "imageTag=latest"
         outputResources:
           - myImage
       - name: S7_s2
