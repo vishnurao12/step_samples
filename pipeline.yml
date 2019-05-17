@@ -29,7 +29,7 @@ pipelines:
           onExecute:
             - echo "blah"
             - cat $STEP_JSON_PATH
-            - write_output myImage "stepId=$STEP_ID" "imageTag=latest"
+            - write_output rrv_image "stepId=$STEP_ID" "imageTag=latest"
         outputResources:
           - rrv_image
       - name: rrv_s2
