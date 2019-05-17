@@ -266,6 +266,9 @@ pipelines:
         type: bash
         setup:
           affinityGroup: g1
+        triggeredBy:
+          resources:
+            - myRepo
         execution:
           onExecute:
             - echo "blah"
