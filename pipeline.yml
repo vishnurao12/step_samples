@@ -56,3 +56,5 @@ pipelines:
           onExecute:
             - echo "current state stepId value is - $res_rrv_state_stepId"
             - write_output rrv_state "stepId=$STEP_ID"
+        outputResources:
+          - rrv_state
