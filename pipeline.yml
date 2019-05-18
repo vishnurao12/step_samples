@@ -16,6 +16,8 @@ resources:
       sha: master
   - name: rrv_state
     type: state
+    initialVersion:
+      stepId: 0
 
 pipelines:
   - name: rrv_updates
@@ -42,3 +44,15 @@ pipelines:
         triggeredBy:
           resources:
             - rrv_image
+
+  - name: test_state
+    steps:
+      - name: state_job
+        type: bash
+        requires:
+          resources:
+            - rrv_state
+        execution:
+          onExecute:
+            - echo "current state stepId value is - $res_rrv_state_stepId"
+            - write_output rrv_state "stepId=$STEP_ID"
