@@ -1,0 +1,308 @@
+resources:
+  - name: myImage
+    type: image
+    configuration:
+      integrationName: trriplejay_docker
+    imageName: trriplejay/simpleserver
+    initialVersion:
+      imageTag: latest
+
+  - name: S4_image
+    type: image
+    configuration:
+      integrationName: trriplejay_docker
+    imageName: alpine
+    initialVersion:
+      imageTag: latest
+
+  - name: S4_repo
+    type: gitRepo
+    repoPath: trriplejay/basic-node
+    configuration:
+      integrationName: trriplejay_github
+    initialVersion:
+      sha: master
+
+  - name: myOtherImage
+    type: image
+    configuration:
+      integrationName: trriplejay_docker
+    imageName: trriplejay/simpleserver
+    initialVersion:
+      imageTag: master
+
+  - name: myRepo
+    type: gitRepo
+    repoPath: trriplejay/basic-node
+    configuration:
+      integrationName: trriplejay_github
+    initialVersion:
+      sha: master
+
+pipelines:
+  - name: scenario1
+    steps:
+      - name: S1_s1
+        type: bash
+        execution:
+          onExecute:
+            - echo "first step"
+      - name: S1_s2
+        type: bash
+        setup:
+          affinityGroup: S1_s1
+        triggeredBy:
+          steps:
+            - S1_s1
+        execution:
+          onExecute:
+            - echo "second step"
+
+  - name: scenario2
+    steps:
+      - name: S2_s1
+        type: bash
+        setup:
+          affinityGroup: g1
+        requires:
+          resources:
+            - myRepo
+        outputResources:
+          - myImage
+        execution:
+          onStart:
+            - echo "here we go!!!"
+          onExecute:
+            - echo "Hello world!"
+            - echo "stepId is $STEP_ID"
+            - write_output myImage "imageTag=$STEP_ID"
+          onSuccess:
+            - echo "yay success"
+          onFailure:
+            - echo "boo failure"
+          onComplete:
+            - echo "done"
+      - name: S2_s2
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S2_s1
+        requires:
+          resources:
+            - myImage
+        execution:
+          onStart:
+            - echo "starting now"
+          onExecute:
+            - echo "${res_myImage_imageName}:${res_myImage_imageTag}"
+
+  - name: scenario3
+    steps:
+      - name: S3_s1
+        type: bash
+        execution:
+          onExecute:
+            - echo "first step"
+      - name: S3_s2
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S3_s1
+        execution:
+          onExecute:
+            - echo "second step"
+      - name: S3_s3a
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S3_s5
+            - S3_s2
+        execution:
+          onExecute:
+            - echo "third a step"
+            - cat badfile
+      - name: S3_s3b
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S3_s2
+        execution:
+          onExecute:
+            - echo "third b step"
+      - name: S3_s4
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S3_s3a
+            - S3_s3b
+        execution:
+          onExecute:
+            - echo "fourth step"
+
+      - name: S3_s5
+        type: bash
+        triggeredBy:
+          steps:
+            - S3_s1
+        execution:
+          onExecute:
+            - echo "fifth step"
+
+  - name: scenario4
+    steps:
+      - name: S4_s1
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          resources:
+            - S4_repo
+        outputResources:
+          - S4_image
+        execution:
+          onExecute:
+            - echo "scenario 4. now with resources!"
+            - write_output S4_image "step=$STEP_ID"
+            - write_output S4_image "imageTag=latest"
+
+      - name: S4_s2
+        type: bash
+        triggeredBy:
+          resources:
+            - S4_image
+        execution:
+          onExecute:
+            - echo "tag is $res_S4_image_imageTag"
+            - echo "step is $res_S4_image_step"
+            - cat forcederror
+
+
+  - name: scenario5
+    steps:
+      - name: S5_s1
+        type: bash
+        setup:
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "scenario 5. bad affinity"
+
+      - name: S5_s2
+        type: bash
+        triggeredBy:
+          steps:
+            - S5_s1
+        execution:
+          onExecute:
+            - echo "i'm not in the group"
+
+      - name: S5_s3
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S5_s2
+        execution:
+          onExecute:
+            - echo "i'm split from my group"
+
+  - name: scenario6
+    steps:
+      - name: S6_s1
+        type: bash
+        setup:
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "scenario 5. bad affinity"
+
+      - name: S6_s2
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S6_s1
+        execution:
+          onExecute:
+            - echo "i'm not in the group"
+
+      - name: S6_s3
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          steps:
+            - S6_s2
+            - S6_s10
+        execution:
+          onExecute:
+            - echo "i'm split from my group"
+
+      - name: S6_s10
+        type: bash
+        triggeredBy:
+          steps:
+            - S6_s1
+        execution:
+          onExecute:
+            - echo "i'm split from my group"
+
+
+  - name: scenario7
+    steps:
+      - name: S7_s1
+        type: bash
+        setup:
+          affinityGroup: g1
+        triggeredBy:
+          resources:
+            - myRepo
+        execution:
+          onExecute:
+            - echo "blah"
+            - cat $STEP_JSON_PATH
+            - write_output myImage "stepId=$STEP_ID" "imageTag=latest"
+        outputResources:
+          - myImage
+      - name: S7_s2
+        type: bash
+        setup:
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "blah"
+            - echo "stepId is - $res_myImage_stepId"
+            - echo "imageTag is - $res_myImage_imageTag"
+        triggeredBy:
+          resources:
+            - myImage
+      - name: S7_s3
+        type: bash
+        setup:
+          affinityGroup: g1
+        execution:
+          onExecute:
+            - echo "blah"
+        triggeredBy:
+          steps:
+            - S7_s2
+      # - name: S7_s10
+      #   type: bash
+      #   triggeredBy:
+      #     resources:
+      #       - myImage
+      #   execution:
+      #     onExecute:
+      #       - echo "blah"
