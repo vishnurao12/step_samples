@@ -1,0 +1,107 @@
+pipelines:
+  - name: email_notifications
+    steps:
+      - name: email_onSuccess
+        type: bash
+        requires:
+          integrations:
+            - trriplejay_smtp
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+          onSuccess:
+            - echo "successful"
+          onFailure:
+            - echo "failure"
+          onComplete:
+            - echo "complete"
+
+      - name: email_onExecute
+        type: bash
+        requires:
+          integrations:
+            - trriplejay_smtp
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+          onSuccess:
+            - echo "successful"
+          onFailure:
+            - echo "failure"
+          onComplete:
+            - echo "complete"
+
+      - name: email_onFailure
+        type: bash
+        requires:
+          integrations:
+            - trriplejay_smtp
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+            - cat badfile
+          onSuccess:
+            - echo "successful"
+          onFailure:
+            - echo "failure"
+          onComplete:
+            - echo "complete"
+
+      - name: email_onComplete_success
+        type: bash
+        requires:
+          integrations:
+            - trriplejay_smtp
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+          onSuccess:
+            - echo "successful"
+          onFailure:
+            - echo "failure"
+          onComplete:
+            - echo "complete"
+
+      - name: email_onComplete_failure
+        type: bash
+        requires:
+          integrations:
+            - trriplejay_smtp
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+            - cat badfile
+          onSuccess:
+            - echo "successful"
+          onFailure:
+            - echo "failure"
+          onComplete:
+            - echo "complete"
+
+      - name: email_onComplete_badOnSuccess
+        type: bash
+        requires:
+          integrations:
+            - trriplejay_smtp
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+          onSuccess:
+            - echo "successful?"
+            - cat badfile
+          onFailure:
+            - echo "failure"
+          onComplete:
+            - echo "complete"
