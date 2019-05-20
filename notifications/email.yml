@@ -1,7 +1,7 @@
 pipelines:
   - name: email_notifications
     steps:
-      - name: email_onSuccess
+      - name: email_onStart
         type: bash
         requires:
           integrations:
@@ -9,17 +9,24 @@ pipelines:
         execution:
           onStart:
             - echo "starting"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com"
           onExecute:
             - echo "executing"
-          onSuccess:
-            - echo "successful"
-          onFailure:
-            - echo "failure"
-          onComplete:
-            - echo "complete"
-
       - name: email_onExecute
         type: bash
+        triggeredBy:
+          steps:
+            - email_onStart
+        execution:
+          onExecute:
+            - echo "hello world"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com" "johns@jfrog.com"
+
+      - name: email_onSuccess
+        type: bash
+        triggeredBy:
+          steps:
+            - email_onExecute
         requires:
           integrations:
             - trriplejay_smtp
@@ -30,6 +37,7 @@ pipelines:
             - echo "executing"
           onSuccess:
             - echo "successful"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com"
           onFailure:
             - echo "failure"
           onComplete:
@@ -37,6 +45,9 @@ pipelines:
 
       - name: email_onFailure
         type: bash
+        triggeredBy:
+          steps:
+            - email_onExecute
         requires:
           integrations:
             - trriplejay_smtp
@@ -50,11 +61,15 @@ pipelines:
             - echo "successful"
           onFailure:
             - echo "failure"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com"
           onComplete:
             - echo "complete"
 
       - name: email_onComplete_success
         type: bash
+        triggeredBy:
+          steps:
+            - email_onSuccess
         requires:
           integrations:
             - trriplejay_smtp
@@ -69,9 +84,13 @@ pipelines:
             - echo "failure"
           onComplete:
             - echo "complete"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com"
 
       - name: email_onComplete_failure
         type: bash
+        triggeredBy:
+          steps:
+            - email_onSuccess
         requires:
           integrations:
             - trriplejay_smtp
@@ -87,9 +106,13 @@ pipelines:
             - echo "failure"
           onComplete:
             - echo "complete"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com"
 
       - name: email_onComplete_badOnSuccess
         type: bash
+        triggeredBy:
+          steps:
+            - email_onSuccess
         requires:
           integrations:
             - trriplejay_smtp
@@ -105,3 +128,4 @@ pipelines:
             - echo "failure"
           onComplete:
             - echo "complete"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com"
