@@ -5,7 +5,7 @@ resources:
       integrationName: trriplejay_docker
     imageName: trriplejay/simpleserver
     initialVersion:
-      imageTag: master
+      imageTag: latest
 
   - name: myOtherImage_master
     type: image
@@ -13,7 +13,7 @@ resources:
       integrationName: trriplejay_docker
     imageName: trriplejay/simpleserver
     initialVersion:
-      imageTag: master
+      imageTag: latest
 
   - name: myRepo_master
     type: gitRepo
