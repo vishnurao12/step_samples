@@ -1,0 +1,65 @@
+
+pipelines:
+  - name: priority1
+    steps:
+      - name: P1_s1
+        type: bash
+        configuration:
+          priority: 1
+        execution:
+          onExecute:
+            - echo "first step"
+
+      - name: P1_s2
+        type: bash
+        configuration:
+          priority: 1
+        triggeredBy:
+          steps:
+            - P1_s1
+        execution:
+          onExecute:
+            - echo "second step"
+
+      - name: P1_s3
+        type: bash
+        configuration:
+          priority: 1
+        triggeredBy:
+          steps:
+            - P1_s1
+        execution:
+          onExecute:
+            - echo "second step"
+
+  - name: priority2
+    steps:
+      - name: P2_s1
+        type: bash
+        configuration:
+          priority: 2
+        execution:
+          onExecute:
+            - echo "first step"
+
+      - name: P2_s2
+        type: bash
+        configuration:
+          priority: 2
+        triggeredBy:
+          steps:
+            - P2_s1
+        execution:
+          onExecute:
+            - echo "second step"
+
+      - name: P2_s3
+        type: bash
+        configuration:
+          priority: 2
+        triggeredBy:
+          steps:
+            - P2_s1
+        execution:
+          onExecute:
+            - echo "second step"
