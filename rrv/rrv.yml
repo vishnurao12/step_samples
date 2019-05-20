@@ -1,0 +1,42 @@
+resources:
+  - name: rrv_image
+    type: image
+    configuration:
+      integrationName: trriplejay_docker
+    imageName: trriplejay/simpleserver
+    initialVersion:
+      imageTag: latest
+
+  - name: rrv_repo
+    type: gitRepo
+    repoPath: trriplejay/basic-node
+    configuration:
+      integrationName: trriplejay_github
+    initialVersion:
+      sha: master
+
+pipelines:
+  - name: rrv_updates
+    steps:
+      - name: rrv_s1
+        type: bash
+        triggeredBy:
+          resources:
+            - rrv_repo
+        execution:
+          onExecute:
+            - echo "blah"
+            - cat $STEP_JSON_PATH
+            - write_output rrv_image "stepId=$STEP_ID" "imageTag=latest"
+        outputResources:
+          - rrv_image
+      - name: rrv_s2
+        type: bash
+        execution:
+          onExecute:
+            - echo "blah"
+            - echo "stepId is - $res_rrv_image_stepId"
+            - echo "imageTag is - $res_rrv_image_imageTag"
+        triggeredBy:
+          resources:
+            - rrv_image
