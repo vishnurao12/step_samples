@@ -9,7 +9,7 @@ pipelines:
         execution:
           onStart:
             - echo "starting"
-            - send_notification trriplejay_smtp --recipients "john@shippable.com" "stockabuer@gmail.com"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com" "stockbauer@gmail.com"
           onExecute:
             - echo "executing"
       - name: email_onExecute
