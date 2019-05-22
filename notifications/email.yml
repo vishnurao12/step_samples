@@ -9,11 +9,14 @@ pipelines:
         execution:
           onStart:
             - echo "starting"
-            - send_notification trriplejay_smtp --recipients "john@shippable.com"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com" "stockabuer@gmail.com"
           onExecute:
             - echo "executing"
       - name: email_onExecute
         type: bash
+        requires:
+          integrations:
+            - trriplejay_smtp
         triggeredBy:
           steps:
             - email_onStart
