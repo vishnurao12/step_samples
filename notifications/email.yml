@@ -64,7 +64,7 @@ pipelines:
             - echo "successful"
           onFailure:
             - echo "failure"
-            - send_notification trriplejay_smtp --send-failing-commands --recipients "john@shippable.com"
+            - send_notification trriplejay_smtp --show-failing-commands --recipients "john@shippable.com"
           onComplete:
             - echo "complete"
 
