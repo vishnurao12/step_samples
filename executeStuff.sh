@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -e
 
 echo "executing this script"
 echo "will cause a single command to have multiple children"
