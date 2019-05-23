@@ -132,3 +132,16 @@ pipelines:
           onComplete:
             - echo "complete"
             - send_notification trriplejay_smtp --recipients "john@shippable.com"
+
+      - name: email_attachments
+        type: bash
+        triggeredBy:
+          steps:
+            - email_onStart
+        requires:
+          integrations:
+            - trriplejay_smtp
+        execution:
+          onExecute:
+            - send_notification trriplejay_smtp --attach-logs --recipients "john@shippable.com" "stockbauer@gmail.com"
+            - send_notification trriplejay_smtp --recipients "john@shippable.com" "stockbauer@gmail.com" --attach-logs
