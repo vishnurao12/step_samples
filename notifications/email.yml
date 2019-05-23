@@ -59,7 +59,11 @@ pipelines:
             - echo "starting"
           onExecute:
             - echo "executing"
-            - cat badfile
+            - |
+              echo "trying something"
+              echo "mulitple commands"
+              ls $STEP_TEMP_DIR
+              cat badfile
           onSuccess:
             - echo "successful"
           onFailure:
