@@ -63,6 +63,8 @@ pipelines:
         requires:
           integrations:
             - trriplejay_smtp
+          resources:
+            - emailRepo
         execution:
           onStart:
             - echo "starting"
