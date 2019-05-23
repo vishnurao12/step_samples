@@ -70,7 +70,7 @@ pipelines:
             - echo "starting"
           onExecute:
             - echo "executing"
-            - pushd $res_emailRepo_repoPath
+            - pushd $res_emailRepo_resourcePath
             - ./executeStuff.sh
             - popd
           onSuccess:
