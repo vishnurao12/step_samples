@@ -79,7 +79,7 @@ pipelines:
           onFailure:
             - echo "failure"
             - sleep 5
-            - send_notification trriplejay_smtp --body "This was sent from the ON FAILURE ssection" --show-failing-commands --recipients "john@shippable.com" --subject "$STEP_ID did bad"
+            - send_notification trriplejay_smtp --body "This was sent from the ON FAILURE ssection" --show-failing-commands --recipients "john@shippable.com" --subject "$STEP_ID did bad" --attachments "$STEP_JSON_PATH" "$STEPLET_SCRIPT_PATH"
           onComplete:
             - echo "complete"
 
