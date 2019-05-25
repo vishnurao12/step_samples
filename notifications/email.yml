@@ -79,7 +79,9 @@ pipelines:
           onFailure:
             - echo "failure"
             - sleep 5
-            - send_notification trriplejay_smtp --body "This was sent from the ON FAILURE ssection" --show-failing-commands --recipients "john@shippable.com" --subject "$STEP_ID did bad" --attachments "$STEP_JSON_PATH" "$STEPLET_SCRIPT_PATH" --attach-logs
+            - echo "hello world" > hw.txt
+            - echo "goodbye cruel world" > gw.txt
+            - send_notification trriplejay_smtp --body "This was sent from the ON FAILURE ssection" --show-failing-commands --recipients "john@shippable.com" --subject "$STEP_ID did bad" --attachments "$STEP_JSON_PATH" "$STEPLET_SCRIPT_PATH" "hw.txt" "gw.txt" --attach-logs
             # "/jfrog/reqExec/x86_64/Ubuntu_16.04/dist/main/libcrypto.so.1.0.0" "/jfrog/reqExec/x86_64/Ubuntu_16.04/dist/main/libpython2.7.so.1.0"
           onComplete:
             - echo "complete"
