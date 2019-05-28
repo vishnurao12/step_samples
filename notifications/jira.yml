@@ -19,7 +19,7 @@ pipelines:
             - echo "starting"
           onExecute:
             - echo "executing"
-            - send_notification jira_good_v2 --description "this is a v2 api call" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using v2"
+            - send_notification jira_good_v2 --project-id NOT --description "this is a v2 api call" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using v2"
 
       - name: jira_v3
         type: bash
@@ -34,7 +34,7 @@ pipelines:
             - echo "starting"
           onExecute:
             - echo "executing"
-            - send_notification jira_good_v3 --description "this is a v3 api call" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using v3"
+            - send_notification jira_good_v3 --project-id NOT --description "this is a v3 api call" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using v3"
 
       - name: jira_bad_url
         type: bash
