@@ -1,11 +1,19 @@
 pipelines:
   - name: jira_notifications
     steps:
+      - name: jira_kickoff
+        type: bash
+        execution:
+          onExecute:
+            - echo "here we go!"
       - name: jira_v2
         type: bash
         requires:
           integrations:
             - jira_good_v2
+        triggeredBy:
+          steps:
+            - jira_kickoff
         execution:
           onStart:
             - echo "starting"
@@ -18,6 +26,9 @@ pipelines:
         requires:
           integrations:
             - jira_good_v3
+        triggeredBy:
+          steps:
+            - jira_kickoff
         execution:
           onStart:
             - echo "starting"
