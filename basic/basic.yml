@@ -22,65 +22,16 @@ resources:
       integrationName: trriplejay_github
     version:
       sha: master
-#   - name: bad-resource-name
-#     type: image
-#     configuration:
-#       integrationName: trriplejay_docker
-#     imageName: trriplejay/simpleserver
-#     version:
-#       imageTag: master
 
 pipelines:
-  # - name: bad_pipeline_name
-  #   steps:
-  #     - name: blahblah
-  #       type: bash
-  #       execution:
-  #         onExecute:
-  #           - echo "hi"
-  # - name: test_step_naming
-  #   steps:
-  #     - name: bad-step-name
-  #       type: bash
-  #       execution:
-  #         onExecute:
-  #           - echo "hi"
-
   - name: test_pipeline_1
-    # setup:
-    #   environmentVariables:
-    #     readOnly:
-    #       ENV1: value-pipe-1
-    #       ENV2: value-pipe-2
-    #   runtime:
-    #     type: image
-    #     image:
-    #       auto: true
-    #       language: java
-    #       versions: v1.1
-    #     custom:
-    #       name: test
-    #       tag: test
-    #       options: test
     steps:
       - name: basic_step
         type: bash
-        setup:
-        #   environmentVariables:
-        #     normal:
-        #       ENV1: value1
-        #       ENV2: value2
-        #     encrypted:
-        #       SECURE_ENV1: test_value
-        #       SECURE_ENV2: test_value
         requires:
           resources:
             - myImage_basic
             - myRepo_basic
-          # integrations:
-          #   - kubeconfig
-        # outputResources:
-        #   - myOtherImage
         execution:
           onStart:
             - retry_command echo "here we go!!!"
@@ -100,8 +51,6 @@ pipelines:
 
       - name: fail_in_start
         type: bash
-        # configuration:
-        #   affinityGroup: test_group
         requires:
           integrations:
             - trriplejay_github
@@ -126,8 +75,6 @@ pipelines:
 
       - name: fail_in_exec
         type: bash
-        # configuration:
-        #   affinityGroup: test_group
         requires:
           integrations:
             - trriplejay_github
@@ -178,8 +125,6 @@ pipelines:
 
       - name: fail_in_onfail
         type: bash
-        # configuration:
-        #   affinityGroup: test_group
         requires:
           integrations:
             - trriplejay_github
@@ -205,8 +150,6 @@ pipelines:
 
       - name: fail_in_oncomp
         type: bash
-        # configuration:
-        #   affinityGroup: test_group
         requires:
           integrations:
             - trriplejay_github
@@ -228,179 +171,6 @@ pipelines:
             - cat badfile
           onCancel:
             - echo "Someone cancelled the job"
-
-  - name: split_start
-    steps:
-      - name: start1
-        type: bash
-        configuration:
-          affinityGroup: split
-        execution:
-          onExecute:
-            - echo "hi"
-      - name: start2
-        type: bash
-        configuration:
-          affinityGroup: split
-        execution:
-          onExecute:
-            - echo "hi"
-      - name: final
-        type: bash
-        configuration:
-          affinityGroup: split
-        triggeredBy:
-          steps:
-            - start1
-            - start2
-
-        execution:
-          onExecute:
-            - echo "all done"
-  - name: split_stop
-    steps:
-      - name: start
-        type: bash
-        configuration:
-          affinityGroup: split
-        execution:
-          onExecute:
-            - echo "hi"
-      - name: final1
-        type: bash
-        configuration:
-          affinityGroup: split
-        triggeredBy:
-          steps:
-            - start
-        execution:
-          onExecute:
-            - echo "hi"
-      - name: final2
-        type: bash
-        configuration:
-          affinityGroup: split
-        triggeredBy:
-          steps:
-            - start
-        execution:
-          onExecute:
-            - echo "all done"
-  - name: pre_dangle
-    steps:
-      - name: p_d_1
-        type: bash
-        execution:
-          onExecute:
-            - echo "ungrouped"
-      - name: g_d_1
-        type: bash
-        configuration:
-          affinityGroup: g_d
-        triggeredBy:
-          steps:
-            - p_d_1
-        execution:
-          onExecute:
-            - echo "grouped"
-      - name: g_d_2
-        type: bash
-        configuration:
-          affinityGroup: g_d
-        triggeredBy:
-          steps:
-            - p_d_1
-        execution:
-          onExecute:
-            - echo "grouped"
-      - name: g_d_f
-        type: bash
-        configuration:
-          affinityGroup: g_d
-        triggeredBy:
-          steps:
-            - g_d_1
-            - g_d_2
-        execution:
-          onExecute:
-            - echo "grouped"
-  # - name: mid_dangle
-  # - name: post_dangle
-  # - name: priority_check
-  - name: fan_out_in
-    steps:
-      - name: start_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        execution:
-          onExecute:
-            - echo "start"
-      - name: top1_foi
-        type: bash
-        configuration:
-          priority: 1
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - start_foi
-        execution:
-          onExecute:
-            - echo "top1"
-      - name: bottom1_foi
-        type: bash
-        configuration:
-          priority: 5
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - start_foi
-        execution:
-          onExecute:
-            - echo "bottom1"
-      - name: top2_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - top1_foi
-        execution:
-          onExecute:
-            - echo "top2"
-          onComplete:
-            - echo "hmmmm"
-          onFailure:
-            - echo "boo"
-      - name: top3_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - top2_foi
-        execution:
-          onExecute:
-            - echo "start"
-      - name: final_foi
-        type: bash
-        configuration:
-          affinityGroup: test
-        triggeredBy:
-          steps:
-            - top3_foi
-            - bottom1_foi
-        execution:
-          onExecute:
-            - echo "start"
-      - name: outside_foi
-        type: bash
-        triggeredBy:
-          steps:
-            - top1_foi
-        execution:
-          onExecute:
-            - echo "no group"
 
   - name: pipeline_bad
     steps:
