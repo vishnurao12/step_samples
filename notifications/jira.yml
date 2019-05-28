@@ -71,5 +71,5 @@ pipelines:
             - echo "starting"
           onExecute:
             - echo "executing"
-            - send_notification jira_bad --project-id NOT --description "this is a bad api call using latest" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using bad integration"
+            - send_notification jira_latest --project-id NOT --description "this is a bad api call using latest" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using bad integration"
 
