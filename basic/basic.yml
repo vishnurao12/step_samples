@@ -73,14 +73,6 @@ pipelines:
         #     encrypted:
         #       SECURE_ENV1: test_value
         #       SECURE_ENV2: test_value
-          runtime:
-            type: image
-            image:
-              language: java
-              versions: v1.1
-            custom:
-              name: drydock/u16all
-              tag:  v7.2.4
         requires:
           resources:
             - myImage_basic
@@ -95,27 +87,9 @@ pipelines:
           onExecute:
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
-            - cat $STEP_JSON_PATH
-            - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - echo "testing"
-            - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - echo "try again?!"
+            - cat $STEP_JSON_PATH |  jq '.'
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
             - cat /jfrog/status/step.env
-            # - write_output myOtherImage "x=y" "foo=bar"
-            # - apt-get install -y tree
-            # - cd /jfrog && tree
-            # - cd $res_myRepo_resourcePath
-            # - switch_env nodejs 0.12
-            # - npm install
-            # - cd tests
-            # - ../node_modules/.bin/mocha --recursive "**/*.spec.js" -R mocha-junit-reporter --reporter-options mochaFile=../testresults.xml
-            # - ../node_modules/.bin/istanbul --include-all-sources cover -root "../routes" ../node_modules/mocha/bin/_mocha -- -R spec-xunit-file --recursive "**/*.spec.js"
-            # - ../node_modules/.bin/istanbul report cobertura --dir ../coverageReport
-            # - cd .. && ls
-            # - save_tests testresults.xml
-            # - cache_files $STEP_JSON_PATH stepjson
-            # - save_tests /jfrog/status
           onSuccess:
             - echo "yay success"
             - printenv
