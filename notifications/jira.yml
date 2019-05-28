@@ -1,0 +1,42 @@
+pipelines:
+  - name: jira_notifications
+    steps:
+      - name: jira_v2
+        type: bash
+        requires:
+          integrations:
+            - jira_good_v2
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+            - send_notification jira_good_v2 --description "this is a v2 api call" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using v2"
+
+      - name: jira_v3
+        type: bash
+        requires:
+          integrations:
+            - jira_good_v3
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+            - send_notification jira_good_v3 --description "this is a v3 api call" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using v3"
+
+      - name: jira_bad_url
+        type: bash
+        requires:
+          integrations:
+            - jira_bad
+        triggeredBy:
+          steps:
+            - jira_v3
+            - jira_v2
+        execution:
+          onStart:
+            - echo "starting"
+          onExecute:
+            - echo "executing"
+            - send_notification jira_bad --description "this is a bad api call" --type Bug --attach-file "$STEP_JSON_PATH" --summary "using bad integration"
