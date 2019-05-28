@@ -4,7 +4,7 @@ resources:
     repoPath: trriplejay/step_samples
     configuration:
       integrationName: trriplejay_github
-    initialVersion:
+    version:
       sha: master
 
 pipelines:

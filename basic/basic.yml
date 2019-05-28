@@ -4,7 +4,7 @@ resources:
     configuration:
       integrationName: trriplejay_docker
     imageName: trriplejay/simpleserver
-    initialVersion:
+    version:
       imageTag: latest
 
   - name: myOtherImage_master
@@ -12,7 +12,7 @@ resources:
     configuration:
       integrationName: trriplejay_docker
     imageName: trriplejay/simpleserver
-    initialVersion:
+    version:
       imageTag: latest
 
   - name: myRepo_master
@@ -20,14 +20,14 @@ resources:
     repoPath: trriplejay/basic-node
     configuration:
       integrationName: trriplejay_github
-    initialVersion:
+    version:
       sha: master
 #   - name: bad-resource-name
 #     type: image
 #     configuration:
 #       integrationName: trriplejay_docker
 #     imageName: trriplejay/simpleserver
-#     initialVersion:
+#     version:
 #       imageTag: master
 
 pipelines:
