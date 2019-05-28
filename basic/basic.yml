@@ -43,7 +43,9 @@ pipelines:
             - cat /jfrog/status/step.env
           onSuccess:
             - echo "yay success"
-            - printenv
+            - printenv | grep myRepo_basic
+            - printenv | grep myImage_basic
+            - printenv | sort
           onFailure:
             - echo "boo failure"
           onComplete:
