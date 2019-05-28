@@ -1,5 +1,5 @@
 resources:
-  - name: myImage_master
+  - name: myImage_basic
     type: image
     configuration:
       integrationName: trriplejay_docker
@@ -7,7 +7,7 @@ resources:
     version:
       imageTag: latest
 
-  - name: myOtherImage_master
+  - name: myOtherImage_basic
     type: image
     configuration:
       integrationName: trriplejay_docker
@@ -15,7 +15,7 @@ resources:
     version:
       imageTag: latest
 
-  - name: myRepo_master
+  - name: myRepo_basic
     type: gitRepo
     repoPath: trriplejay/basic-node
     configuration:
@@ -83,8 +83,8 @@ pipelines:
               tag:  v7.2.4
         requires:
           resources:
-            - myImage_master
-            - myRepo_master
+            - myImage_basic
+            - myRepo_basic
           # integrations:
           #   - kubeconfig
         # outputResources:
