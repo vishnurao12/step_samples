@@ -112,7 +112,7 @@ pipelines:
             - trriplejay_github
         triggeredBy:
           resources:
-            - - myOtherImage_basic
+            - myOtherImage_basic
         #   steps:
         #     - basic_step
         execution:
