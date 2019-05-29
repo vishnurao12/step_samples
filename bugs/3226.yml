@@ -15,11 +15,11 @@ pipelines:
           onExecute:
             - printenv
 
-      - name: followup_test
-        type: bash
-        triggeredBy:
-          steps:
-            - no_bash
-        execution:
-          onExecute:
-            - echo "here we go"
+      # - name: followup_test
+      #   type: bash
+      #   triggeredBy:
+      #     steps:
+      #       - no_bash
+      #   execution:
+      #     onExecute:
+      #       - echo "here we go"
