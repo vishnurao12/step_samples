@@ -32,6 +32,8 @@ pipelines:
           resources:
             - myImage_basic
             - myRepo_basic
+        outputResources:
+          - myOtherImage_basic
         execution:
           onStart:
             - retry_command echo "here we go!!!"
@@ -106,6 +108,8 @@ pipelines:
         requires:
           integrations:
             - trriplejay_github
+          resources:
+            - myOtherImage_basic
         triggeredBy:
           steps:
             - basic_step
