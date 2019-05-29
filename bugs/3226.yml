@@ -17,6 +17,9 @@ pipelines:
 
       - name: followup_test
         type: bash
+        triggeredBy:
+          steps:
+            - no_bash
         execution:
           onExecute:
             - echo "here we go"
