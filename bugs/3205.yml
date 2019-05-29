@@ -15,11 +15,11 @@ pipelines:
           onExecute:
             - printenv
 
-      # - name: after_bad_lang
-      #   type: bash
-      #   triggeredBy:
-      #     steps:
-      #       - bad_lang
-      #   execution:
-      #     onExecute:
-      #       - echo "i always get skipped"
+      - name: after_bad_lang
+        type: bash
+        triggeredBy:
+          steps:
+            - bad_lang
+        execution:
+          onExecute:
+            - echo "i always get skipped"
