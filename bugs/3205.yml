@@ -1,0 +1,25 @@
+pipelines:
+  - name: bad_language_test
+    steps:
+      - name: bad_lang
+        type: bash
+        setup:
+          runtime:
+            type: image
+            image:
+              custom:
+                name: shippabledocker/u16phpall
+                tag: test7.0
+                options: "--env Villa=good"
+        execution:
+          onExecute:
+            - printenv
+
+      - name: after_bad_lang
+        type: bash
+        triggeredBy:
+          steps:
+            - bad_lang
+        execution:
+          onExecute:
+            - echo "i always get skipped"
