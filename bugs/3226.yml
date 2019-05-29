@@ -1,0 +1,16 @@
+pipelines:
+  - name: custom_image_no_bash
+    steps:
+      - name: no_bash
+        type: bash
+        setup:
+          runtime:
+            type: image
+            image:
+              custom:
+                name: shippabledocker/u16phpall
+                tag: test7.0
+                options: "--env Villa=good"
+        execution:
+          onExecute:
+            - printenv
