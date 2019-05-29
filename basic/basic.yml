@@ -110,9 +110,9 @@ pipelines:
             - trriplejay_github
           resources:
             - myOtherImage_basic
-        triggeredBy:
-          steps:
-            - basic_step
+        # triggeredBy:
+        #   steps:
+        #     - basic_step
         execution:
           onStart:
             - echo "Prepping build environment"
