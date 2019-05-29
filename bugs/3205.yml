@@ -7,10 +7,10 @@ pipelines:
           runtime:
             type: image
             image:
-              custom:
-                name: shippabledocker/u16phpall
-                tag: test7.0
-                options: "--env Villa=good"
+              auto:
+                language: python
+                versions:
+                  - blah
         execution:
           onExecute:
             - printenv
