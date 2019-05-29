@@ -14,3 +14,9 @@ pipelines:
         execution:
           onExecute:
             - printenv
+
+      - name: followup_test
+        type: bash
+        execution:
+          onExecute:
+            - echo "here we go"
