@@ -110,9 +110,9 @@ pipelines:
         requires:
           integrations:
             - trriplejay_github
+        triggeredBy:
           resources:
-            - myOtherImage_basic
-        # triggeredBy:
+            - - myOtherImage_basic
         #   steps:
         #     - basic_step
         execution:
