@@ -1,0 +1,40 @@
+pipelines:
+  - name: affinity_group_cancel
+    steps:
+      - name: first_affinity_step
+        type: bash
+        setup:
+          affinityGroup: cancel
+        execution:
+          onExecute:
+            - echo "hello world"
+            - sleep 30
+            - echo "i'm awake, i'm awake!"
+
+      - name: second_affinity_step
+        type: bash
+        triggeredBy:
+          steps:
+            - first_affinity_step
+        execution:
+          onExecute:
+            - echo "i always get cancelled"
+
+  - name: stuck_in_cancelling
+    steps:
+      - name: first_step
+        type: bash
+        execution:
+          onExecute:
+            - echo "here we go!"
+            - sleep 30
+            - echo "oops, i fell "oops, i fell asleep"
+
+      - name: second_step
+        type: bash
+        triggeredBy:
+          steps:
+            - fist_step
+        execution:
+          onExecute:
+            - echo "i always get cancelled"
