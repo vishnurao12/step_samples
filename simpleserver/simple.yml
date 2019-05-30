@@ -52,6 +52,7 @@ pipelines:
             - pushd $res_simple_repo_repoPath
             - docker build -t trriplejay/simpleserver:$STEP_ID
             - write_output simple_image_dev "imageTag=$STEP_ID"
+
       - name: simple_test
         type: bash
         setup:
@@ -59,9 +60,9 @@ pipelines:
         triggeredBy:
           steps:
             - simple_build
-        requires:
-          resources:
-            - simple_image_dev
+        # requires:
+        #   resources:
+        #     - simple_image_dev
         execution:
           onExecute:
             - app_id=$(docker run -d $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag)
@@ -76,9 +77,9 @@ pipelines:
         trrigeredBy:
           steps:
             - simple_test
-        requires:
-          resources:
-            - simple_image_dev
+        # requires:
+        #   resources:
+        #     - simple_image_dev
         execution:
           onExecute:
             - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
@@ -87,9 +88,9 @@ pipelines:
         type: bash
         setup:
           affinityGroup: dev
-        requires:
-          resources:
-            - simple_image_dev
+        # requires:
+        #   resources:
+        #     - simple_image_dev
         triggeredBy:
           steps:
             - simple_push
