@@ -36,7 +36,7 @@ resources:
       imageTag: dev
 
 pipelines:
-  - name: dev_build_test_push
+  - name: dev_build_test_push_deploy
     steps:
       - name: simple_build
         type: bash
@@ -60,11 +60,9 @@ pipelines:
         triggeredBy:
           steps:
             - simple_build
-          # resources:
-          #   - simple_image_dev
-        # requires:
-        #   resources:
-
+        requires:
+          resources:
+            - simple_image_dev
         execution:
           onExecute:
             - app_id=$(docker run -d $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag)
