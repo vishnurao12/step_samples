@@ -62,9 +62,6 @@ pipelines:
             - simple_build
           resources:
             - simple_image_dev
-        # requires:
-        #   resources:
-        #     - simple_image_dev
         execution:
           onExecute:
             - app_id=$(docker run -d $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag)
@@ -72,19 +69,19 @@ pipelines:
           onComplete:
             - if [ -n "$app_id" ]; then docker rm -f $app_id; fi
 
-      - name: simple_push
-        type: bash
-        configuration:
-          affinityGroup: dev
-        triggeredBy:
-          steps:
-            - simple_test
-        requires:
-          resources:
-            - simple_image_dev
-        execution:
-          onExecute:
-            - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
+      # - name: simple_push
+      #   type: bash
+      #   configuration:
+      #     affinityGroup: dev
+      #   triggeredBy:
+      #     steps:
+      #       - simple_test
+      #   requires:
+      #     resources:
+      #       - simple_image_dev
+      #   execution:
+      #     onExecute:
+      #       - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
 
       # - name: simple_deploy
       #   type: bash
