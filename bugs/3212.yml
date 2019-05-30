@@ -28,7 +28,7 @@ pipelines:
           affinityGroup: cancel
         triggeredBy:
           steps:
-            - first_affinity_step
+            - second_affinity_step
         execution:
           onExecute:
             - echo "i always get skipped"
