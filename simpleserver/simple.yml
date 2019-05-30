@@ -75,7 +75,7 @@ pipelines:
           affinityGroup: dev
         trrigeredBy:
           steps:
-            simple_test
+            - simple_test
         requires:
           resources:
             - simple_image_dev
