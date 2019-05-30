@@ -4,6 +4,9 @@ resources:
     repoPath: trriplejay/simpleserver
     configuration:
       integrationName: trriplejay_github
+      branches:
+        only:
+          - master
     version:
       sha: master
 
@@ -20,6 +23,9 @@ resources:
     repoPath: trriplejay/simpleserver
     configuration:
       integrationName: trriplejay_github
+      branches:
+        only:
+          - dev
     version:
       sha: dev
 
@@ -30,3 +36,127 @@ resources:
     imageName: trriplejay/simpleserver
     version:
       imageTag: dev
+
+pipelines:
+  - name: dev_build_test_push
+    steps:
+      - name: simple_build
+        type: bash
+        setup:
+          affinityGroup: dev
+        trrigeredBy:
+          resources:
+            - simple_repo_dev
+        outputResources:
+          - simple_image_dev
+        execution:
+          onExecute:
+            - pushd $res_simple_repo_repoPath
+            - docker build -t trriplejay/simpleserver:$STEP_ID
+            - write_output simple_image_dev "imageTag=$STEP_ID"
+      - name: simple_test
+        type: bash
+        setup:
+          affinityGroup: dev
+        triggeredBy:
+          steps:
+            - simple_build
+        requires:
+          resources:
+            - simple_image_dev
+        execution:
+          onExecute:
+            - app_id=$(docker run -d $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag)
+            - curl localhost:8888
+          onComplete:
+            - if [ -n "$app_id" ]; then docker rm -f $app_id; fi
+
+      - name: simple_push
+        type: bash
+        setup:
+          affinityGroup: dev
+        trrigeredBy:
+          steps:
+            simple_test
+        requires:
+          resources:
+            - simple_image_dev
+        execution:
+          onExecute:
+            - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
+
+      - name: simple_deploy
+        type: bash
+        setup:
+          affinityGroup: dev
+        requires:
+          resources:
+            - simple_image_dev
+        triggeredBy:
+          steps:
+            - simple_push
+        execution:
+          onExecute:
+            - echo "deploy to test environment"
+
+  - name: master_build_push_test_deploy
+    steps:
+      - name: simple_master_build
+        type: bash
+        setup:
+          affinityGroup: master
+        trrigeredBy:
+          resources:
+            - simple_repo_dev
+        outputResources:
+          - simple_image_master
+        execution:
+          onExecute:
+            - echo "build the prod version of the app"
+
+      - name: simple_master_push
+        type: bash
+        setup:
+          affinityGroup: master
+        triggeredBy:
+          resources:
+            - simple_image_master
+        execution:
+          onExecute:
+            - echo "docker push"
+
+      - name: simple_master_ft
+        type: bash
+        triggeredBy:
+          steps:
+            - simple_master_push
+        execution:
+          onExecute:
+            - echo "function test"
+
+      - name: simple_master_ut
+        type: bash
+        triggeredBy:
+          steps:
+            - simple_master_push
+        execution:
+          onExecute:
+            - echo "unit test"
+      - name: simple_master_it
+        type: bash
+        triggeredBy:
+          steps:
+            - simple_master_push
+        execution:
+          onExecute:
+            - echo "integration test"
+      - name: simple_master_deploy
+        type: bash
+        triggeredBy:
+          steps:
+            - simple_master_it
+            - simple_master_ft
+            - simple_master_ut
+        execution:
+          onExecute:
+            - echo "tests passed, lets deploy"
