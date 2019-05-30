@@ -104,7 +104,7 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: master
-        trrigeredBy:
+        triggeredBy:
           resources:
             - simple_repo_dev
         outputResources:
