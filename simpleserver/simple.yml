@@ -90,9 +90,9 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: dev
-        # requires:
-        #   resources:
-        #     - simple_image_dev
+        requires:
+          resources:
+            - simple_image_dev
         triggeredBy:
           steps:
             - simple_push
