@@ -40,7 +40,7 @@ pipelines:
     steps:
       - name: simple_build
         type: bash
-        setup:
+        configuration:
           affinityGroup: dev
         # triggeredBy:
         #   resources:
@@ -55,7 +55,7 @@ pipelines:
 
       - name: simple_test
         type: bash
-        setup:
+        configuration:
           affinityGroup: dev
         triggeredBy:
           steps:
@@ -72,7 +72,7 @@ pipelines:
 
       - name: simple_push
         type: bash
-        setup:
+        configuration:
           affinityGroup: dev
         triggeredBy:
           steps:
@@ -86,7 +86,7 @@ pipelines:
 
       - name: simple_deploy
         type: bash
-        setup:
+        configuration:
           affinityGroup: dev
         # requires:
         #   resources:
@@ -102,7 +102,7 @@ pipelines:
     steps:
       - name: simple_master_build
         type: bash
-        setup:
+        configuration:
           affinityGroup: master
         trrigeredBy:
           resources:
@@ -115,7 +115,7 @@ pipelines:
 
       - name: simple_master_push
         type: bash
-        setup:
+        configuration:
           affinityGroup: master
         triggeredBy:
           resources:
