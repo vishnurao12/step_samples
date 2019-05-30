@@ -5,8 +5,7 @@ resources:
     configuration:
       integrationName: trriplejay_github
       branches:
-        only:
-          - master
+        only: master
     version:
       sha: master
 
@@ -24,8 +23,7 @@ resources:
     configuration:
       integrationName: trriplejay_github
       branches:
-        only:
-          - dev
+        only: dev
     version:
       sha: dev
 
