@@ -30,7 +30,7 @@ pipelines:
           onExecute:
             - echo "here we go!"
             - sleep 30
-            - echo "oops, i fell "oops, i fell asleep"
+            - echo "oops, i fell asleep"
 
       - name: second_step
         type: bash
