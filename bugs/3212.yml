@@ -51,3 +51,12 @@ pipelines:
         execution:
           onExecute:
             - echo "i always get cancelled"
+
+      - name: third_step
+        type: bash
+        triggeredBy:
+          steps:
+            - second_step
+        execution:
+          onExecute:
+            - echo "i always get skipped"
