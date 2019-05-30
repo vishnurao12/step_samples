@@ -60,8 +60,8 @@ pipelines:
         triggeredBy:
           steps:
             - simple_build
-          # resources:
-          #   - simple_image_dev
+          resources:
+            - simple_image_dev
         # requires:
         #   resources:
         #     - simple_image_dev
@@ -72,33 +72,33 @@ pipelines:
           onComplete:
             - if [ -n "$app_id" ]; then docker rm -f $app_id; fi
 
-      - name: simple_push
-        type: bash
-        configuration:
-          affinityGroup: dev
-        triggeredBy:
-          steps:
-            - simple_test
-        requires:
-          resources:
-            - simple_image_dev
-        execution:
-          onExecute:
-            - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
+      # - name: simple_push
+      #   type: bash
+      #   configuration:
+      #     affinityGroup: dev
+      #   triggeredBy:
+      #     steps:
+      #       - simple_test
+      #   requires:
+      #     resources:
+      #       - simple_image_dev
+      #   execution:
+      #     onExecute:
+      #       - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
 
-      - name: simple_deploy
-        type: bash
-        configuration:
-          affinityGroup: dev
-        requires:
-          resources:
-            - simple_image_dev
-        triggeredBy:
-          steps:
-            - simple_push
-        execution:
-          onExecute:
-            - echo "deploy to test environment"
+      # - name: simple_deploy
+      #   type: bash
+      #   configuration:
+      #     affinityGroup: dev
+      #   requires:
+      #     resources:
+      #       - simple_image_dev
+      #   triggeredBy:
+      #     steps:
+      #       - simple_push
+      #   execution:
+      #     onExecute:
+      #       - echo "deploy to test environment"
 
   - name: master_build_push_test_deploy
     steps:
