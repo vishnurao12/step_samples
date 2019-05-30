@@ -22,6 +22,17 @@ pipelines:
           onExecute:
             - echo "i always get cancelled"
 
+      - name: third_affinity_step
+        type: bash
+        configuration:
+          affinityGroup: cancel
+        triggeredBy:
+          steps:
+            - first_affinity_step
+        execution:
+          onExecute:
+            - echo "i always get skipped"
+
   - name: stuck_in_cancelling
     steps:
       - name: first_step
