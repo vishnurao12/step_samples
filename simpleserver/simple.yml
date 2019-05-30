@@ -50,7 +50,7 @@ pipelines:
         execution:
           onExecute:
             - pushd $res_simple_repo_repoPath
-            - docker build -t trriplejay/simpleserver:$STEP_ID
+            - docker build -t $res_simple_image_dev_imageName:$STEP_ID
             - write_output simple_image_dev "imageTag=$STEP_ID"
 
       - name: simple_test
@@ -65,23 +65,25 @@ pipelines:
         execution:
           onExecute:
             - app_id=$(docker run -d $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag)
+            - docker ps
+            - docker inspect $app_id
             - curl localhost:8888
           onComplete:
             - if [ -n "$app_id" ]; then docker rm -f $app_id; fi
 
-      # - name: simple_push
-      #   type: bash
-      #   configuration:
-      #     affinityGroup: dev
-      #   triggeredBy:
-      #     steps:
-      #       - simple_test
-      #   requires:
-      #     resources:
-      #       - simple_image_dev
-      #   execution:
-      #     onExecute:
-      #       - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
+      - name: simple_push
+        type: bash
+        configuration:
+          affinityGroup: dev
+        triggeredBy:
+          steps:
+            - simple_test
+        requires:
+          resources:
+            - simple_image_dev
+        execution:
+          onExecute:
+            - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
 
       # - name: simple_deploy
       #   type: bash
