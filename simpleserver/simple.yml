@@ -60,9 +60,9 @@ pipelines:
         triggeredBy:
           steps:
             - simple_build
-        # requires:
-        #   resources:
-        #     - simple_image_dev
+        requires:
+          resources:
+            - simple_image_dev
         execution:
           onExecute:
             - app_id=$(docker run -d $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag)
