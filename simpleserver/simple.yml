@@ -60,8 +60,8 @@ pipelines:
         triggeredBy:
           steps:
             - simple_build
-          resources:
-            - simple_image_dev
+          # resources:
+          #   - simple_image_dev
         # requires:
         #   resources:
 
