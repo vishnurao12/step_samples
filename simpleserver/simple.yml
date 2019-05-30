@@ -42,7 +42,7 @@ pipelines:
         type: bash
         setup:
           affinityGroup: dev
-        trrigeredBy:
+        triggeredBy:
           resources:
             - simple_repo_dev
         outputResources:
@@ -60,9 +60,9 @@ pipelines:
         triggeredBy:
           steps:
             - simple_build
-        # requires:
-        #   resources:
-        #     - simple_image_dev
+        requires:
+          resources:
+            - simple_image_dev
         execution:
           onExecute:
             - app_id=$(docker run -d $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag)
@@ -74,12 +74,12 @@ pipelines:
         type: bash
         setup:
           affinityGroup: dev
-        trrigeredBy:
+        triggeredBy:
           steps:
             - simple_test
-        # requires:
-        #   resources:
-        #     - simple_image_dev
+        requires:
+          resources:
+            - simple_image_dev
         execution:
           onExecute:
             - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
@@ -88,9 +88,9 @@ pipelines:
         type: bash
         setup:
           affinityGroup: dev
-        # requires:
-        #   resources:
-        #     - simple_image_dev
+        requires:
+          resources:
+            - simple_image_dev
         triggeredBy:
           steps:
             - simple_push
