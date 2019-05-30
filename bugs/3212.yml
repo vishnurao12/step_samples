@@ -3,7 +3,7 @@ pipelines:
     steps:
       - name: first_affinity_step
         type: bash
-        setup:
+        configuration:
           affinityGroup: cancel
         execution:
           onExecute:
@@ -13,6 +13,8 @@ pipelines:
 
       - name: second_affinity_step
         type: bash
+        configuration:
+          affinityGroup: cancel
         triggeredBy:
           steps:
             - first_affinity_step
