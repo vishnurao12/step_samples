@@ -79,9 +79,9 @@ pipelines:
         triggeredBy:
           steps:
             - simple_test
-        # requires:
-        #   resources:
-        #     - simple_image_dev
+        requires:
+          resources:
+            - simple_image_dev
         execution:
           onExecute:
             - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
