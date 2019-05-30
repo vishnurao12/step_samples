@@ -42,9 +42,9 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: dev
-        # triggeredBy:
-        #   resources:
-        #     - simple_repo_dev
+        triggeredBy:
+          resources:
+            - simple_repo_dev
         outputResources:
           - simple_image_dev
         execution:
