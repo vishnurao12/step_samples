@@ -14,7 +14,7 @@ pipelines:
       - name: chrono_2
         type: bash
         triggeredBy:
-          resources:
+          steps:
             - chrono_1
         configuration:
           chronological: true
@@ -28,7 +28,7 @@ pipelines:
         configuration:
           chronological: true
         triggeredBy:
-          resources:
+          steps:
             - chrono_2
         execution:
           onExecute:
@@ -40,7 +40,7 @@ pipelines:
         configuration:
           chronological: true
         triggeredBy:
-          resources:
+          steps:
             - chrono_3
         execution:
           onExecute:
