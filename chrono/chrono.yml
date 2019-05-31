@@ -9,7 +9,7 @@ pipelines:
         execution:
           onExecute:
             - echo "here we go"
-            - sleep 30
+            - sleep 10
             - echo "done"
       - name: chrono_2
         type: bash
@@ -21,7 +21,7 @@ pipelines:
         execution:
           onExecute:
             - echo "here we go"
-            - sleep 30
+            - sleep 10
             - echo "done"
       - name: chrono_3
         type: bash
@@ -33,7 +33,7 @@ pipelines:
         execution:
           onExecute:
             - echo "here we go"
-            - sleep 30
+            - sleep 10
             - echo "done"
       - name: chrono_4
         type: bash
@@ -45,5 +45,5 @@ pipelines:
         execution:
           onExecute:
             - echo "here we go"
-            - sleep 30
+            - sleep 10
             - echo "done"
