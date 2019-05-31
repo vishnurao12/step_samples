@@ -1,4 +1,60 @@
 pipelines:
+  - name: gatekeeper_chrono
+    steps:
+      - name: g_chrono_1
+        type: bash
+        configuration:
+          chronological: true
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+      - name: g_chrono_2
+        type: bash
+        triggeredBy:
+          steps:
+            - g_chrono_1
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+      - name: g_chrono_3
+        type: bash
+        triggeredBy:
+          steps:
+            - g_chrono_1
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+      - name: g_chrono_4
+        type: bash
+        triggeredBy:
+          steps:
+            - g_chrono_1
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+      - name: g_chrono_5
+        type: bash
+        configuration:
+          chronological: true
+        triggeredBy:
+          steps:
+            - g_chrono_2
+            - g_chrono_3
+            - g_chrono_4
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+
   - name: parallel_chrono
     steps:
       - name: p_chrono_1
