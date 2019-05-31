@@ -1,0 +1,49 @@
+pipelines:
+  - name: test_chrono
+
+    steps:
+      - name: chrono_1
+        type: bash
+        configuration:
+          chronological: true
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 30
+            - echo "done"
+      - name: chrono_2
+        type: bash
+        triggeredBy:
+          resources:
+            - chrono_1
+        configuration:
+          chronological: true
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 30
+            - echo "done"
+      - name: chrono_3
+        type: bash
+        configuration:
+          chronological: true
+        triggeredBy:
+          resources:
+            - chrono_2
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 30
+            - echo "done"
+      - name: chrono_4
+        type: bash
+        configuration:
+          chronological: true
+        triggeredBy:
+          resources:
+            - chrono_3
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 30
+            - echo "done"
