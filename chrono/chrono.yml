@@ -1,6 +1,65 @@
 pipelines:
-  - name: test_chrono
+  - name: parallel_chrono
+    steps:
+      - name: p_chrono_1
+        type: bash
+        configuration:
+          chronological: true
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+      - name: p_chrono_2
+        type: bash
+        triggeredBy:
+          steps:
+            - p_chrono_1
+        configuration:
+          chronological: true
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+      - name: p_chrono_3
+        type: bash
+        configuration:
+          chronological: true
+        triggeredBy:
+          steps:
+            - p_chrono_1
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+      - name: p_chrono_4
+        type: bash
+        configuration:
+          chronological: true
+        triggeredBy:
+          steps:
+            - p_chrono_2
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
+      - name: p_chrono_5
+        type: bash
+        configuration:
+          chronological: true
+        triggeredBy:
+          steps:
+            - p_chrono_3
+        execution:
+          onExecute:
+            - echo "here we go"
+            - sleep 10
+            - echo "done"
 
+  - name: serial_chrono
     steps:
       - name: chrono_1
         type: bash
