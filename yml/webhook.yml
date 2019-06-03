@@ -3,6 +3,8 @@ resources:
     type: webhook
     configuration:
       integrationName: trriplejay_int_hook
+    version:
+      payload: '{}'
 
   - name: webhook_test_external
     type: webhook
