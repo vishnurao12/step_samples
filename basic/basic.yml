@@ -60,9 +60,11 @@ pipelines:
         requires:
           integrations:
             - trriplejay_github
-        triggeredBy:
           steps:
             - basic_step
+        # triggeredBy:
+        #   steps:
+        #     - basic_step
         execution:
           onStart:
             - echo "Prepping build environment"
