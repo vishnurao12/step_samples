@@ -1,0 +1,38 @@
+resources:
+  - name: webhook_test_internal
+    type: webhook
+    configuration:
+      integrationName: trriplejay_int_hook
+
+  - name: webhook_test_external
+    type: webhook
+    configuration:
+      integrationName: trriplejay_ext_hook
+    version:
+      payload: '{"text":"default payload"}'
+
+pipelines:
+   - name: test_webhooks
+     steps:
+      - name: incoming_hook
+        type: bash
+        triggeredBy:
+          resources:
+            - webhook_test_internal
+        execution:
+          onExecute:
+            - echo "whats in the resource?"
+            - printenv | grep res_webhook_test_internal
+            - echo "ahhhhh, i see"
+
+      - name: outgoing_hook
+        type: bash
+        triggeredBy:
+          steps:
+            - incoming_hook
+        outputResources:
+          - webhook_test_external
+        execution:
+          onExecute:
+            - echo "lets write some values to the payload"
+            - write_output "stepId=$STEP_ID" "stepName=$STEP_NAME" "message='blah blah blah'"
