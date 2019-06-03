@@ -25,6 +25,7 @@ pipelines:
           onExecute:
             - echo "whats in the resource?"
             - printenv | grep res_webhook_test_internal
+            - echo "$res_webhook_test_internal_payload" | jq '.'
             - echo "ahhhhh, i see"
 
       - name: outgoing_hook
