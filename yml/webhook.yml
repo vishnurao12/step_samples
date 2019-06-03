@@ -25,6 +25,9 @@ pipelines:
             - printenv | grep res_webhook_test_internal
             - echo "$res_webhook_test_internal_payload" | jq '.'
             - echo "ahhhhh, i see"
+            - apt-get install -y tree
+            - tree /
+
 
       - name: outgoing_hook
         type: bash
