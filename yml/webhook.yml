@@ -2,15 +2,13 @@ resources:
   - name: webhook_test_internal
     type: webhook
     configuration:
-      integrationName: trriplejay_int_hook
-    version:
+      webhookName: trriplejay_int_hook
       payload: '{}'
 
   - name: webhook_test_external
     type: webhook
     configuration:
-      integrationName: trriplejay_ext_hook
-    version:
+      webhookName: trriplejay_ext_hook
       payload: '{"text":"default payload"}'
 
 pipelines:
