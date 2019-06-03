@@ -38,4 +38,4 @@ pipelines:
         execution:
           onExecute:
             - echo "lets write some values to the payload"
-            - write_output webhook_test_external "stepId=$STEP_ID" "stepName=$STEP_NAME" "message='blah blah blah'"
+            - write_output webhook_test_external "payload={\"stepId\":\"$STEP_ID\",\"stepName\":\"$STEP_NAME\",\"message\"=\"blah blah blah\"}"
