@@ -47,7 +47,7 @@ pipelines:
             - simple_repo_dev
         execution:
           onExecute:
-            - pushd $res_simple_repo_dev_repoPath
+            - pushd $res_simple_repo_dev_resourcePath
             - npm install
             - npm test
           onSuccess:
