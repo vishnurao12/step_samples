@@ -87,16 +87,22 @@ pipelines:
           onExecute:
             - docker push $dev_image_path
 
-      - name: simple_deploy
+      - name: simple_deploy_a
         type: bash
-        configuration:
-          affinityGroup: dev
         triggeredBy:
           resources:
             - simple_image_dev
         execution:
           onExecute:
-            - echo "deploy to test environment"
+            - echo "deploy to test environment A"
+      - name: simple_deploy_b
+        type: bash
+        triggeredBy:
+          resources:
+            - simple_image_dev
+        execution:
+          onExecute:
+            - echo "deploy to test environment B"
 
   - name: release_flow
     steps:
