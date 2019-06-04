@@ -50,10 +50,9 @@ pipelines:
             - pushd $res_simple_repo_dev_resourcePath
             - npm install
             - npm test
-          onSuccess:
             - add_run_variable dev_image_path=trriplejay/simpleserver:$STEP_ID
             - export NODE_ENV=production # ignore devDependencies
-            - docker build -t $dev_image_path
+            - docker build -t $dev_image_path .
             - popd
           onFailure:
             - echo "boo"
