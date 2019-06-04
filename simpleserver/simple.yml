@@ -36,7 +36,7 @@ resources:
       imageTag: dev
 
 pipelines:
-  - name: dev_build_test_push_deploy
+  - name: dev_flow
     steps:
       - name: simple_build
         type: bash
@@ -45,13 +45,18 @@ pipelines:
         triggeredBy:
           resources:
             - simple_repo_dev
-        outputResources:
-          - simple_image_dev
         execution:
           onExecute:
             - pushd $res_simple_repo_repoPath
-            - docker build -t $res_simple_image_dev_imageName:$STEP_ID
-            - write_output simple_image_dev "imageTag=$STEP_ID"
+            - npm install
+            - npm test
+          onSuccess:
+            - add_run_variable dev_image_path=trriplejay/simpleserver:$STEP_ID
+            - export NODE_ENV=production # ignore devDependencies
+            - docker build -t $dev_image_path
+            - popd
+          onFailure:
+            - echo "boo"
 
       - name: simple_test
         type: bash
@@ -60,11 +65,9 @@ pipelines:
         triggeredBy:
           steps:
             - simple_build
-          resources:
-            - simple_image_dev
         execution:
           onExecute:
-            - app_id=$(docker run -d $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag)
+            - app_id=$(docker run -d $dev_image_path)
             - docker ps
             - docker inspect $app_id
             - curl localhost:8888
@@ -78,28 +81,24 @@ pipelines:
         triggeredBy:
           steps:
             - simple_test
-        requires:
+        outputResources:
+          - simple_image_dev
+        execution:
+          onExecute:
+            - docker push $dev_image_path
+
+      - name: simple_deploy
+        type: bash
+        configuration:
+          affinityGroup: dev
+        triggeredBy:
           resources:
             - simple_image_dev
         execution:
           onExecute:
-            - docker push $res_simple_image_dev_imageName:$res_simple_image_dev_imageTag
+            - echo "deploy to test environment"
 
-      # - name: simple_deploy
-      #   type: bash
-      #   configuration:
-      #     affinityGroup: dev
-      #   requires:
-      #     resources:
-      #       - simple_image_dev
-      #   triggeredBy:
-      #     steps:
-      #       - simple_push
-      #   execution:
-      #     onExecute:
-      #       - echo "deploy to test environment"
-
-  - name: master_build_push_test_deploy
+  - name: release_flow
     steps:
       - name: simple_master_build
         type: bash
