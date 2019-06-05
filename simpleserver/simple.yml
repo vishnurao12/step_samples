@@ -47,6 +47,7 @@ pipelines:
             - simple_repo_dev
         execution:
           onExecute:
+            - printenv | grep res_simple_repo
             - pushd $res_simple_repo_dev_resourcePath
             - |
               if [ -z "$res_simple_repo_dev_isPullRequest" ]; then
@@ -68,12 +69,18 @@ pipelines:
         triggeredBy:
           steps:
             - simple_build
+        requires:
+          resources:
+            - simple_repo_dev
         execution:
           onExecute:
-            - app_id=$(docker run -d $dev_image_path)
-            - docker ps
-            - docker inspect $app_id
-            - curl localhost:8888
+            - |
+              if [ -z "$res_simple_repo_dev_isPullRequest" ]; then
+                app_id=$(docker run -d $dev_image_path)
+                docker ps
+                docker inspect $app_id
+                curl localhost:8888
+              fi
           onComplete:
             - if [ -n "$app_id" ]; then docker rm -f $app_id; fi
 
@@ -84,6 +91,9 @@ pipelines:
         triggeredBy:
           steps:
             - simple_test
+        requires:
+          resources:
+            - simple_repo_dev
         outputResources:
           - simple_image_dev
         execution:
