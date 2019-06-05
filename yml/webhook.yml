@@ -2,7 +2,7 @@ resources:
   - name: webhook_test_internal
     type: webhook
     configuration:
-      webhookName: trriplejay_ext_hook
+      webhookName: trriplejay_int_hook
     version:
       payload: '{"blah": "foo"}'
 
