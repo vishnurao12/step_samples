@@ -3,12 +3,14 @@ resources:
     type: webhook
     configuration:
       webhookName: trriplejay_int_hook
+    version:
       payload: '{}'
 
   - name: webhook_test_external
     type: webhook
     configuration:
       webhookName: trriplejay_ext_hook
+    version:
       payload: '{"text":"default payload"}'
 
 pipelines:
