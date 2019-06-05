@@ -11,7 +11,7 @@ resources:
     configuration:
       webhookName: trriplejay_ext_hook
     version:
-      payload: '{"text":"default payload. MODIFIED"}'
+      payload: '{"text":"default payload"}'
 
 pipelines:
    - name: test_webhooks
