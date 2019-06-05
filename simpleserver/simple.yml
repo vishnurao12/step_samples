@@ -74,14 +74,15 @@ pipelines:
             - simple_repo_dev
         execution:
           onExecute:
+            - pushd $res_simple_repo_dev_resourcePath
             - |
               if [ "$res_simple_repo_dev_isPullRequest" == "false" ]; then
                 docker-compose up
                 docker ps && sleep 5 && docker ps && sleep 5 && docker ps
                 docker inspect $app_id
                 curl localhost:8888
-
               fi
+            - popd
           onComplete:
             - docker-compose down
 
