@@ -76,13 +76,14 @@ pipelines:
           onExecute:
             - |
               if [ "$res_simple_repo_dev_isPullRequest" == "false" ]; then
-                app_id=$(docker run -d $dev_image_path)
-                docker ps
+                docker-compose up
+                docker ps && sleep 5 && docker ps && sleep 5 && docker ps
                 docker inspect $app_id
                 curl localhost:8888
+
               fi
           onComplete:
-            - if [ -n "$app_id" ]; then docker rm -f $app_id; fi
+            - docker-compose down
 
       - name: simple_push
         type: bash
