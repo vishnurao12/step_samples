@@ -36,7 +36,7 @@ resources:
       imageTag: dev
 
 pipelines:
-  - name: dev_flow
+  - name: tr_dev_flow
     steps:
       - name: simple_build
         type: bash
@@ -48,11 +48,15 @@ pipelines:
         execution:
           onExecute:
             - pushd $res_simple_repo_dev_resourcePath
-            - npm install
-            - npm test
-            - add_run_variable dev_image_path=trriplejay/simpleserver:$STEP_ID
-            - export NODE_ENV=production # ignore devDependencies
-            - docker build -t $dev_image_path .
+            - |
+              if [ -z "$res_simple_repo_dev_isPullRequest" ]; then
+                add_run_variable dev_image_path=trriplejay/simpleserver:$STEP_ID
+                export NODE_ENV=production # ignore devDependencies
+                docker build --no-cache -t $dev_image_path .
+              else
+                npm install
+                npm test
+              fi
             - popd
           onFailure:
             - echo "boo"
@@ -103,7 +107,7 @@ pipelines:
           onExecute:
             - echo "deploy to test environment B"
 
-  - name: release_flow
+  - name: tr_release_flow
     steps:
       - name: simple_master_build
         type: bash
