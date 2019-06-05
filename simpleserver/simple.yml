@@ -47,7 +47,7 @@ pipelines:
             - simple_repo_dev
         execution:
           onExecute:
-            - printenv | grep res_simple_repo
+            - printenv | grep null
             - pushd $res_simple_repo_dev_resourcePath
             - |
               if [ "$res_simple_repo_dev_isPullRequest" == "false" ]; then
