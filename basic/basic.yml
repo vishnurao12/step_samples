@@ -30,10 +30,13 @@ pipelines:
         type: bash
         configuration:
           affinityGroup: test_group
+        triggeredBy:
+          resources:
+            - myRepo_basic
         requires:
           resources:
             - myImage_basic
-            - myRepo_basic
+
         outputResources:
           - myOtherImage_basic
         execution:
