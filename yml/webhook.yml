@@ -1,12 +1,12 @@
 resources:
   - name: webhook_test_internal
-    type: webhook
+    type: Webhook
     configuration:
       webhookName: trriplejay_int_hook
       payload: '{}'
 
   - name: webhook_test_external
-    type: webhook
+    type: Webhook
     configuration:
       webhookName: trriplejay_ext_hook
       payload: '{"text":"default payload "}'
