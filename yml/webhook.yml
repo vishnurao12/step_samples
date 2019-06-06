@@ -8,8 +8,8 @@ resources:
   - name: webhook_test_external
     type: webhook
     configuration:
-      webhookName: trriplejay_ext_hook
-
+      webhookName: trriplejay_int_hook
+      payload: '{"text":"default payload "}'
 
 pipelines:
    - name: test_webhooks
