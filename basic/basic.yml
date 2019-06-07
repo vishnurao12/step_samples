@@ -57,7 +57,7 @@ pipelines:
         configuration:
           integrations:
             - name: trriplejay_github
-          inputResources:
+          inputSteps:
             - name: basic_step
         execution:
           onStart:
