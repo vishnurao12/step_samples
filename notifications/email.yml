@@ -1,10 +1,9 @@
 resources:
   - name: emailRepo
-    type: gitRepo
-    repoPath: trriplejay/step_samples
+    type: GitRepo
     configuration:
-      integrationName: trriplejay_github
-    version:
+      path: trriplejay/step_samples
+      gitProvider: trriplejay_github
       sha: master
 
 pipelines:

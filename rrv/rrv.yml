@@ -1,18 +1,16 @@
 resources:
   - name: rrv_image
-    type: image
+    type: Image
     configuration:
-      integrationName: trriplejay_docker
-    imageName: trriplejay/simpleserver
-    version:
+      registry: trriplejay_docker
+      imageName: trriplejay/simpleserver
       imageTag: latest
 
   - name: rrv_repo
-    type: gitRepo
-    repoPath: trriplejay/basic-node
+    type: GitRepo
     configuration:
-      integrationName: trriplejay_github
-    version:
+      path: trriplejay/basic-node
+      gitProvider: trriplejay_github
       sha: master
 
 pipelines:

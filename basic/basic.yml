@@ -1,26 +1,23 @@
 resources:
   - name: myImage_basic
-    type: image
+    type: Image
     configuration:
-      integrationName: trriplejay_docker
-    imageName: trriplejay/simpleserver
-    version:
+      registry: trriplejay_docker
+      imageName: trriplejay/simpleserver
       imageTag: latest
 
   - name: myOtherImage_basic
-    type: image
+    type: Image
     configuration:
-      integrationName: trriplejay_docker
-    imageName: trriplejay/simpleserver
-    version:
+      registry: trriplejay_docker
+      imageName: trriplejay/simpleserver
       imageTag: latest
 
   - name: myRepo_basic
-    type: gitRepo
-    repoPath: trriplejay/basic-node
+    type: GitRepo
     configuration:
-      integrationName: trriplejay_github
-    version:
+      path: trriplejay/basic-node
+      gitProvider: trriplejay_github
       sha: master
 
 pipelines:
