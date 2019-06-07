@@ -33,8 +33,6 @@ pipelines:
       - name: outgoing_hook
         type: Bash
         configuration:
-          inputResources:
-            - name: webhook_test_internal
           inputSteps:
             - name: incoming_hook
           outputResources:
