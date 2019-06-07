@@ -16,7 +16,7 @@ pipelines:
      steps:
       - name: incoming_hook
         type: Bash
-        configurations:
+        configuration:
           inputResources:
             - name: webhook_test_internal
         execution:
@@ -32,7 +32,7 @@ pipelines:
 
       - name: outgoing_hook
         type: Bash
-        configurations:
+        configuration:
           inputResources:
             - name: webhook_test_internal
           inputSteps:
