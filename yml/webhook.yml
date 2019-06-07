@@ -12,7 +12,7 @@ resources:
       payload: '{"text":"default payload "}'
 
 pipelines:
-   - name: test_webhooks
+   - name: tr_test_webhooks
      steps:
       - name: incoming_hook
         type: bash

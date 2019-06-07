@@ -1,6 +1,6 @@
 
 pipelines:
-  - name: priority1
+  - name: tr_priority1
     steps:
       - name: P1_s1
         type: bash
@@ -32,7 +32,7 @@ pipelines:
           onExecute:
             - echo "second step"
 
-  - name: priority2
+  - name: tr_priority2
     steps:
       - name: P2_s1
         type: bash

@@ -1,5 +1,5 @@
 pipelines:
-  - name: bad_language_test
+  - name: tr_bad_language_test
     steps:
       - name: bad_lang
         type: bash

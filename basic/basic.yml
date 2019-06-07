@@ -21,7 +21,7 @@ resources:
       sha: master
 
 pipelines:
-  - name: test_pipeline_1
+  - name: tr_test_pipeline_1
     steps:
       - name: basic_step
         type: bash
@@ -182,7 +182,7 @@ pipelines:
           onCancel:
             - echo "Someone cancelled the job"
 
-  - name: pipeline_bad
+  - name: tr_pipeline_bad
     steps:
       - name: bad_step
         type: bash

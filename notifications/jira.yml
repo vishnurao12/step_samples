@@ -1,5 +1,5 @@
 pipelines:
-  - name: jira_notifications
+  - name: tr_jira_notifications
     steps:
       - name: jira_kickoff
         type: bash

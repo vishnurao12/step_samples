@@ -1,5 +1,5 @@
 pipelines:
-  - name: affinity_group_cancel
+  - name: tr_affinity_group_cancel
     steps:
       - name: first_affinity_step
         type: bash
@@ -33,7 +33,7 @@ pipelines:
           onExecute:
             - echo "i always get skipped"
 
-  - name: stuck_in_cancelling
+  - name: tr_stuck_in_cancelling
     steps:
       - name: first_step
         type: bash

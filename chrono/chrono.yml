@@ -1,5 +1,5 @@
 pipelines:
-  - name: gatekeeper_chrono
+  - name: tr_gatekeeper_chrono
     steps:
       - name: g_chrono_1
         type: bash
@@ -55,7 +55,7 @@ pipelines:
             - sleep 10
             - echo "done"
 
-  - name: parallel_chrono
+  - name: tr_parallel_chrono
     steps:
       - name: p_chrono_1
         type: bash
@@ -115,7 +115,7 @@ pipelines:
             - sleep 10
             - echo "done"
 
-  - name: serial_chrono
+  - name: tr_serial_chrono
     steps:
       - name: chrono_1
         type: bash

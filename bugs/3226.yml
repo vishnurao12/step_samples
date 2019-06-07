@@ -1,5 +1,5 @@
 pipelines:
-  - name: custom_image_no_bash
+  - name: tr_custom_image_no_bash
     steps:
       - name: no_bash
         type: bash

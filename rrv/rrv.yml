@@ -14,7 +14,7 @@ resources:
       sha: master
 
 pipelines:
-  - name: rrv_updates
+  - name: tr_rrv_updates
     steps:
       - name: rrv_s1
         type: bash
