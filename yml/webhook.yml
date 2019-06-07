@@ -15,10 +15,10 @@ pipelines:
    - name: tr_test_webhooks
      steps:
       - name: incoming_hook
-        type: bash
-        triggeredBy:
-          resources:
-            - webhook_test_internal
+        type: Bash
+        configurations:
+          inputResources:
+            - name: webhook_test_internal
         execution:
           onExecute:
             - echo "whats in the resource?"
@@ -32,11 +32,13 @@ pipelines:
 
       - name: outgoing_hook
         type: bash
-        triggeredBy:
-          steps:
-            - incoming_hook
-        outputResources:
-          - webhook_test_external
+        configurations:
+          inputResources:
+            - name: webhook_test_internal
+          inputSteps:
+            - name: incoming_hook
+          outputResources:
+            - name: webhook_test_external
         execution:
           onExecute:
             - echo "lets write some values to the payload"
