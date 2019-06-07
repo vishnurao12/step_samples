@@ -1,38 +1,35 @@
 resources:
   - name: simple_repo_master
-    type: gitRepo
+    type: GitRepo
     repoPath: trriplejay/simpleserver
     configuration:
       integrationName: trriplejay_github
       branches:
         only: master
-    version:
       sha: master
 
   - name: simple_image_master
-    type: image
+    type: Image
     configuration:
       integrationName: trriplejay_docker
-    imageName: trriplejay/simpleserver
-    version:
       imageTag: latest
+      imageName: trriplejay/simpleserver
+
 
   - name: simple_repo_dev
-    type: gitRepo
+    type: GitRepo
     repoPath: trriplejay/simpleserver
     configuration:
       integrationName: trriplejay_github
       branches:
         only: dev
-    version:
       sha: dev
 
   - name: simple_image_dev
-    type: image
+    type: Image
     configuration:
       integrationName: trriplejay_docker
-    imageName: trriplejay/simpleserver
-    version:
+      imageName: trriplejay/simpleserver
       imageTag: dev
 
 pipelines:
