@@ -24,18 +24,15 @@ pipelines:
   - name: tr_test_pipeline_1
     steps:
       - name: basic_step
-        type: bash
+        type: Bash
         configuration:
           affinityGroup: test_group
-        triggeredBy:
-          resources:
-            - myRepo_basic
-        requires:
-          resources:
-            - myImage_basic
-
-        outputResources:
-          - myOtherImage_basic
+          inputResources:
+            - name: myRepo_basic
+            - name: myImage_basic
+              trigger: off
+          outputResources:
+            - name: myOtherImage_basic
         execution:
           onStart:
             - retry_command echo "here we go!!!"
@@ -56,15 +53,12 @@ pipelines:
             - echo "done"
 
       - name: fail_in_start
-        type: bash
-        requires:
+        type: Bash
+        configuration:
           integrations:
-            - trriplejay_github
-          steps:
-            - basic_step
-        # triggeredBy:
-        #   steps:
-        #     - basic_step
+            - name: trriplejay_github
+          inputResources:
+            - name: basic_step
         execution:
           onStart:
             - echo "Prepping build environment"
@@ -82,13 +76,12 @@ pipelines:
             - echo "Someone cancelled the job"
 
       - name: fail_in_exec
-        type: bash
-        requires:
+        type: Bash
+        configuration:
           integrations:
             - trriplejay_github
-        triggeredBy:
-          steps:
-            - basic_step
+          inputSteps:
+            - name: basic_step
         execution:
           onStart:
             - echo "Prepping build environment"
@@ -106,17 +99,13 @@ pipelines:
             - echo "Someone cancelled the job"
 
       - name: fail_in_onsucc
-        type: bash
+        type: Bash
         configuration:
           affinityGroup: test_group
-        requires:
           integrations:
             - trriplejay_github
-        triggeredBy:
-          resources:
-            - myOtherImage_basic
-        #   steps:
-        #     - basic_step
+          inputResources:
+            - name: myOtherImage_basic
         execution:
           onStart:
             - echo "Prepping build environment"
@@ -134,13 +123,12 @@ pipelines:
             - echo "Someone cancelled the job"
 
       - name: fail_in_onfail
-        type: bash
-        requires:
+        type: Bash
+        configuration:
           integrations:
-            - trriplejay_github
-        triggeredBy:
-          steps:
-            - basic_step
+            - name: trriplejay_github
+          inputSteps:
+            - name: basic_step
         execution:
           onStart:
             - echo "Prepping build environment"
@@ -159,13 +147,12 @@ pipelines:
             - echo "Someone cancelled the job"
 
       - name: fail_in_oncomp
-        type: bash
-        requires:
+        type: Bash
+        configuration:
           integrations:
             - trriplejay_github
-        triggeredBy:
-          steps:
-            - basic_step
+          inputSteps:
+            - name: basic_step
         execution:
           onStart:
             - echo "Prepping build environment"
@@ -176,7 +163,7 @@ pipelines:
             - echo "Job well done!"
           onFailure:
             - echo "uh oh, something went wrong"
-          onComplete: #always
+          onComplete:
             - echo "Cleaning up some stuff"
             - cat badfile
           onCancel:
@@ -185,7 +172,7 @@ pipelines:
   - name: tr_pipeline_bad
     steps:
       - name: bad_step
-        type: bash
+        type: Bash
         requires:
           integrations:
             - not_real
