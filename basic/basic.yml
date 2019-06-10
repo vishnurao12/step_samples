@@ -80,7 +80,7 @@ pipelines:
         type: Bash
         configuration:
           integrations:
-            - trriplejay_github
+            - name: trriplejay_github
           inputSteps:
             - name: basic_step
         execution:
