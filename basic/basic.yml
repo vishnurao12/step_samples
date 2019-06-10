@@ -39,6 +39,7 @@ pipelines:
           onExecute:
             - echo "$step_url"
             - docker ps -a
+            - docker inspect reqProc
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
             - cat $STEP_JSON_PATH |  jq '.'
