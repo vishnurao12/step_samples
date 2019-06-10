@@ -28,6 +28,7 @@ pipelines:
         configuration:
           runtime:
             nodePool: tr_centos
+            type: image
           affinityGroup: test_group
           inputResources:
             - name: myRepo_basic
