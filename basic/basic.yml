@@ -30,7 +30,7 @@ pipelines:
           inputResources:
             - name: myRepo_basic
             - name: myImage_basic
-              trigger: off
+              trigger: false
           outputResources:
             - name: myOtherImage_basic
         execution:
@@ -104,7 +104,7 @@ pipelines:
         configuration:
           affinityGroup: test_group
           integrations:
-            - trriplejay_github
+            - name: trriplejay_github
           inputResources:
             - name: myOtherImage_basic
         execution:
@@ -151,7 +151,7 @@ pipelines:
         type: Bash
         configuration:
           integrations:
-            - trriplejay_github
+            - name: trriplejay_github
           inputSteps:
             - name: basic_step
         execution:
@@ -176,4 +176,4 @@ pipelines:
         type: Bash
         requires:
           integrations:
-            - not_real
+            - name: not_real
