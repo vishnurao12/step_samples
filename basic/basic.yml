@@ -25,9 +25,7 @@ pipelines:
     steps:
       - name: basic_step
         type: Bash
-
         configuration:
-          nodePool: tr_centos
           affinityGroup: test_group
           inputResources:
             - name: myRepo_basic
@@ -106,7 +104,6 @@ pipelines:
       - name: fail_in_onsucc
         type: Bash
         configuration:
-          nodePool: tr_centos
           affinityGroup: test_group
           integrations:
             - name: trriplejay_github
