@@ -26,6 +26,8 @@ pipelines:
       - name: basic_step
         type: Bash
         configuration:
+          runtime:
+            nodePool: tr_centos
           affinityGroup: test_group
           inputResources:
             - name: myRepo_basic
