@@ -37,6 +37,7 @@ pipelines:
           onStart:
             - retry_command echo "here we go!!!"
           onExecute:
+            - echo "$step_url"
             - echo "Hello world!"
             - echo "step json at $STEP_JSON_PATH"
             - cat $STEP_JSON_PATH |  jq '.'
