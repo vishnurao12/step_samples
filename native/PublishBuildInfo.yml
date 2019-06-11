@@ -27,6 +27,12 @@ pipelines:
         configuration:
           integrations:
             - name: trriplejay_art
+          inputResources:
+            - name: tr_npm_repo
+          sourceLocation: $res_tr_npm_repo_resourcePath
+          mvnCommand: mvn --version
+          configFileLocation: ~
+          configFileName: c.config
 
 
     ## main test steps
@@ -36,6 +42,10 @@ pipelines:
           inputSteps:
             - name: tr_mvnBuild
             - name: tr_bash
+          integrations:
+            - name: trriplejay_art
+          outputResources:
+            - name: tr_buildinfo
 
 
   - name: tr_pbi_execution
@@ -44,6 +54,12 @@ pipelines:
         type: NpmBuild
         configuration:
           affinityGroup: npm
+          inputResources:
+            - name: tr_npm_repo
+          sourceLocation: $res_tr_npm_repo_resourcePath
+          repositoryName: simpleserver
+          integrations:
+            - name: trriplejay_art
 
       - name: tr_np
         type: NpmPublish
@@ -51,6 +67,9 @@ pipelines:
           affinityGroup: npm
           inputSteps:
             - name: tr_nb
+          integrations:
+            - name: trriplejay_art
+          repositoryName: simpleserver
 
       - name: tr_pbi_execute
         type: PublishBuildInfo
