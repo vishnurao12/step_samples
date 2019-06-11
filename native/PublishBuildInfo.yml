@@ -1,4 +1,11 @@
 resources:
+  - name: tr_buildinfo_test
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: trriplejay_art
+      buildNumber: 5
+      buildName: helloWorld
+
   - name: tr_buildinfo
     type: BuildInfo
     configuration:
@@ -41,11 +48,10 @@ pipelines:
         configuration:
           inputSteps:
             - name: tr_mvnBuild
-            - name: tr_bash
           integrations:
             - name: trriplejay_art
           outputResources:
-            - name: tr_buildinfo
+            - name: tr_buildinfo_test
 
 
   - name: tr_pbi_execution
@@ -77,4 +83,6 @@ pipelines:
           affinityGroup: npm
           inputSteps:
             - name: tr_np
+          outputResources:
+            - name: tr_buildinfo
 
