@@ -6,6 +6,13 @@ resources:
       buildNumber: 5
       buildName: helloWorld
 
+  - name: tr_buildinfo_test_2
+    type: BuildInfo
+    configuration:
+      sourceArtifactory: trriplejay_art
+      buildNumber: 5
+      buildName: helloWorld
+
   - name: tr_buildinfo
     type: BuildInfo
     configuration:
@@ -41,13 +48,44 @@ pipelines:
           configFileLocation: $res_tr_npm_repo_resourcePath/config
           configFileName: c.config
 
+      - name: tr_nb_test
+        type: NpmBuild
+        configuration:
+          affinityGroup: npm
+          inputResources:
+            - name: tr_npm_repo
+          sourceLocation: $res_tr_npm_repo_resourcePath
+          repositoryName: simpleserver
+          integrations:
+            - name: trriplejay_art
 
     ## main test steps
-      - name: tr_pbi
+      - name: tr_pbi_twoIN
         type: PublishBuildInfo
         configuration:
           inputSteps:
             - name: tr_mvnBuild
+            - name: tr_bash
+          integrations:
+            - name: trriplejay_art
+          outputResources:
+            - name: tr_buildinfo_test
+
+      - name: tr_pbi_twoIN
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: tr_mvnBuild
+          integrations:
+            - name: trriplejay_art
+          outputResources:
+            - name: tr_buildinfo_test
+            - name: tr_buildinfo_test_2
+      - name: tr_pbi_badINType
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: tr_nb_test
           integrations:
             - name: trriplejay_art
           outputResources:
