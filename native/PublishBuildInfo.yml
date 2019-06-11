@@ -1,0 +1,45 @@
+resources:
+  - name: tr_buildinfo
+    type: BuildInfo
+
+  - name: tr_npm_repo
+    type: GitRepo
+    configuration:
+      path: trriplejay/simpleserver
+      integration: trriplejay_github
+
+pipelines:
+  - name: tr_pbi_validation
+    steps:
+    ## used for setup
+      - name: tr_bash
+        type: Bash
+        execution:
+          onExecute:
+            - echo "hello"
+      - name: tr_mvnBuild
+        type: MvnBuild
+        configuration:
+          inputSteps
+    ## main test steps
+      - name: tr_pbi
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: tr_mvnBuild
+
+
+  - name: tr_pbi_execution
+    steps:
+      - name: tr_nb
+        type: NpmBuild
+        configuration:
+          affinityGroup: npm
+      - name: tr_np
+        type: NpmPublish
+        configuration:
+          affinityGroup: npm
+      - name: tr_pbi_execute
+        type: PublishBuildInfo
+        configuration:
+          affinityGroup: npm
