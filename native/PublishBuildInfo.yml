@@ -79,17 +79,6 @@ pipelines:
             - name: tr_buildinfo_test
             - name: tr_buildinfo_test_2
 
-      - name: tr_pbi_zeroThings
-        type: PublishBuildInfo
-        configuration:
-          inputSteps:
-
-          integrations:
-            - name: "blah"
-          outputResources:
-            - name: tr_buildinfo_test
-
-
       - name: tr_pbi_badTypes
         type: PublishBuildInfo
         configuration:
@@ -99,6 +88,15 @@ pipelines:
             - name: trriplejay_art
           outputResources:
             - name: tr_image_test
+      - name: tr_pbi_notification
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: tr_mvnBuild
+          integrations:
+            - name: trriplejay_slack
+          outputResources:
+            - name: tr_buildinfo_test
 
 
   - name: tr_pbi_execution
