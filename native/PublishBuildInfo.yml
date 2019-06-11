@@ -71,7 +71,7 @@ pipelines:
           outputResources:
             - name: tr_buildinfo_test
 
-      - name: tr_pbi_twoIN
+      - name: tr_pbi_twoOUT
         type: PublishBuildInfo
         configuration:
           inputSteps:
