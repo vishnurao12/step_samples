@@ -31,7 +31,7 @@ pipelines:
             - name: tr_npm_repo
           sourceLocation: $res_tr_npm_repo_resourcePath
           mvnCommand: mvn --version
-          configFileLocation: ~
+          configFileLocation: $res_tr_npm_repo_resourcePath/config
           configFileName: c.config
 
 
