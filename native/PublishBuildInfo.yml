@@ -58,7 +58,7 @@ pipelines:
       - name: tr_mvnBuild_auto
         type: MvnBuild
         configuration:
-          autoPushBuildInfo: true
+          autoPublishBuildInfo: true
           integrations:
             - name: trriplejay_art
           inputResources:
@@ -112,7 +112,7 @@ pipelines:
           outputResources:
             - name: tr_buildinfo_test
 
-      - name: tr_pbi_autoPush
+      - name: tr_pbi_autoPub
         type: PublishBuildInfo
         configuration:
           inputSteps:
