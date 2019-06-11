@@ -83,11 +83,11 @@ pipelines:
         type: PublishBuildInfo
         configuration:
           inputSteps:
-            - name: "blah"
+
           integrations:
             - name: "blah"
           outputResources:
-            - name: "blah"
+            - name: tr_buildinfo_test
 
 
       - name: tr_pbi_badTypes
