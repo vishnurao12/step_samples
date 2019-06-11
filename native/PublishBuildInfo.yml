@@ -2,7 +2,9 @@ resources:
   - name: tr_buildinfo
     type: BuildInfo
     configuration:
-      artifactorySource: trriplejay_art
+      sourceArtifactory: trriplejay_art
+      buildNumber: 5
+      buildName: helloWorld
 
   - name: tr_npm_repo
     type: GitRepo
@@ -22,6 +24,10 @@ pipelines:
 
       - name: tr_mvnBuild
         type: MvnBuild
+        configuration:
+          integrations:
+            - name: trriplejay_art
+
 
     ## main test steps
       - name: tr_pbi
