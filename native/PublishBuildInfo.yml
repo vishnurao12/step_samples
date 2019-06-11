@@ -2,7 +2,7 @@ resources:
   - name: tr_image_test
     type: Image
     configuration:
-      sourceRepository: trriplejay_docker
+      registry: trriplejay_docker
       imageName: trriplejay/simpleserver
       imageTag: master
 
@@ -67,7 +67,7 @@ pipelines:
             - name: trriplejay_art
 
     ## main test steps
-      - name: tr_pbi_twoIN
+      - name: tr_pbi_twoThings
         type: PublishBuildInfo
         configuration:
           inputSteps:
@@ -77,17 +77,18 @@ pipelines:
             - name: trriplejay_art
           outputResources:
             - name: tr_buildinfo_test
-
-      - name: tr_pbi_twoOUT
-        type: PublishBuildInfo
-        configuration:
-          inputSteps:
-            - name: tr_mvnBuild
-          integrations:
-            - name: trriplejay_art
-          outputResources:
-            - name: tr_buildinfo_test
             - name: tr_buildinfo_test_2
+
+      # - name: tr_pbi_twoOUT
+      #   type: PublishBuildInfo
+      #   configuration:
+      #     inputSteps:
+      #       - name: tr_mvnBuild
+      #     integrations:
+      #       - name: trriplejay_art
+      #     outputResources:
+      #       - name: tr_buildinfo_test
+      #       - name: tr_buildinfo_test_2
 
       - name: tr_pbi_badTypes
         type: PublishBuildInfo
