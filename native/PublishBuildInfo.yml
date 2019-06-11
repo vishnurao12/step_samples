@@ -55,6 +55,19 @@ pipelines:
           configFileLocation: $res_tr_npm_repo_resourcePath/config
           configFileName: c.config
 
+      - name: tr_mvnBuild_auto
+        type: MvnBuild
+        configuration:
+          autoPushBuildInfo: true
+          integrations:
+            - name: trriplejay_art
+          inputResources:
+            - name: tr_npm_repo
+          sourceLocation: $res_tr_npm_repo_resourcePath
+          mvnCommand: mvn --version
+          configFileLocation: $res_tr_npm_repo_resourcePath/config
+          configFileName: c.config
+
       - name: tr_nb_test
         type: NpmBuild
         configuration:
@@ -88,6 +101,7 @@ pipelines:
             - name: trriplejay_art
           outputResources:
             - name: tr_image_test
+
       - name: tr_pbi_notification
         type: PublishBuildInfo
         configuration:
@@ -98,6 +112,16 @@ pipelines:
           outputResources:
             - name: tr_buildinfo_test
 
+      - name: tr_pbi_autoPush
+        type: PublishBuildInfo
+        configuration:
+          inputSteps:
+            - name: tr_mvnBuild_auto
+          outputResources:
+            - name: tr_buildinfo_test
+
+
+############### pipeline split
 
   - name: tr_pbi_execution
     steps:
