@@ -6,8 +6,6 @@ pipelines:
         execution:
           onExecute:
             - echo "here we go"
-            - gcc --version
-            - clang --version
 
       - name: c_auto_8
         type: Bash
