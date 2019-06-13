@@ -6,6 +6,7 @@ pipelines:
         execution:
           onExecute:
             - echo "here we go"
+            - switch_env c foooooo
 
       - name: c_auto_8
         type: Bash
