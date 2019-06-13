@@ -15,9 +15,9 @@ resources:
 
   - name: S4_repo
     type: GitRepo
-    path: trriplejay/basic-node
     configuration:
-      sourceProvider: trriplejay_github
+      gitProvider: trriplejay_github
+      path: trriplejay/basic-node
       sha: master
 
   - name: myOtherImage
@@ -29,9 +29,9 @@ resources:
 
   - name: myRepo
     type: GitRepo
-    path: trriplejay/basic-node
     configuration:
-      sourceProvider: trriplejay_github
+      path: trriplejay/basic-node
+      gitProvider: trriplejay_github
       sha: master
 
 pipelines:
