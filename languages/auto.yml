@@ -1,9 +1,17 @@
 pipelines:
   - name: tr_auto_languages
     steps:
+      - name: lang_kickoff
+        type: Bash
+        execution:
+          onExecute:
+            - echo "here we go"
+
       - name: c_auto_8
         type: Bash
         configuration:
+          inputSteps:
+            - name: lang_kickoff
           runtime:
             type: image
             image:
@@ -19,6 +27,8 @@ pipelines:
       - name: c_default
         type: Bash
         configuration:
+          inputSteps:
+            - name: lang_kickoff
           runtime:
             type: image
             image:
