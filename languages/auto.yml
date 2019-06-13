@@ -1,0 +1,30 @@
+pipelines:
+  - name: tr_auto_languages
+    steps:
+      - name: c_auto_8
+        type: Bash
+        configuration:
+          runtime:
+            type: image
+            image:
+              auto:
+                language: c
+                versions:
+                  - 8.0.0
+        execution:
+          onExecute:
+            - gcc --version
+            - clang --version
+
+      - name: c_default
+        type: Bash
+        configuration:
+          runtime:
+            type: image
+            image:
+              auto:
+                language: c
+        execution:
+          onExecute:
+            - gcc --version
+            - clang --version
