@@ -142,6 +142,9 @@ pipelines:
       - name: simple_master_ft
         type: Bash
         configuration:
+          inputResources:
+            - name: simple_image_master
+              trigger: false
           inputSteps:
             - name: simple_master_push
         execution:
@@ -151,6 +154,9 @@ pipelines:
       - name: simple_master_ut
         type: Bash
         configuration:
+          inputResources:
+            - name: simple_image_master
+              trigger: false
           inputSteps:
             - name: simple_master_push
         execution:
@@ -160,6 +166,9 @@ pipelines:
       - name: simple_master_it
         type: Bash
         configuration:
+          inputResources:
+            - name: simple_image_master
+              trigger: false
           inputSteps:
             - name: simple_master_push
         execution:
@@ -169,6 +178,9 @@ pipelines:
       - name: simple_master_deploy
         type: Bash
         configuration:
+          inputResources:
+            - name: simple_image_master
+              trigger: false
           inputSteps:
             - name: simple_master_it
             - name: simple_master_ft
