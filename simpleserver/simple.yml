@@ -36,12 +36,11 @@ pipelines:
   - name: tr_dev_flow
     steps:
       - name: simple_build
-        type: bash
+        type: Bash
         configuration:
           affinityGroup: dev
-        triggeredBy:
-          resources:
-            - simple_repo_dev
+          inputResources:
+            - name: simple_repo_dev
         execution:
           onExecute:
             - printenv | grep null
@@ -60,15 +59,14 @@ pipelines:
             - echo "boo"
 
       - name: simple_test
-        type: bash
+        type: Bash
         configuration:
           affinityGroup: dev
-        triggeredBy:
-          steps:
-            - simple_build
-        requires:
-          resources:
-            - simple_repo_dev
+          inputSteps:
+            - name: simple_build
+          inputResources:
+            - name: simple_repo_dev
+              trigger: off
         execution:
           onExecute:
             - pushd $res_simple_repo_dev_resourcePath
@@ -84,34 +82,34 @@ pipelines:
             - docker-compose down
 
       - name: simple_push
-        type: bash
+        type: Bash
         configuration:
           affinityGroup: dev
-        triggeredBy:
-          steps:
-            - simple_test
-        requires:
-          resources:
-            - simple_repo_dev
-        outputResources:
-          - simple_image_dev
+          inputSteps:
+            - name: simple_test
+          inputResources:
+            - name: simple_repo_dev
+              trigger: off
+          outputResources:
+            - name: simple_image_dev
         execution:
           onExecute:
             - docker push $dev_image_path
 
       - name: simple_deploy_a
-        type: bash
-        triggeredBy:
-          resources:
-            - simple_image_dev
+        type: Bash
+        configuration:
+          inputResources:
+            - name: simple_image_dev
         execution:
           onExecute:
             - echo "deploy to test environment A"
+
       - name: simple_deploy_b
-        type: bash
-        triggeredBy:
-          resources:
-            - simple_image_dev
+        type: Bash
+        configuration:
+          inputResources:
+            - name: simple_image_dev
         execution:
           onExecute:
             - echo "deploy to test environment B"
@@ -119,61 +117,62 @@ pipelines:
   - name: tr_release_flow
     steps:
       - name: simple_master_build
-        type: bash
+        type: Bash
         configuration:
           affinityGroup: master
-        triggeredBy:
-          resources:
-            - simple_repo_dev
-        outputResources:
-          - simple_image_master
+          inputResources:
+            - name: simple_repo_dev
+              trigger: off
+          outputResources:
+            - name: simple_image_master
         execution:
           onExecute:
             - echo "build the prod version of the app"
 
       - name: simple_master_push
-        type: bash
+        type: Bash
         configuration:
           affinityGroup: master
-        triggeredBy:
-          resources:
-            - simple_image_master
+          inputResources:
+            - name: simple_image_master
         execution:
           onExecute:
             - echo "docker push"
 
       - name: simple_master_ft
-        type: bash
-        triggeredBy:
-          steps:
+        type: Bash
+        configuration:
+          inputSteps:
             - simple_master_push
         execution:
           onExecute:
             - echo "function test"
 
       - name: simple_master_ut
-        type: bash
-        triggeredBy:
-          steps:
-            - simple_master_push
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simple_master_push
         execution:
           onExecute:
             - echo "unit test"
+
       - name: simple_master_it
-        type: bash
-        triggeredBy:
-          steps:
-            - simple_master_push
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simple_master_push
         execution:
           onExecute:
             - echo "integration test"
+
       - name: simple_master_deploy
-        type: bash
-        triggeredBy:
-          steps:
-            - simple_master_it
-            - simple_master_ft
-            - simple_master_ut
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: simple_master_it
+            - name: simple_master_ft
+            - name: simple_master_ut
         execution:
           onExecute:
             - echo "tests passed, lets deploy"
