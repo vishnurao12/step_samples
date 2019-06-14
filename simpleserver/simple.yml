@@ -143,7 +143,7 @@ pipelines:
         type: Bash
         configuration:
           inputSteps:
-            - simple_master_push
+            - name: simple_master_push
         execution:
           onExecute:
             - echo "function test"
