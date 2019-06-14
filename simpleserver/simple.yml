@@ -66,7 +66,7 @@ pipelines:
             - name: simple_build
           inputResources:
             - name: simple_repo_dev
-              trigger: off
+              trigger: false
         execution:
           onExecute:
             - pushd $res_simple_repo_dev_resourcePath
@@ -89,7 +89,7 @@ pipelines:
             - name: simple_test
           inputResources:
             - name: simple_repo_dev
-              trigger: off
+              trigger: false
           outputResources:
             - name: simple_image_dev
         execution:
@@ -122,7 +122,7 @@ pipelines:
           affinityGroup: master
           inputResources:
             - name: simple_repo_dev
-              trigger: off
+              trigger: false
           outputResources:
             - name: simple_image_master
         execution:
