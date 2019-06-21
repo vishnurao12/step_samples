@@ -1,0 +1,38 @@
+
+pipelines:
+  - name: tr_state_functions
+    steps:
+      - name: setup_state
+        type: Bash
+        configuration:
+          runtime:
+            type: image
+            image:
+              custom:
+                name: pipelines-docker.jfrog.io/jfrog/pipelines-u16node
+                tag: master
+                autoPull: false
+        execution:
+          onExecute:
+            - add_run_variables "foo=bar" "hello=world"
+            - add_pipeline_variables "pfoo=bar" "phello=world"
+      - name: use_state
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: setup_state
+          runtime:
+            type: image
+            image:
+              custom:
+                name: pipelines-docker.jfrog.io/jfrog/pipelines-u16node
+                tag: master
+                autoPull: false
+        execution:
+          onExecute:
+            - echo "Hello $hello"
+            - echo "Foo $foo"
+            - echo "pHello $phello"
+            - echo "pFoo $pfoo"
+
+
