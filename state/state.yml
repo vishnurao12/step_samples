@@ -16,6 +16,11 @@ pipelines:
           onExecute:
             - add_run_variables "foo=bar" "hello=world"
             - add_pipeline_variables "pfoo=bar" "phello=world"
+            - echo "here's a file! run number $run_number" >> test.txt
+            - add_run_files test.txt runTest
+            - echo "pipeline usage only for run $run_number and step $step_id" >> text.txt
+            - add_pipeline_files test.txt pipelineTest
+
       - name: use_state
         type: Bash
         configuration:
@@ -34,5 +39,9 @@ pipelines:
             - echo "Foo $foo"
             - echo "pHello $phello"
             - echo "pFoo $pfoo"
+            - restore_run_files runTest
+            - cat test.txt
+            - restore_pipeline_files pipelineTest
+            - cat test.txt
 
 
