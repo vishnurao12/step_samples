@@ -39,11 +39,11 @@ pipelines:
             - echo "Foo $foo"
             - echo "pHello $phello"
             - echo "pFoo $pfoo"
-            - restore_run_files runTest .
+            - restore_run_files runTest testrun.txt
             - ls -latr
-            - cat test.txt
-            - restore_pipeline_files pipelineTest .
+            - cat testrun.txt
+            - restore_pipeline_files pipelineTest testpipe.txt
             - ls -latr
-            - cat test.txt
+            - cat testpipe.txt
 
 
