@@ -1,0 +1,17 @@
+
+pipelines:
+  - name: tr_custom_image
+    steps:
+      - name: basic_node
+        type: Bash
+        configuration:
+          runtime:
+            type: image
+            image:
+              custom:
+                name: pipelines-docker.jfrog.io/jfrog/pipelines-u16node
+                tag: master
+                autoPull: false
+        execution:
+          onExecute:
+            - echo "Hello world"
