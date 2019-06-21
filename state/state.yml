@@ -39,9 +39,9 @@ pipelines:
             - echo "Foo $foo"
             - echo "pHello $phello"
             - echo "pFoo $pfoo"
-            - restore_run_files runTest
+            - restore_run_files runTest .
             - cat test.txt
-            - restore_pipeline_files pipelineTest
+            - restore_pipeline_files pipelineTest .
             - cat test.txt
 
 
