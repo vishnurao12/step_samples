@@ -30,6 +30,7 @@ pipelines:
         execution:
           onExecute:
             - echo "hello second job"
+            - write_output webhook_test_internal "foo=bar"
 
   - name: tr_stop_hooks
     steps:
@@ -41,6 +42,7 @@ pipelines:
         execution:
           onExecute:
             - echo "blah"
+            - printenv | grep webhook
 
 
       - name: wh_p2_second
