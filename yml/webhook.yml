@@ -12,8 +12,48 @@ resources:
       payload: '{"text":"default payload "}'
 
 pipelines:
-   - name: tr_test_webhooks
-     steps:
+  - name: tr_start_hooks
+    steps:
+      - name: wh_p1_first
+        type: Bash
+        execution:
+          onExecute:
+            - echo "hwudup"
+
+      - name: wh_p1_second
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: wh_first
+          outputResources:
+            - name: webhook_test_internal
+        execution:
+          onExecute:
+            - echo "hello second job"
+
+  - name: tr_stop_hooks
+    steps:
+      - name: wh_p2_first
+        type: Bash
+        configuration:
+          inputResources:
+            - name: webhook_test_internal
+        execution:
+          onExecute:
+            - echo "blah"
+
+
+      - name: wh_p2_second
+        type: Bash
+        configuration:
+          inputSteps:
+            - name: wh_p2_first
+        execution:
+          onExecute:
+            - echo "second pipeline, second step"
+
+  - name: tr_test_webhooks
+    steps:
       - name: incoming_hook
         type: Bash
         configuration:
