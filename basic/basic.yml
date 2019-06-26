@@ -22,6 +22,10 @@ resources:
 
 pipelines:
   - name: tr_test_pipeline_1
+    configuration:
+      environmentVariables:
+        readOnly:
+          - testReadOnly: "successful!"
     steps:
       - name: basic_step
         type: Bash
@@ -37,6 +41,7 @@ pipelines:
           onStart:
             - retry_command echo "here we go!!!"
           onExecute:
+            - echo "read only value issssss $testReadOnly"
             - echo "$step_url"
             - docker ps -a
             - docker inspect reqProc
@@ -65,6 +70,8 @@ pipelines:
         execution:
           onStart:
             - echo "Prepping build environment"
+            - echo "attempting to set readOnly variable"
+            - export testReadOnly="foobar"
             - cat badfile
           onExecute:
             - echo "executing task command 1"
