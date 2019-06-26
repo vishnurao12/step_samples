@@ -25,7 +25,7 @@ pipelines:
     configuration:
       environmentVariables:
         readOnly:
-          - testReadOnly: "successful!"
+          testReadOnly: "successful!"
     steps:
       - name: basic_step
         type: Bash
