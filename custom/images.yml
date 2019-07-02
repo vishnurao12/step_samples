@@ -10,7 +10,8 @@ pipelines:
             image:
               auto:
                 language: nodejs
-                version: 8.15.0
+                version:
+                  - 8.15.0
               # custom:
               #   name: pipelines-docker.jfrog.io/jfrog/pipelines-u16node
               #   tag: master
