@@ -10,7 +10,7 @@ pipelines:
             image:
               auto:
                 language: nodejs
-                version:
+                versions:
                   - 8.15.0
               # custom:
               #   name: pipelines-docker.jfrog.io/jfrog/pipelines-u16node
