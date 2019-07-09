@@ -45,6 +45,7 @@ pipelines:
       - name: S1_s2
         type: Bash
         configuration:
+          affinityGroup: S1_s1
           inputSteps:
             - name: S1_s1
         execution:
@@ -56,6 +57,7 @@ pipelines:
       - name: S2_s1
         type: Bash
         configuration:
+          affinityGroup: g1
           inputResources:
             - name: myRepo
           outputResources:
@@ -91,6 +93,8 @@ pipelines:
     steps:
       - name: S3_s1
         type: Bash
+        configuration:
+          affinityGroup: g1
         execution:
           onExecute:
             - echo "first step"
@@ -105,6 +109,7 @@ pipelines:
       - name: S3_s3a
         type: Bash
         configuration:
+          affinityGroup: g1
           inputSteps:
             - name: S3_s5
             - name: S3_s2
@@ -115,6 +120,7 @@ pipelines:
       - name: S3_s3b
         type: Bash
         configuration:
+          affinityGroup: g1
           inputSteps:
             - name: S3_s2
         execution:
@@ -123,6 +129,7 @@ pipelines:
       - name: S3_s4
         type: Bash
         configuration:
+          affinityGroup: g1
           inputSteps:
             - name: S3_s3a
             - name: S3_s3b
@@ -144,6 +151,7 @@ pipelines:
       - name: S4_s1
         type: Bash
         configuration:
+          affinityGroup: g1
           inputResources:
             - name: S4_repo
           outputResources:
@@ -170,6 +178,8 @@ pipelines:
     steps:
       - name: S5_s1
         type: Bash
+        configuration:
+          affinityGroup: g1
         execution:
           onExecute:
             - echo "scenario 5. bad affinity"
@@ -186,6 +196,7 @@ pipelines:
       - name: S5_s3
         type: Bash
         configuration:
+          affinityGroup: g1
           inputSteps:
             - name: S5_s2
         execution:
@@ -196,6 +207,8 @@ pipelines:
     steps:
       - name: S6_s1
         type: Bash
+        configuration:
+          affinityGroup: g1
         execution:
           onExecute:
             - echo "scenario 5. bad affinity"
@@ -203,6 +216,7 @@ pipelines:
       - name: S6_s2
         type: Bash
         configuration:
+          affinityGroup: g1
           inputSteps:
             - name: S6_s1
         execution:
@@ -212,6 +226,7 @@ pipelines:
       - name: S6_s3
         type: Bash
         configuration:
+          affinityGroup: g1
           inputSteps:
             - name: S6_s2
             - name: S6_s10
@@ -234,6 +249,7 @@ pipelines:
       - name: S7_s1
         type: Bash
         configuration:
+          affinityGroup: g1
           inputResources:
             - name: myRepo
           outputResources:
@@ -247,6 +263,7 @@ pipelines:
       - name: S7_s2
         type: Bash
         configuration:
+          affinityGroup: g1
           inputResources:
             - name: myImage
         execution:
@@ -258,6 +275,7 @@ pipelines:
       - name: S7_s3
         type: Bash
         configuration:
+          affinityGroup: g1
           inputSteps:
             - name: S7_s2
         execution:
