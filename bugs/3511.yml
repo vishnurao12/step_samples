@@ -18,22 +18,22 @@ pipelines:
           onExecute:
             - echo hii
 
-# pipelines:
-#   - name: affinityGroupTest
-#     steps:
-#       - name: step1
-#         type: Bash
-#         configuration:
-#           affinityGroup: foo
-#         execution:
-#           onExecute:
-#             - echo hii
-#       - name: step2
-#         type: Bash
-#         configuration:
-#           affinityGroup: foo
-#           inputSteps:
-#             - name: step1
-#         execution:
-#           onExecute:
-#             - echo hi
+pipelines:
+  - name: affinityGroupTest
+    steps:
+      - name: step1
+        type: Bash
+        configuration:
+          affinityGroup: foo
+        execution:
+          onExecute:
+            - echo hii
+      - name: step2
+        type: Bash
+        configuration:
+          affinityGroup: foo
+          inputSteps:
+            - name: step1
+        execution:
+          onExecute:
+            - echo hi
