@@ -7,7 +7,7 @@ pipelines:
           affinityGroup: foo
         execution:
           onExecute:
-            - echo hi
+            - echo hii
       - name: step2
         type: Bash
         configuration:
@@ -16,7 +16,7 @@ pipelines:
             - name: step1
         execution:
           onExecute:
-            - echo hi
+            - echo hii
 
 # pipelines:
 #   - name: affinityGroupTest
