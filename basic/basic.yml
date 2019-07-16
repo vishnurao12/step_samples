@@ -178,10 +178,10 @@ pipelines:
           onCancel:
             - echo "Someone cancelled the job"
 
-  - name: tr_pipeline_bad
-    steps:
-      - name: bad_step
-        type: Bash
-        requires:
-          integrations:
-            - name: not_real
+  # - name: tr_pipeline_bad
+  #   steps:
+  #     - name: bad_step
+  #       type: Bash
+  #       requires:
+  #         integrations:
+  #           - name: not_real
