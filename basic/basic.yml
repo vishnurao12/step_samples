@@ -18,7 +18,6 @@ resources:
     configuration:
       path: trriplejay/basic-node
       gitProvider: trriplejay_github
-      sha: master
 
 pipelines:
   - name: tr_test_pipeline_1
