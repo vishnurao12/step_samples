@@ -39,6 +39,7 @@ pipelines:
         execution:
           onStart:
             - retry_command echo "here we go!!!"
+            - echo "what: is this"
           onExecute:
             - echo "read only value issssss $testReadOnly"
             - echo "$step_url"
