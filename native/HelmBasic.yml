@@ -17,8 +17,8 @@ pipelines:
         execution:
           onExecute:
             - echo "Hello world"
-            - export HELM_FILE=https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz
-            - wget $HELM_FILE -O /tmp/$HELM_FILE
-            - tar -zxvf $HELM_FILE
+            - export HELM_FILE=helm.tar.gz
+            - wget https://get.helm.sh/helm-v2.14.3-linux-amd64.tar.gz -O /tmp/$HELM_FILE
+            - tar -zxvf /tmp/$HELM_FILE
             - mv /tmp/linux-amd64/helm /usr/local/bin/helm
             - which helm
