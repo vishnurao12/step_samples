@@ -30,3 +30,4 @@ pipelines:
             - helm repo update
             - helm repo list
             - helm search helm-remote/
+            - helm search -l helm-remote/consul
