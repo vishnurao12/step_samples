@@ -2,14 +2,14 @@ resources:
   - name: myImage
     type: Image
     configuration:
-      registry: trriplejay_docker
+      registry: tr_docker
       imageName: trriplejay/simpleserver
       imageTag: latest
 
   - name: S4_image
     type: Image
     configuration:
-      registry: trriplejay_docker
+      registry: tr_docker
       imageName: alpine
       imageTag: latest
 
@@ -23,7 +23,7 @@ resources:
   - name: myOtherImage
     type: Image
     configuration:
-      registry: trriplejay_docker
+      registry: tr_docker
       imageName: trriplejay/simpleserver
       imageTag: master
 

@@ -2,7 +2,7 @@ resources:
   - name: rrv_image
     type: Image
     configuration:
-      registry: trriplejay_docker
+      registry: tr_docker
       imageName: trriplejay/simpleserver
       imageTag: latest
 

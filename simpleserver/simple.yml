@@ -11,7 +11,7 @@ resources:
   - name: simple_image_master
     type: Image
     configuration:
-      registry: trriplejay_docker
+      registry: tr_docker
       imageTag: latest
       imageName: trriplejay/simpleserver
 
@@ -28,7 +28,7 @@ resources:
   - name: simple_image_dev
     type: Image
     configuration:
-      registry: trriplejay_docker
+      registry: tr_docker
       imageName: trriplejay/simpleserver
       imageTag: dev
 
