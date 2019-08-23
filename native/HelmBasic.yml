@@ -25,5 +25,6 @@ pipelines:
             - mv linux-amd64/helm /usr/local/bin/helm
             - popd
             - which helm
+            - helm init --client-only
             - helm repo add helm-remote $int_art_url/helm-remote --username $int_art_user --password $int_art_apikey
             - helm repo update
