@@ -17,7 +17,7 @@ resources:
     type: GitRepo
     configuration:
       path: trriplejay/basic-node
-      gitProvider: trriplejay_github
+      gitProvider: tr_github
 
 pipelines:
   - name: tr_test_pipeline_1
@@ -64,7 +64,7 @@ pipelines:
         type: Bash
         configuration:
           integrations:
-            - name: trriplejay_github
+            - name: tr_github
           inputSteps:
             - name: basic_step
         execution:
@@ -89,7 +89,7 @@ pipelines:
         type: Bash
         configuration:
           integrations:
-            - name: trriplejay_github
+            - name: tr_github
           inputSteps:
             - name: basic_step
         execution:
@@ -113,7 +113,7 @@ pipelines:
         configuration:
           affinityGroup: test_group
           integrations:
-            - name: trriplejay_github
+            - name: tr_github
           inputResources:
             - name: myOtherImage_basic
         execution:
@@ -136,7 +136,7 @@ pipelines:
         type: Bash
         configuration:
           integrations:
-            - name: trriplejay_github
+            - name: tr_github
           inputSteps:
             - name: basic_step
         execution:
@@ -160,7 +160,7 @@ pipelines:
         type: Bash
         configuration:
           integrations:
-            - name: trriplejay_github
+            - name: tr_github
           inputSteps:
             - name: basic_step
         execution:

@@ -3,7 +3,7 @@ resources:
     type: GitRepo
     configuration:
       path: trriplejay/simpleserver
-      gitProvider: trriplejay_github
+      gitProvider: tr_github
       branches:
         only: master
       sha: master
@@ -20,7 +20,7 @@ resources:
     type: GitRepo
     configuration:
       path: trriplejay/simpleserver
-      gitProvider: trriplejay_github
+      gitProvider: tr_github
       branches:
         only: dev
       sha: dev
