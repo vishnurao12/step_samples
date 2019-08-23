@@ -11,8 +11,9 @@ pipelines:
     steps:
       - name: TryIt
         type: Bash
-        inputResources:
-          - name: tr_testImage
+        configuration:
+          inputResources:
+            - name: tr_testImage
         execution:
           onExecute:
             - echo "Hello world"
