@@ -35,6 +35,7 @@ pipelines:
           onExecute:
             - echo "Hello world"
             - echo "payload is $res_tr_int_hook_payload"
+            - printenv | grep res
 
       - name: tr_hook_connection
         type: Bash
