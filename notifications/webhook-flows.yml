@@ -16,7 +16,7 @@ resources:
   - name: tr_int_hook_connector
     type: InternalWebhook
     configuration:
-      webhookName: trriplejay_int_hook
+      webhookName: trriplejay_int_hook_connector
 
 
 pipelines:
