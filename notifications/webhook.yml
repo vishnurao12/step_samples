@@ -11,6 +11,42 @@ resources:
       webhookName: trriplejay_ext_hook
       payload: '{"text":"default payload "}'
 
+  - name: tr-ew-1
+    type: ExternalWebhook
+    configuration:
+      webhookName: trriplejay_ext_hook
+
+  - name: tr-ew-bad-1
+    type: ExternalWebhook
+    configuration:
+      webhookName: trriplejay_ext_hook
+      method: "BLAH"
+
+  - name: tr-ew-bad-2
+    type: ExternalWebhook
+    configuration:
+      webhookName: trriplejay_ext_hook
+      method: "GET"
+      parameters: []
+      badThing: "test"
+
+  - name: tr-ew-2
+    type: ExternalWebhook
+    configuration:
+      webhookName: trriplejay_ext_hook
+      method: "POST"
+      parameters: "name=$STEP_NAME"
+      headers:
+        content-type: "application/json"
+      path: "/api/v1/steps"
+
+
+  - name: MyInternalWebhook
+    type: InternalWebhook
+    configuration:
+      webhookName: trriplejay_int_hook
+
+
 pipelines:
   - name: tr_start_hooks
     steps:
