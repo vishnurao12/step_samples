@@ -19,7 +19,7 @@ resources:
       webhookName: trriplejay_int_hook
 
 
-pipeline:
+pipelines:
   - name: tr_hooks_aplenty
     steps:
       - name: tr_start_by_hook
