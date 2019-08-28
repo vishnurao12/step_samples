@@ -1,41 +1,41 @@
 resources:
 
-  - name: tr-ew-basic
-    type: ExternalWebhook
-    configuration:
-      webhookName: trriplejay_ext_hook
+  # - name: tr-ew-basic
+  #   type: ExternalWebhook
+  #   configuration:
+  #     webhookName: trriplejay_ext_hook
 
-  - name: tr-ew-allsettings
-    type: ExternalWebhook
-    configuration:
-      webhookName: trriplejay_ext_hook
-      method: "POST"
-      parameters: "name=$STEP_NAME"
-      headers:
-        content-type: "application/json"
-      path: "/api/v1/steps"
+  # - name: tr-ew-allsettings
+  #   type: ExternalWebhook
+  #   configuration:
+  #     webhookName: trriplejay_ext_hook
+  #     method: "POST"
+  #     parameters: "name=$STEP_NAME"
+  #     headers:
+  #       content-type: "application/json"
+  #     path: "/api/v1/steps"
 
-  - name: tr-ew-bad-types
-    type: ExternalWebhook
-    configuration:
-      webhookN: trriplejay_ext_hook
-      method:
-        hello: world
-      parameters: []
-      badThing: "test"
-      headers: "hello"
+  # - name: tr-ew-bad-types
+  #   type: ExternalWebhook
+  #   configuration:
+  #     webhookN: trriplejay_ext_hook
+  #     method:
+  #       hello: world
+  #     parameters: []
+  #     badThing: "test"
+  #     headers: "hello"
 
-  - name: tr-ew-bad-int-type
-    type: ExternalWebhook
-    configuration:
-      webhookName: trriplejay_int_hook
+  # - name: tr-ew-bad-int-type
+  #   type: ExternalWebhook
+  #   configuration:
+  #     webhookName: trriplejay_int_hook
 
-  - name: tr-ew-bad-values
-    type: ExternalWebhook
-    configuration:
-      webhookName: trriplejay_ext_hook
-      method: "BLAH"
-      parameters: 123
+  # - name: tr-ew-bad-values
+  #   type: ExternalWebhook
+  #   configuration:
+  #     webhookName: trriplejay_ext_hook
+  #     method: "BLAH"
+  #     parameters: 123
 
   - name: MyInternalWebhook
     type: InternalWebhook
