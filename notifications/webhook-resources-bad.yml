@@ -51,7 +51,7 @@ resources:
   - name: tr-iw-bad-int-type
     type: InternalWebhook
     configuration:
-      hookName: trriplejay_ext_hook
+      webhookName: trriplejay_ext_hook
 
   - name: tr-iw-bad-2
     type: InternalWebhook
