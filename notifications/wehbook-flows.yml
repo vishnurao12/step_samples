@@ -1,0 +1,46 @@
+resources:
+  - name: tr_ext_hook
+    type: ExternalWebhook
+    configuration:
+      webhookName: trriplejay_ext_hook
+      method: "POST"
+      parameters: "name=$STEP_NAME"
+      headers:
+        content-type: application/json
+
+  - name: tr_int_hook
+    type: InternalWebhook
+    configuration:
+      webhookName: trriplejay_int_hook
+
+  - name: tr_int_hook_connector
+    type: InternalWebhook
+    configuration:
+      webhookName: trriplejay_int_hook
+
+
+pipeline:
+  - name: tr_hooks_aplenty
+    steps:
+      - name: tr_start_by_hook
+        type: Bash
+        configuration:
+          inputResources:
+            - name: tr_int_hook
+          outputResources:
+            - name: tr_int_hook_connector
+            - name: tr_ext_hook
+
+        execution:
+          onExecute:
+            - echo "Hello world"
+            - echo "payload is $res_tr_int_hook_payload"
+
+      - name: tr_hook_connection
+        type: Bash
+        configuration:
+          inputResources:
+            - name: tr_int_hook_connector
+        execution:
+          onExecute:
+            - echo "payload is $res_tr_int_hook_connector_payload"
