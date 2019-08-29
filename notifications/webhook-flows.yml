@@ -36,8 +36,8 @@ pipelines:
             - echo "Hello world"
             - echo "payload is $res_tr_int_hook_payload"
             - printenv | grep res
-            - { set_payload tr_ext_hook "blahblah" badthirdargument } || true
-            - { set_payload badresource "blahblah" } || true
+            - "{ set_payload tr_ext_hook "blahblah" badthirdargument } || true"
+            - "{ set_payload badresource "blahblah" } || true"
             - set_payload tr_ext_hook "{\"test\":\"payload\"}"
 
 
