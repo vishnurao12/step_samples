@@ -48,7 +48,6 @@ pipelines:
             - echo "step json at $STEP_JSON_PATH"
             - cat $STEP_JSON_PATH |  jq '.'
             - for item in ${!open_group_info[@]}; do echo "$item --- ${open_group_info[$item]}"; done
-            - cat /jfrog/status/step.env
           onSuccess:
             - echo "yay success"
             - printenv | grep myRepo_basic
