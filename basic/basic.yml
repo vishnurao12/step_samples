@@ -39,7 +39,7 @@ pipelines:
         execution:
           onStart:
             - retry_command echo "here we go!!!"
-            - echo "what: is this"
+            - echo "what is this"
           onExecute:
             - echo "read only value issssss $testReadOnly"
             - echo "$step_url"
@@ -73,6 +73,7 @@ pipelines:
             - echo "attempting to set readOnly variable"
             - export testReadOnly="foobar"
             - cat badfile
+            - echo "we continue after failure"
           onExecute:
             - echo "executing task command 1"
             - echo "executing task command 2"
@@ -99,6 +100,7 @@ pipelines:
             - echo "executing task command 1"
             - echo "executing task command 2"
             - cat badfile
+            - echo "we continue after failure"
           onSuccess:
             - echo "Job well done!"
           onFailure:
@@ -125,6 +127,7 @@ pipelines:
           onSuccess:
             - echo "Job well done!"
             - cat badfile
+            - echo "we continue after failure"
           onFailure:
             - echo "uh oh, something went wrong"
           onComplete: #always
@@ -151,6 +154,7 @@ pipelines:
           onFailure:
             - echo "uh oh, something went wrong"
             - cat badfile
+            - echo "we continue after failure"
           onComplete: #always
             - echo "Cleaning up some stuff"
           onCancel:
@@ -176,6 +180,7 @@ pipelines:
           onComplete:
             - echo "Cleaning up some stuff"
             - cat badfile
+            - echo "we continue after failure"
           onCancel:
             - echo "Someone cancelled the job"
 
