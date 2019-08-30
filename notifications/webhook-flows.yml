@@ -44,6 +44,12 @@ pipelines:
             - set_payload tr_ext_hook "{\"test\":\"payload\"}"
             - printenv | grep payload
             - cat $tr_ext_hook_payload_file
+            - set_payload tr_ext_hook $STEP_JSON_PATH --file
+            - printenv | grep payload
+            - cat $tr_ext_hook_payload_file
+            - set_payload tr_ext_hook /jfrog/reqExec/dist/main/libcrypto.so.1.0.0 --file
+            - printenv | grep payload
+            - cat $tr_ext_hook_payload_file
 
       - name: tr_hook_connection
         type: Bash
