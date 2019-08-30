@@ -42,6 +42,7 @@ pipelines:
             # - set_payload badresource blahblah
 
             - set_payload tr_ext_hook "{\"test\":\"payload\"}"
+            - printenv | grep payload
 
       - name: tr_hook_connection
         type: Bash
