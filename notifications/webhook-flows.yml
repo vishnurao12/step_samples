@@ -1,14 +1,14 @@
 resources:
-  - name: tr_ext_hook
-    type: ExternalWebhook
-    configuration:
-      webhookName: trriplejay_ext_hook
-      method: "PUT"
-      path: "/api/v2/test"
-      parameters: "name=$STEP_NAME"
-      headers:
-        content-type: application/json
-        accept: $res_tr_ext_hook_webhookName_webhookURL
+  # - name: tr_ext_hook
+  #   type: ExternalWebhook
+  #   configuration:
+  #     webhookName: trriplejay_ext_hook
+  #     method: "PUT"
+  #     path: "/api/v2/test"
+  #     parameters: "name=$STEP_NAME"
+  #     headers:
+  #       content-type: application/json
+  #       accept: $res_tr_ext_hook_webhookName_webhookURL
 
   - name: tr_int_hook
     type: InternalWebhook
@@ -30,7 +30,7 @@ pipelines:
             - name: tr_int_hook
           outputResources:
             - name: tr_int_hook_connector
-            - name: tr_ext_hook
+            # - name: tr_ext_hook
 
         execution:
           onExecute:
