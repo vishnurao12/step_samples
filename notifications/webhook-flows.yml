@@ -3,11 +3,11 @@ resources:
     type: ExternalWebhook
     configuration:
       webhookName: trriplejay_ext_hook
-      method: "POST"
+      method: "GET"
       parameters: "name=$STEP_NAME"
       headers:
         content-type: application/json
-        accept: web-test-beta
+        accept: $res_tr_ext_hook_webhookName_webhookURL
 
   - name: tr_int_hook
     type: InternalWebhook
