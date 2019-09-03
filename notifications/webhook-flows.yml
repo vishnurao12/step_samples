@@ -4,6 +4,7 @@ resources:
     configuration:
       webhookName: trriplejay_ext_hook
       method: "PUT"
+      path: "/api/v2/test"
       parameters: "name=$STEP_NAME"
       headers:
         content-type: application/json
