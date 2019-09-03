@@ -42,7 +42,7 @@ pipelines:
             # - set_payload tr_ext_hook  blahblah badthirdargument
             # - set_payload badresource blahblah
 
-            - set_payload tr_ext_hook "{\"test\":\"payload\"}"
+            - set_payload tr_ext_hook_2 "{\"test\":\"payload\"}"
             - printenv | grep payload
             - cat $tr_ext_hook_payload_file
             # - set_payload tr_ext_hook "$step_json_path" --file
