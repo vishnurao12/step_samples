@@ -3,7 +3,8 @@ resources:
     type: ExternalWebhook
     configuration:
       webhookName: trriplejay_ext_hook
-      method: "GET"
+      method: "PUT"
+      path: "/api/v2/test"
       parameters: "name=$STEP_NAME"
       headers:
         content-type: application/json
@@ -18,7 +19,6 @@ resources:
     type: InternalWebhook
     configuration:
       webhookName: trriplejay_int_hook_connector
-
 
 pipelines:
   - name: tr_hooks_aplenty
