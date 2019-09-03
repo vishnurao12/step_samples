@@ -1,5 +1,5 @@
 resources:
-  - name: tr_ext_hook
+  - name: tr_ext_hook_2
     type: ExternalWebhook
     configuration:
       webhookName: trriplejay_ext_hook
@@ -30,7 +30,7 @@ pipelines:
             - name: tr_int_hook
           outputResources:
             - name: tr_int_hook_connector
-            - name: tr_ext_hook
+            - name: tr_ext_hook_2
 
         execution:
           onExecute:
